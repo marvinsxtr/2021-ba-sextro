@@ -1,4 +1,5 @@
 pub mod analyzer;
+pub mod utils;
 
 use quicli::prelude::*;
 use structopt::StructOpt;
@@ -10,7 +11,7 @@ fn main() -> CliResult {
     let repos: Vec<&str> = repo_file.lines().take(args.count).collect();
     
     analyzer::analyze(repos).unwrap_or_else(|err| {
-        eprintln!("{:?}", err)
+        eprintln!("{}", err)
     });
 
     Ok(())
