@@ -19,6 +19,6 @@ pub(crate) async fn analyze(repos: Vec<&str>) -> Result<(), Box<dyn Error>> {
 
 async fn analyze_repo(url: &str) {
     crate::utils::clone_repo(url).await;
-    crate::utils::run_tools(url);
+    crate::utils::run_tools(url).await.unwrap();
     crate::utils::delete_repo(url);
 }

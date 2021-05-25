@@ -1,25 +1,25 @@
 use async_gitlib::RepoClone;
+use tokio::process::Command;
 use std::{
-    fs, 
-    io, 
-    io::Write, 
-    process::Command, 
-    path::Path, 
-    env
+    fs,
+    path::Path
 };
 
-fn get_repo_path(url: &str, last: usize) -> String {
+fn get_repo_path(url: &str, out: bool) -> String {
     let path_vec = url.split("/").collect::<Vec<&str>>();
-    let names = path_vec.as_slice()[path_vec.len() - last..].to_vec();
-    let path_str = format!("./tmp/{}", names.join("/"));
+    let names = path_vec.as_slice()[path_vec.len() - 2..].to_vec();
+    let name = names.join("/");
 
-    path_str
+    match out {
+        true => format!("./out/{}", name),
+        false => format!("./tmp/{}", name)
+    }
 }
 
 pub(crate) async fn clone_repo(url: &str) {
     println!("Cloning {} ...", url);
 
-    let target = &get_repo_path(url, 2);
+    let target = &get_repo_path(url, false);
 
     let mut task = RepoClone::default();
 
@@ -36,26 +36,34 @@ pub(crate) async fn clone_repo(url: &str) {
 }
 
 pub(crate) fn delete_repo(url: &str) {
-    let path = get_repo_path(url, 1);
-    println!("Deleted {}", path);
+    let repo_path = get_repo_path(url, false);
+    let path_vec = repo_path.split("/").collect::<Vec<&str>>();
+    let names = path_vec.as_slice()[..path_vec.len() - 1].to_vec();
+    let path = names.join("/");
 
-    fs::remove_dir_all(&path).unwrap();
+    fs::remove_dir_all(&path).unwrap_or_else(|err| {
+        println!("{}", err);
+    });
+
+    println!("Deleted {}", path);
 }
 
-pub(crate) fn run_tools(url: &str) {
-    let path_str: String = get_repo_path(url, 1).clone();
-    let path = Path::new(&path_str);
-    let current_dir = env::current_dir().unwrap();
-    
-    env::set_current_dir(&path).unwrap();
-    
+pub(crate) async fn run_tools(url: &str) -> Result<(), Box<dyn std::error::Error>> {
+    let tmp_path_str: String = get_repo_path(url, false);
+    let tmp_path = Path::new(&tmp_path_str);
+    let out_path_str: String = get_repo_path(url, true);
+
+    let command = format!("rust-code-analysis-cli -m -p ./* -O json -o ../../.{}", out_path_str);
+
+    fs::create_dir_all(&out_path_str).unwrap();
+
     let output = Command::new("sh")
-            .arg("-c")
-            .arg("echo Running process")
-            .output()
-            .expect("Failed to execute process");
+        .arg("-c")
+        .arg(command)
+        .current_dir(tmp_path)
+        .output();
 
-    io::stdout().write_all(&output.stdout).unwrap();
+    output.await?;
 
-    env::set_current_dir(current_dir).unwrap();
+    Ok(())
 }
