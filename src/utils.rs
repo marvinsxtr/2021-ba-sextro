@@ -2,7 +2,8 @@ use async_gitlib::RepoClone;
 use tokio::process::Command;
 use std::{
     fs,
-    path::Path
+    path::Path,
+    error::Error
 };
 
 fn get_repo_path(url: &str, out: bool) -> String {
@@ -11,8 +12,8 @@ fn get_repo_path(url: &str, out: bool) -> String {
     let name = names.join("/");
 
     match out {
-        true => format!("./out/{}", name),
-        false => format!("./tmp/{}", name)
+        true => format!("./data/out/{}", name),
+        false => format!("./data/tmp/{}", name)
     }
 }
 
@@ -48,12 +49,12 @@ pub(crate) fn delete_repo(url: &str) {
     println!("Deleted {}", path);
 }
 
-pub(crate) async fn run_tools(url: &str) -> Result<(), Box<dyn std::error::Error>> {
+pub(crate) async fn run_tools(url: &str) -> Result<(), Box<dyn Error>> {
     let tmp_path_str: String = get_repo_path(url, false);
     let tmp_path = Path::new(&tmp_path_str);
     let out_path_str: String = get_repo_path(url, true);
 
-    let command = format!("rust-code-analysis-cli -m -p ./* -O json -o ../../.{}", out_path_str);
+    let command = format!("rust-code-analysis-cli -m -p ./* -O json -o ../../../.{}", out_path_str);
 
     fs::create_dir_all(&out_path_str).unwrap();
 

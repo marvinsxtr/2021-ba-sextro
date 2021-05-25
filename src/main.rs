@@ -19,7 +19,7 @@ fn main() -> CliResult {
 
 #[derive(Debug, StructOpt)]
 struct Cli {
-    #[structopt(long = "path", short = "p", default_value = "./data/awesome-rust.txt")]
+    #[structopt(long = "path", short = "p", default_value = "./data/in/awesome-rust.txt")]
     path: String,
     #[structopt(long = "count", short = "c", default_value = "1")]
     count: usize,
