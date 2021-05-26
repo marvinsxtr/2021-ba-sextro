@@ -1,17 +1,14 @@
-use std::error::Error;
 use futures::StreamExt;
-use tokio;
+use std::error::Error;
 
 #[tokio::main]
 pub(crate) async fn analyze(repos: Vec<&str>) -> Result<(), Box<dyn Error>> {
-    let repo_jobs = futures::stream::iter(
-        repos.into_iter().map(|url| {
-            async move {
-                analyze_repo(url).await;
-            }
-        })
-    ).buffer_unordered(10).collect::<Vec<()>>();
-    
+    let repo_jobs = futures::stream::iter(repos.into_iter().map(|url| async move {
+        analyze_repo(url).await;
+    }))
+    .buffer_unordered(8)
+    .collect::<Vec<()>>();
+
     repo_jobs.await;
 
     Ok(())
