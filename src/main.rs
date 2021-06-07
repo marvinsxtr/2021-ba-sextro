@@ -8,8 +8,8 @@ use structopt::StructOpt;
 fn main() -> CliResult {
     let args = Cli::from_args();
 
-    let repo_file = read_file(&args.path)?;
-    let repos: Vec<&str> = repo_file.lines().take(args.count).collect();
+    let repo_file = read_file(&args.input_path)?;
+    let repos: Vec<&str> = repo_file.lines().take(args.repo_count).collect();
 
     analyzer::analyze(repos).unwrap_or_else(|err| eprintln!("{}", err));
 
@@ -19,11 +19,11 @@ fn main() -> CliResult {
 #[derive(Debug, StructOpt)]
 struct Cli {
     #[structopt(
-        long = "path",
+        long = "input_path",
         short = "p",
         default_value = "./data/in/awesome-rust.txt"
     )]
-    path: String,
-    #[structopt(long = "count", short = "c", default_value = "1")]
-    count: usize,
+    input_path: String,
+    #[structopt(long = "repo_count", short = "c", default_value = "1")]
+    repo_count: usize,
 }

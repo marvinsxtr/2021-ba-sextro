@@ -16,7 +16,7 @@ pub fn all() -> Vec<Tool<'static>> {
         },
         Tool {
             name: "finder",
-            cmd: "rust-code-analysis-cli -p ./* -I '*.rs' -f macro > ../../../.",
+            cmd: "rust-code-analysis-cli -p ./* -I '*.rs' -f macro -O json -o ../../../.",
         },
         Tool {
             name: "clippy",
@@ -26,7 +26,7 @@ pub fn all() -> Vec<Tool<'static>> {
 }
 
 impl<'a> Tool<'a> {
-    pub fn get_out_path(&self, repo: &Repo<'_>) -> String {
+    pub fn get_out_path(&self, repo: &Repo) -> String {
         let path_vec = repo.url.split('/').collect::<Vec<&str>>();
         let names = path_vec.as_slice()[path_vec.len() - 2..].to_vec();
         let name = names.join("/");
@@ -42,7 +42,7 @@ impl<'a> Tool<'a> {
         } else if self.name == "rca" {
             format!("{}{}", self.cmd, out_path)
         } else {
-            format!("{}{}/finder.txt", self.cmd, out_path)
+            format!("{}{}/", self.cmd, out_path)
         };
 
         fs::create_dir_all(&out_path).unwrap();
