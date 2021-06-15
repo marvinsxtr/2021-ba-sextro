@@ -1,6 +1,8 @@
 mod analyzer;
+mod file;
 mod repo;
 mod tool;
+mod utils;
 
 use quicli::prelude::*;
 use structopt::StructOpt;
