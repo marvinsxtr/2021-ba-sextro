@@ -13,7 +13,7 @@ fn main() -> CliResult {
     let repo_file = read_file(&args.input_path)?;
     let repos: Vec<&str> = repo_file.lines().take(args.repo_count).collect();
 
-    analyzer::analyze(repos).unwrap_or_else(|err| eprintln!("{}", err));
+    analyzer::analyze(repos, &args).unwrap_or_else(|err| eprintln!("{}", err));
 
     Ok(())
 }
@@ -28,4 +28,8 @@ struct Cli {
     input_path: String,
     #[structopt(long = "repo_count", short = "c", default_value = "1")]
     repo_count: usize,
+    #[structopt(long = "analyze_only", short = "a")]
+    analyze_only: bool,
+    #[structopt(long = "delete_tmp", short = "d")]
+    delete_tmp: bool,
 }

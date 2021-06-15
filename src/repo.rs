@@ -1,8 +1,15 @@
 use async_gitlib::RepoClone;
-use std::{fs, path::PathBuf};
+use std::{
+    fs,
+    path::{Path, PathBuf},
+};
 use url::Url;
 
-use crate::{file::OutFile, tool::ToolName};
+use crate::{
+    file::{OutFile, SrcFile},
+    tool::ToolName,
+    utils,
+};
 
 pub struct Repo<'a> {
     pub url: &'a Url,
@@ -56,16 +63,37 @@ impl<'a> Repo<'a> {
     }
 
     pub async fn analyze(&self) {
-        for tool in crate::tool::all() {
-            let out_path = &self.get_out_path(&tool.name);
-            let paths = fs::read_dir(&out_path).unwrap();
+        let tmp_path = Path::new(&self.tmp_path);
+        let rust_file_paths = utils::get_rust_files(tmp_path);
 
-            for path in paths {
-                let path = path.unwrap().path();
-                let file = OutFile::new(&path, &tool.name);
+        for rust_file_path in rust_file_paths {
+            let mut out_files: Vec<OutFile> = Vec::new();
 
-                file.extract_metrics();
+            for tool in crate::tool::all() {
+                let mut out_path = self.get_out_path(&tool.name);
+
+                let stripped_out_path: PathBuf = Path::new(&rust_file_path)
+                    .iter()
+                    .skip_while(|s| *s != "tmp")
+                    .skip(3)
+                    .collect();
+
+                let mut out_file_name = match tool.name {
+                    ToolName::Clippy => tool.name.to_string(),
+                    _ => stripped_out_path.to_str().unwrap().replace("/", "_"),
+                };
+                out_file_name.push_str(".json");
+
+                out_path.push(out_file_name);
+
+                let out_file = OutFile::new(out_path.to_path_buf(), tool.name);
+                out_files.push(out_file);
             }
+
+            let src_path = Path::new(&rust_file_path);
+            let src_file = SrcFile::new(&src_path, &out_files);
+
+            src_file.print();
         }
     }
 

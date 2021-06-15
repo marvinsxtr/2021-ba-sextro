@@ -8,7 +8,7 @@ use tokio::process::Command;
 
 use crate::repo::Repo;
 
-#[derive(PartialEq)]
+#[derive(PartialEq, Clone, Copy)]
 pub enum ToolName {
     Rca,
     Finder,
@@ -25,6 +25,7 @@ impl fmt::Display for ToolName {
     }
 }
 
+#[derive(Clone)]
 pub struct Tool<'a> {
     pub name: ToolName,
     command: &'a str,

@@ -600,6 +600,7 @@ dependencies = [
  "tokio",
  "unbounded-interval-tree",
  "url",
+ "walkdir",
 ]
 
 [[package]]
