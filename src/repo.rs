@@ -13,7 +13,7 @@ use crate::{
 
 pub struct Repo<'a> {
     pub url: &'a Url,
-    pub tmp_path: String,
+    pub tmp_path: PathBuf,
 }
 
 impl<'a> Repo<'a> {
@@ -22,12 +22,12 @@ impl<'a> Repo<'a> {
         Self { url, tmp_path }
     }
 
-    pub fn get_tmp_path(url: &Url) -> String {
+    pub fn get_tmp_path(url: &Url) -> PathBuf {
         let repo_name = url.path().strip_prefix("/").unwrap();
         let mut tmp_path = PathBuf::from("./data/tmp");
 
         tmp_path.push(repo_name);
-        tmp_path.to_str().unwrap().to_string()
+        tmp_path
     }
 
     pub fn get_out_path(&self, tool_name: &ToolName) -> PathBuf {
@@ -49,7 +49,11 @@ impl<'a> Repo<'a> {
             task.clone(self.url.as_str(), &self.tmp_path)
                 .await
                 .unwrap_or_else(|err| {
-                    eprintln!("Skipped {}: {}", self.tmp_path, err.message());
+                    eprintln!(
+                        "Skipped {}: {}",
+                        self.tmp_path.to_str().unwrap(),
+                        err.message()
+                    );
                 });
         }
     }
@@ -72,7 +76,7 @@ impl<'a> Repo<'a> {
             for tool in crate::tool::all() {
                 let mut out_path = self.get_out_path(&tool.name);
 
-                let stripped_out_path: PathBuf = Path::new(&rust_file_path)
+                let out_path_end: PathBuf = Path::new(&rust_file_path)
                     .iter()
                     .skip_while(|s| *s != "tmp")
                     .skip(3)
@@ -80,7 +84,7 @@ impl<'a> Repo<'a> {
 
                 let mut out_file_name = match tool.name {
                     ToolName::Clippy => tool.name.to_string(),
-                    _ => stripped_out_path.to_str().unwrap().replace("/", "_"),
+                    _ => out_path_end.to_str().unwrap().replace("/", "_"),
                 };
                 out_file_name.push_str(".json");
 
@@ -90,10 +94,10 @@ impl<'a> Repo<'a> {
                 out_files.push(out_file);
             }
 
-            let src_path = Path::new(&rust_file_path);
-            let src_file = SrcFile::new(&src_path, &out_files);
+            let src_path = PathBuf::from(&rust_file_path);
+            let src_file = SrcFile::new(src_path, &out_files);
 
-            src_file.print();
+            src_file.analyze_out_files();
         }
     }
 

@@ -8,7 +8,7 @@ use tokio::process::Command;
 
 use crate::repo::Repo;
 
-#[derive(PartialEq, Clone, Copy)]
+#[derive(PartialEq, Clone, Copy, Debug)]
 pub enum ToolName {
     Rca,
     Finder,
@@ -25,7 +25,6 @@ impl fmt::Display for ToolName {
     }
 }
 
-#[derive(Clone)]
 pub struct Tool<'a> {
     pub name: ToolName,
     command: &'a str,
@@ -35,11 +34,12 @@ pub fn all() -> Vec<Tool<'static>> {
     vec![
         Tool {
             name: ToolName::Rca,
-            command: "rust-code-analysis-cli -m -p ./* -I '*.rs' -X '/target' -O json -o ",
+            command: "rust-code-analysis-cli -m -p ./* -I '*.rs' -X '/target' --pr -O json -o ",
         },
         Tool {
             name: ToolName::Finder,
-            command: "rust-code-analysis-cli -p ./* -I '*.rs' -X '/target' -f macro -O json -o ",
+            command:
+                "rust-code-analysis-cli -p ./* -I '*.rs' -X '/target' -f macro_definition --pr -O json -o ",
         },
         Tool {
             name: ToolName::Clippy,

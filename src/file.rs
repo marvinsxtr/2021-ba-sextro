@@ -1,9 +1,8 @@
 use serde_json::Value;
 use std::path::{Path, PathBuf};
 
-use crate::{tool::ToolName, utils};
+use crate::{finding::Finding, tool::ToolName, utils};
 
-#[derive(Clone)]
 pub struct OutFile {
     pub path: PathBuf,
     value: Value,
@@ -14,34 +13,113 @@ impl OutFile {
     pub fn new(path: PathBuf, tool_name: ToolName) -> Self {
         let value = utils::read_json_from_file(&path).unwrap_or_default();
 
-        OutFile {
+        Self {
             path,
             value,
             tool_name,
         }
     }
 
-    pub fn extract_metrics(&self) {
-        println!("{}", self.tool_name);
+    pub fn extract_findings(&self, src_file_path: PathBuf) -> Vec<Finding> {
+        let empty = Vec::new();
+        let entries = self.value.as_array().unwrap_or(&empty);
+        let mut findings = Vec::new();
+
+        match self.tool_name {
+            ToolName::Rca => findings,
+            ToolName::Finder => {
+                for entry in entries {
+                    let start_line = entry["start_position"].as_array().unwrap()[0]
+                        .as_u64()
+                        .unwrap();
+                    let end_line = entry["end_position"].as_array().unwrap()[0]
+                        .as_u64()
+                        .unwrap();
+
+                    let kind = entry["kind"].as_str().unwrap().to_string();
+
+                    let finding = Finding::new(self.tool_name, kind, start_line, end_line, None);
+
+                    findings.push(finding);
+                }
+
+                findings
+            }
+            ToolName::Clippy => {
+                for entry in entries {
+                    if entry["reason"].as_str().unwrap() != "compiler-message" {
+                        continue;
+                    }
+
+                    let identifier = entry["message"]["code"]["code"].as_str();
+
+                    if identifier.is_none() {
+                        continue;
+                    }
+
+                    let entry_src_path = entry["target"]["src_path"].as_str().unwrap();
+                    let entry_src_path: PathBuf = Path::new(&entry_src_path)
+                        .iter()
+                        .skip_while(|s| *s != "tmp")
+                        .skip(1)
+                        .collect();
+
+                    if !src_file_path.ends_with(&entry_src_path) {
+                        continue;
+                    }
+
+                    let prefix = format!("{}::", self.tool_name.to_string());
+
+                    let identifier = identifier.unwrap();
+                    let identifier = match identifier.starts_with(&prefix) {
+                        false => continue,
+                        true => identifier.strip_prefix(&prefix).unwrap(),
+                    };
+
+                    let start_line = entry["message"]["spans"][0]["line_start"].as_u64().unwrap();
+                    let end_line = entry["message"]["spans"][0]["line_end"].as_u64().unwrap();
+
+                    if entry["message"]["spans"].as_array().into_iter().len() > 1 {
+                        panic!("More than one span for a clippy message");
+                    }
+
+                    let finding = Finding::new(
+                        self.tool_name,
+                        identifier.to_string(),
+                        start_line,
+                        end_line,
+                        None,
+                    );
+
+                    findings.push(finding);
+                }
+
+                findings
+            }
+        }
     }
 }
 
 pub struct SrcFile<'a> {
-    path: &'a Path,
+    path: PathBuf,
     out_files: &'a Vec<OutFile>,
 }
 
 impl<'a> SrcFile<'a> {
-    pub fn new(path: &'a Path, out_files: &'a Vec<OutFile>) -> Self {
-        return Self { path, out_files };
+    pub fn new(path: PathBuf, out_files: &'a Vec<OutFile>) -> Self {
+        Self { path, out_files }
     }
 
-    pub fn print(&self) {
-        println!("{:?}", &self.path.to_str().unwrap());
-
-        println!("Collected output files:");
+    pub fn analyze_out_files(&self) {
         for out_file in self.out_files {
-            out_file.extract_metrics();
+            let findings = out_file.extract_findings(self.path.to_path_buf());
+
+            if findings.len() > 0 {
+                println!("File: {:?}", self.path);
+                for finding in findings {
+                    println!("\t{:?}", finding)
+                }
+            }
         }
     }
 }

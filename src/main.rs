@@ -1,5 +1,6 @@
 mod analyzer;
 mod file;
+mod finding;
 mod repo;
 mod tool;
 mod utils;
