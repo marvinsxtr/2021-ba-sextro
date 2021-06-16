@@ -26,7 +26,21 @@ impl OutFile {
         let mut findings = Vec::new();
 
         match self.tool_name {
-            ToolName::Rca => findings,
+            ToolName::Rca => {
+                let spaces = utils::get_spaces(&self.value);
+
+                for space in spaces {
+                    let finding = Finding::new(
+                        self.tool_name,
+                        space["kind"].as_str().unwrap().to_string(),
+                        space["start_line"].as_u64().unwrap(),
+                        space["end_line"].as_u64().unwrap(),
+                        Some(&space["metrics"]),
+                    );
+
+                    findings.push(finding);
+                }
+            }
             ToolName::Finder => {
                 for entry in entries {
                     let start_line = entry["start_position"].as_array().unwrap()[0]
@@ -42,8 +56,6 @@ impl OutFile {
 
                     findings.push(finding);
                 }
-
-                findings
             }
             ToolName::Clippy => {
                 for entry in entries {
@@ -93,20 +105,20 @@ impl OutFile {
 
                     findings.push(finding);
                 }
-
-                findings
             }
-        }
+        };
+
+        findings
     }
 }
 
 pub struct SrcFile<'a> {
     path: PathBuf,
-    out_files: &'a Vec<OutFile>,
+    out_files: &'a [OutFile],
 }
 
 impl<'a> SrcFile<'a> {
-    pub fn new(path: PathBuf, out_files: &'a Vec<OutFile>) -> Self {
+    pub fn new(path: PathBuf, out_files: &'a [OutFile]) -> Self {
         Self { path, out_files }
     }
 
@@ -114,10 +126,21 @@ impl<'a> SrcFile<'a> {
         for out_file in self.out_files {
             let findings = out_file.extract_findings(self.path.to_path_buf());
 
-            if findings.len() > 0 {
+            if !findings.is_empty() {
                 println!("File: {:?}", self.path);
+
+                let mut spaces = 0;
+
                 for finding in findings {
-                    println!("\t{:?}", finding)
+                    if finding.tool_name == ToolName::Rca {
+                        spaces += 1;
+                    } else {
+                        println!("\t{:?}", finding);
+                    }
+                }
+
+                if out_file.tool_name == ToolName::Rca {
+                    println!("Spaces: {:?}", spaces);
                 }
             }
         }

@@ -1,4 +1,4 @@
-use serde_json::Value;
+use serde_json::{Map, Value};
 use std::{error::Error, fs::File, io::BufReader, path::Path};
 use walkdir::WalkDir;
 
@@ -24,4 +24,28 @@ pub fn get_rust_files(path: &Path) -> Vec<String> {
         .map(|e| e.unwrap().path().to_owned())
         .map(|e| e.to_string_lossy().to_string())
         .collect()
+}
+
+pub fn get_spaces(value: &Value) -> Vec<&Map<String, Value>> {
+    let mut result = Vec::new();
+    let mut spaces = Vec::new();
+
+    let first_space = value.as_object().unwrap();
+
+    spaces.push(first_space);
+
+    while !spaces.is_empty() {
+        let space = spaces.pop().unwrap();
+
+        result.push(space);
+
+        let new_spaces = space["spaces"].as_array().unwrap();
+
+        for new_space in new_spaces {
+            let new_space = new_space.as_object().unwrap();
+            spaces.push(new_space);
+        }
+    }
+
+    result
 }

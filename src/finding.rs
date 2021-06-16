@@ -3,21 +3,21 @@ use serde_json::Value;
 use crate::tool::ToolName;
 
 #[derive(Debug)]
-pub struct Finding {
+pub struct Finding<'a> {
     pub tool_name: ToolName,
     pub identifier: String,
     pub start_line: u64,
     pub end_line: u64,
-    pub data: Option<Value>,
+    pub data: Option<&'a Value>,
 }
 
-impl Finding {
+impl<'a> Finding<'a> {
     pub fn new(
         tool_name: ToolName,
         identifier: String,
         start_line: u64,
         end_line: u64,
-        data: Option<Value>,
+        data: Option<&'a Value>,
     ) -> Self {
         Self {
             tool_name,
