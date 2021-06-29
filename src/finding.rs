@@ -1,6 +1,6 @@
 use serde_json::Value;
 
-use crate::tool::ToolName;
+use crate::{metrics::Metrics, tool::ToolName};
 
 #[derive(Debug)]
 pub struct Finding<'a> {
@@ -26,5 +26,16 @@ impl<'a> Finding<'a> {
             end_line,
             data,
         }
+    }
+
+    pub fn get_metrics(&self) -> Option<Metrics> {
+        match self.data {
+            Some(value) => Some(Metrics::from_value(&value)),
+            None => None,
+        }
+    }
+
+    pub fn intersect(&self, other: &Self) -> bool {
+        other.end_line >= self.start_line && other.start_line <= self.end_line
     }
 }

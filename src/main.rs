@@ -4,6 +4,7 @@ mod finding;
 mod repo;
 mod tool;
 mod utils;
+mod metrics;
 
 use quicli::prelude::*;
 use structopt::StructOpt;

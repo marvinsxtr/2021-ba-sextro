@@ -67,6 +67,14 @@ impl<'a> Repo<'a> {
     }
 
     pub async fn analyze(&self) {
+        for src_file in self.get_src_files() {
+            src_file.analyze_out_files()
+        }
+    }
+
+    pub fn get_src_files(&self) -> Vec<SrcFile>{
+        let mut src_files = Vec::new();
+
         let tmp_path = Path::new(&self.tmp_path);
         let rust_file_paths = utils::get_rust_files(tmp_path);
 
@@ -95,10 +103,12 @@ impl<'a> Repo<'a> {
             }
 
             let src_path = PathBuf::from(&rust_file_path);
-            let src_file = SrcFile::new(src_path, &out_files);
+            let src_file = SrcFile::new(src_path, out_files);
 
-            src_file.analyze_out_files();
+            src_files.push(src_file);
         }
+
+        src_files
     }
 
     pub fn delete(&self) {

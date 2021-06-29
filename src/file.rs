@@ -1,7 +1,7 @@
 use serde_json::Value;
 use std::path::{Path, PathBuf};
 
-use crate::{finding::Finding, tool::ToolName, utils};
+use crate::{finding::Finding, metrics::Metrics, tool::ToolName, utils};
 
 pub struct OutFile {
     pub path: PathBuf,
@@ -112,19 +112,19 @@ impl OutFile {
     }
 }
 
-pub struct SrcFile<'a> {
+pub struct SrcFile {
     path: PathBuf,
-    out_files: &'a [OutFile],
+    out_files: Vec<OutFile>,
 }
 
-impl<'a> SrcFile<'a> {
-    pub fn new(path: PathBuf, out_files: &'a [OutFile]) -> Self {
+impl SrcFile {
+    pub fn new(path: PathBuf, out_files: Vec<OutFile>) -> Self {
         Self { path, out_files }
     }
 
     pub fn analyze_out_files(&self) {
-        for out_file in self.out_files {
-            let findings = out_file.extract_findings(self.path.to_path_buf());
+        for out_file in &self.out_files {
+            let findings = &out_file.extract_findings(self.path.to_path_buf());
 
             if !findings.is_empty() {
                 println!("File: {:?}", self.path);
@@ -132,7 +132,16 @@ impl<'a> SrcFile<'a> {
                 let mut spaces = 0;
 
                 for finding in findings {
+                    if finding.tool_name == ToolName::Finder {
+                        for other_finding in findings {
+                            if finding.intersect(other_finding) {
+                                // TODO
+                            }
+                        }
+                    }
                     if finding.tool_name == ToolName::Rca {
+                        let _metrics = finding.get_metrics().unwrap();
+                        // println!("{:?}", metrics);
                         spaces += 1;
                     } else {
                         println!("\t{:?}", finding);
