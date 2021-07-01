@@ -30,7 +30,7 @@ pub struct Tool<'a> {
     command: &'a str,
 }
 
-pub fn all() -> Vec<Tool<'static>> {
+pub fn all_tools() -> Vec<Tool<'static>> {
     vec![
         Tool {
             name: ToolName::Rca,
@@ -39,7 +39,7 @@ pub fn all() -> Vec<Tool<'static>> {
         Tool {
             name: ToolName::Finder,
             command:
-                "rust-code-analysis-cli -p ./* -I '*.rs' -X '/target' -f macro_definition --pr -O json -o ",
+                "rust-code-analysis-cli -p ./* -I '*.rs' -X '/target' -f lifetime,trait_bounds,reference,macro --pr -O json -o ",
         },
         Tool {
             name: ToolName::Clippy,

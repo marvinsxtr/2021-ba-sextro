@@ -1,15 +1,8 @@
 use async_gitlib::RepoClone;
-use std::{
-    fs,
-    path::{Path, PathBuf},
-};
+use std::{collections::HashMap, fs, path::{Path, PathBuf}};
 use url::Url;
 
-use crate::{
-    file::{OutFile, SrcFile},
-    tool::ToolName,
-    utils,
-};
+use crate::{metrics::Metrics, out::OutFile, src::SrcFile, tool::ToolName, utils};
 
 pub struct Repo<'a> {
     pub url: &'a Url,
@@ -59,7 +52,7 @@ impl<'a> Repo<'a> {
     }
 
     pub async fn metrics(&self) {
-        for mut tool in crate::tool::all() {
+        for mut tool in crate::tool::all_tools() {
             tool.run(self).await.unwrap_or_else(|err| {
                 eprintln!("Failed to run tool {} on {}: {}", tool.name, self.url, err);
             });
@@ -67,8 +60,14 @@ impl<'a> Repo<'a> {
     }
 
     pub async fn analyze(&self) {
-        for src_file in self.get_src_files() {
-            src_file.analyze_out_files()
+        let mut mapping: HashMap<&str, Metrics> = HashMap::new();
+
+        for mut src_file in self.get_src_files() {
+            src_file.analyze_out_files(&mut mapping);
+        }
+
+        for (identifier, metrics) in mapping {
+            println!("{}: {:?}", identifier, metrics.avg())
         }
     }
 
@@ -81,7 +80,7 @@ impl<'a> Repo<'a> {
         for rust_file_path in rust_file_paths {
             let mut out_files: Vec<OutFile> = Vec::new();
 
-            for tool in crate::tool::all() {
+            for tool in crate::tool::all_tools() {
                 let mut out_path = self.get_out_path(&tool.name);
 
                 let out_path_end: PathBuf = Path::new(&rust_file_path)
