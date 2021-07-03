@@ -595,6 +595,7 @@ dependencies = [
  "async-gitlib",
  "futures",
  "quicli",
+ "serde",
  "serde_json",
  "structopt 0.3.21",
  "tokio",

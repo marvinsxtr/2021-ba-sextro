@@ -1,8 +1,12 @@
 use async_gitlib::RepoClone;
-use std::{collections::HashMap, fs, path::{Path, PathBuf}};
+use std::{
+    collections::HashMap,
+    fs,
+    path::{Path, PathBuf},
+};
 use url::Url;
 
-use crate::{metrics::Metrics, out::OutFile, src::SrcFile, tool::ToolName, utils};
+use crate::{metrics::Metrics, out::OutFile, src::SrcFile, tool::ToolName, utils::{self, snip_path}};
 
 pub struct Repo<'a> {
     pub url: &'a Url,
@@ -30,6 +34,14 @@ impl<'a> Repo<'a> {
         out_path.push(tool_name.to_string());
         out_path.push(repo_name);
         out_path
+    }
+
+    pub fn get_res_path(&self) -> PathBuf {
+        let repo_name = self.url.path().strip_prefix("/").unwrap();
+        let mut res_path = PathBuf::from("./data/res");
+
+        res_path.push(repo_name);
+        res_path
     }
 
     pub async fn clone(&self) {
@@ -63,15 +75,19 @@ impl<'a> Repo<'a> {
         let mut mapping: HashMap<&str, Metrics> = HashMap::new();
 
         for mut src_file in self.get_src_files() {
+            let findings = src_file.get_findings();
+
+            src_file.save_findings(&self.get_res_path(), findings);
+
             src_file.analyze_out_files(&mut mapping);
         }
 
         for (identifier, metrics) in mapping {
-            println!("{}: {:?}", identifier, metrics.avg())
+            println!("{}: {:#?}", identifier, metrics.avg())
         }
     }
 
-    pub fn get_src_files(&self) -> Vec<SrcFile>{
+    pub fn get_src_files(&self) -> Vec<SrcFile> {
         let mut src_files = Vec::new();
 
         let tmp_path = Path::new(&self.tmp_path);
@@ -82,12 +98,7 @@ impl<'a> Repo<'a> {
 
             for tool in crate::tool::all_tools() {
                 let mut out_path = self.get_out_path(&tool.name);
-
-                let out_path_end: PathBuf = Path::new(&rust_file_path)
-                    .iter()
-                    .skip_while(|s| *s != "tmp")
-                    .skip(3)
-                    .collect();
+                let out_path_end: PathBuf = snip_path(&rust_file_path, 3);
 
                 let mut out_file_name = match tool.name {
                     ToolName::Clippy => tool.name.to_string(),

@@ -1,5 +1,6 @@
+use serde::Serialize;
 use serde_json::{Map, Value};
-use std::{error::Error, fs::File, io::BufReader, path::Path};
+use std::{error::Error, ffi::OsStr, fs::{self, File}, io::{BufReader, ErrorKind}, path::{Path, PathBuf}};
 use walkdir::WalkDir;
 
 pub fn read_json_from_file<P: AsRef<Path>>(path: P) -> Result<Value, Box<dyn Error>> {
@@ -48,4 +49,52 @@ pub fn get_spaces(value: &Value) -> Vec<&Map<String, Value>> {
     }
 
     result
+}
+
+pub fn snip_path<S>(path: &S, skips: usize) -> PathBuf where S: AsRef<OsStr> {
+    Path::new(&path)
+        .iter()
+        .skip_while(|s| *s != "tmp")
+        .skip(skips)
+        .collect()
+}
+
+pub fn dump_findings<S: Serialize>(
+    data: &S,
+    path: &Path,
+    output_path: &PathBuf,
+) -> std::io::Result<()> {
+    let format_ext = ".json";
+
+    let path = path.strip_prefix("/").unwrap_or(path);
+    let path = path.strip_prefix("./").unwrap_or(path);
+
+    let cleaned_path: Vec<&str> = path
+        .iter()
+        .map(|os_str| {
+            let s_str = os_str.to_str().unwrap();
+            if s_str == ".." {
+                "_"
+            } else {
+                s_str
+            }
+        })
+        .collect();
+
+    let filename = cleaned_path.join("_") + format_ext;
+
+    let format_path = output_path.join(filename);
+
+    fs::create_dir_all(output_path).unwrap_or_else(|err| {
+        eprintln!(
+            "Could not create output folders {}: {}",
+            output_path.to_str().unwrap(),
+            err
+        );
+    });
+
+    let format_file = File::create(format_path)?;
+
+    serde_json::to_writer_pretty(format_file, &data)
+        .map_err(|e| std::io::Error::new(ErrorKind::Other, e.to_string()))
 }

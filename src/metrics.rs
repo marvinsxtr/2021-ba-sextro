@@ -31,13 +31,14 @@ pub struct Metrics {
     closures: f64,
     mi_original: f64,
     mi_sei: f64,
-    mi_visual_studio: f64
+    mi_visual_studio: f64,
 }
 
 impl Metrics {
-
     fn get_metric(metrics: &Map<String, Value>, key1: &str, key2: &str) -> f64 {
-        metrics[key1].as_object().unwrap()[key2].as_f64().unwrap_or_default()
+        metrics[key1].as_object().unwrap()[key2]
+            .as_f64()
+            .unwrap_or_default()
     }
 
     pub fn from_value(value: &Value) -> Self {
@@ -53,7 +54,11 @@ impl Metrics {
             halstead_n2: Self::get_metric(metrics, "halstead", "n2"),
             halstead_capital_n2: Self::get_metric(metrics, "halstead", "N2"),
             halstead_length: Self::get_metric(metrics, "halstead", "length"),
-            halstead_estimated_program_length: Self::get_metric(metrics, "halstead", "estimated_program_length"),
+            halstead_estimated_program_length: Self::get_metric(
+                metrics,
+                "halstead",
+                "estimated_program_length",
+            ),
             halstead_purity_ratio: Self::get_metric(metrics, "halstead", "purity_ratio"),
             halstead_vocabulary: Self::get_metric(metrics, "halstead", "vocabulary"),
             halstead_volume: Self::get_metric(metrics, "halstead", "volume"),
@@ -75,7 +80,7 @@ impl Metrics {
         }
     }
 
-    pub fn avg(&self) -> Self{
+    pub fn avg(&self) -> Self {
         Metrics {
             n: 0.,
             nargs: self.nargs / self.n,
@@ -106,6 +111,40 @@ impl Metrics {
             mi_original: self.mi_original / self.n,
             mi_sei: self.mi_sei / self.n,
             mi_visual_studio: self.mi_visual_studio / self.n,
+        }
+    }
+
+    pub fn weigh(&self, weight: f64) -> Self {
+        Metrics {
+            n: self.n,
+            nargs: self.nargs,
+            nexits: self.nexits,
+            cognitive: self.cognitive * weight,
+            cyclomatic: self.cyclomatic * weight,
+            halstead_n1: self.halstead_n1 * weight,
+            halstead_capital_n1: self.halstead_capital_n1 * weight,
+            halstead_n2: self.halstead_n2 * weight,
+            halstead_capital_n2: self.halstead_capital_n2 * weight,
+            halstead_length: self.halstead_length * weight,
+            halstead_estimated_program_length: self.halstead_estimated_program_length * weight,
+            halstead_purity_ratio: self.halstead_purity_ratio * weight,
+            halstead_vocabulary: self.halstead_vocabulary * weight,
+            halstead_volume: self.halstead_volume * weight,
+            halstead_difficulty: self.halstead_difficulty * weight,
+            halstead_level: self.halstead_level * weight,
+            halstead_effort: self.halstead_effort * weight,
+            halstead_time: self.halstead_time * weight,
+            halstead_bugs: self.halstead_bugs * weight,
+            sloc: self.sloc,
+            ploc: self.ploc,
+            lloc: self.lloc,
+            cloc: self.cloc,
+            blank: self.blank,
+            functions: self.functions,
+            closures: self.closures,
+            mi_original: self.mi_original * weight,
+            mi_sei: self.mi_sei * weight,
+            mi_visual_studio: self.mi_visual_studio * weight,
         }
     }
 }

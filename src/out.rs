@@ -1,7 +1,7 @@
 use serde_json::Value;
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 
-use crate::{finding::Finding, tool::ToolName, utils};
+use crate::{finding::Finding, tool::ToolName, utils::{self, snip_path}};
 
 pub struct OutFile {
     pub path: PathBuf,
@@ -70,11 +70,7 @@ impl OutFile {
                     }
 
                     let entry_src_path = entry["target"]["src_path"].as_str().unwrap();
-                    let entry_src_path: PathBuf = Path::new(&entry_src_path)
-                        .iter()
-                        .skip_while(|s| *s != "tmp")
-                        .skip(1)
-                        .collect();
+                    let entry_src_path: PathBuf = snip_path(&entry_src_path, 1);
 
                     if !src_file_path.ends_with(&entry_src_path) {
                         continue;
