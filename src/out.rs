@@ -88,7 +88,7 @@ impl OutFile {
                     let end_line = entry["message"]["spans"][0]["line_end"].as_u64().unwrap();
 
                     if entry["message"]["spans"].as_array().into_iter().len() > 1 {
-                        panic!("More than one span for a clippy message");
+                        eprintln!("More than one span for a clippy message");
                     }
 
                     let finding = Finding::new(

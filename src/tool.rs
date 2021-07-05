@@ -63,7 +63,7 @@ impl<'a> Tool<'a> {
     }
 
     pub async fn run(&mut self, repo: &Repo<'_>) -> Result<(), Box<dyn Error>> {
-        let repo_out_path: &PathBuf = &repo.get_out_path(&self.name);
+        let repo_out_path: &PathBuf = &repo.get_path(Some(&self.name), "out");
         let cmd_out_path = self.get_cmd_out_path(repo_out_path);
         let cmd_out_path = cmd_out_path.to_str().unwrap();
 

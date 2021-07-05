@@ -29,10 +29,16 @@ struct Cli {
         default_value = "./data/in/awesome-rust.txt"
     )]
     input_path: String,
-    #[structopt(long = "repo_count", short = "c", default_value = "1")]
+    #[structopt(long = "repo_count", short = "n", default_value = "1")]
     repo_count: usize,
-    #[structopt(long = "analyze_only", short = "a")]
-    analyze_only: bool,
+    #[structopt(long = "clone_repos", short = "c")]
+    clone: bool,
+    #[structopt(long = "collect_metrics", short = "m")]
+    metrics: bool,
+    #[structopt(long = "filter_metrics", short = "f")]
+    filter: bool,
+    #[structopt(long = "analyze_metrics", short = "a")]
+    analyze: bool,
     #[structopt(long = "delete_tmp", short = "d")]
-    delete_tmp: bool,
+    delete: bool,
 }

@@ -35,8 +35,6 @@ impl<'a> SrcFile {
     ) -> &'a HashMap<&str, Metrics> {
         let findings = self.get_findings();
 
-        println!("File: {:?}", self.path);
-
         for finding in &findings {
             if finding.tool_name == ToolName::Finder {
                 for other_finding in &findings {

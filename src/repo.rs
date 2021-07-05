@@ -6,7 +6,7 @@ use std::{
 };
 use url::Url;
 
-use crate::{metrics::Metrics, out::OutFile, src::SrcFile, tool::ToolName, utils::{self, snip_path}};
+use crate::{metrics::Metrics, out::OutFile, src::SrcFile, tool::ToolName, utils::snip_path};
 
 pub struct Repo<'a> {
     pub url: &'a Url,
@@ -27,26 +27,53 @@ impl<'a> Repo<'a> {
         tmp_path
     }
 
-    pub fn get_out_path(&self, tool_name: &ToolName) -> PathBuf {
+    pub fn get_path(&self, tool_name: Option<&ToolName>, folder: &str) -> PathBuf {
         let repo_name = self.url.path().strip_prefix("/").unwrap();
-        let mut out_path = PathBuf::from("./data/out");
+        let mut out_path = PathBuf::from(format!("./data/{}", folder));
 
-        out_path.push(tool_name.to_string());
+        if let Some(tool_name) = tool_name {
+            out_path.push(tool_name.to_string());
+        }
+
         out_path.push(repo_name);
         out_path
     }
 
-    pub fn get_res_path(&self) -> PathBuf {
-        let repo_name = self.url.path().strip_prefix("/").unwrap();
-        let mut res_path = PathBuf::from("./data/res");
+    pub fn get_src_files(&self) -> Vec<SrcFile> {
+        let mut src_files = Vec::new();
 
-        res_path.push(repo_name);
-        res_path
+        let tmp_path = Path::new(&self.tmp_path);
+        let rust_file_paths = crate::utils::get_rust_files(tmp_path);
+
+        for rust_file_path in rust_file_paths {
+            let mut out_files: Vec<OutFile> = Vec::new();
+
+            for tool in crate::tool::all_tools() {
+                let mut out_path = self.get_path(Some(&tool.name), "out");
+                let out_path_end: PathBuf = snip_path(&rust_file_path, 3);
+
+                let mut out_file_name = match tool.name {
+                    ToolName::Clippy => tool.name.to_string(),
+                    _ => out_path_end.to_str().unwrap().replace("/", "_"),
+                };
+                out_file_name.push_str(".json");
+
+                out_path.push(out_file_name);
+
+                let out_file = OutFile::new(out_path.to_path_buf(), tool.name);
+                out_files.push(out_file);
+            }
+
+            let src_path = PathBuf::from(&rust_file_path);
+            let src_file = SrcFile::new(src_path, out_files);
+
+            src_files.push(src_file);
+        }
+
+        src_files
     }
 
     pub async fn clone(&self) {
-        println!("Cloning {} ...", self.url);
-
         let mut task = RepoClone::default();
 
         if task.clone(self.url.as_str(), &self.tmp_path).await.is_err() {
@@ -71,54 +98,25 @@ impl<'a> Repo<'a> {
         }
     }
 
+    pub async fn filter(&self) {
+        for src_file in self.get_src_files() {
+            let findings = src_file.get_findings();
+            let res_path = &self.get_path(None, "res");
+
+            src_file.save_findings(res_path, findings);
+        }
+    }
+
     pub async fn analyze(&self) {
         let mut mapping: HashMap<&str, Metrics> = HashMap::new();
 
         for mut src_file in self.get_src_files() {
-            let findings = src_file.get_findings();
-
-            src_file.save_findings(&self.get_res_path(), findings);
-
             src_file.analyze_out_files(&mut mapping);
         }
 
         for (identifier, metrics) in mapping {
             println!("{}: {:#?}", identifier, metrics.avg())
         }
-    }
-
-    pub fn get_src_files(&self) -> Vec<SrcFile> {
-        let mut src_files = Vec::new();
-
-        let tmp_path = Path::new(&self.tmp_path);
-        let rust_file_paths = utils::get_rust_files(tmp_path);
-
-        for rust_file_path in rust_file_paths {
-            let mut out_files: Vec<OutFile> = Vec::new();
-
-            for tool in crate::tool::all_tools() {
-                let mut out_path = self.get_out_path(&tool.name);
-                let out_path_end: PathBuf = snip_path(&rust_file_path, 3);
-
-                let mut out_file_name = match tool.name {
-                    ToolName::Clippy => tool.name.to_string(),
-                    _ => out_path_end.to_str().unwrap().replace("/", "_"),
-                };
-                out_file_name.push_str(".json");
-
-                out_path.push(out_file_name);
-
-                let out_file = OutFile::new(out_path.to_path_buf(), tool.name);
-                out_files.push(out_file);
-            }
-
-            let src_path = PathBuf::from(&rust_file_path);
-            let src_file = SrcFile::new(src_path, out_files);
-
-            src_files.push(src_file);
-        }
-
-        src_files
     }
 
     pub fn delete(&self) {
@@ -130,7 +128,5 @@ impl<'a> Repo<'a> {
         fs::remove_dir_all(&tmp_path).unwrap_or_else(|err| {
             eprintln!("Failed to delete tmp folder {}: {}", tmp_path, err);
         });
-
-        println!("Deleted {}", tmp_path);
     }
 }
