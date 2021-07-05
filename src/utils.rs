@@ -16,7 +16,13 @@ pub fn get_rust_files(path: &Path) -> Vec<String> {
         .follow_links(false)
         .into_iter()
         .filter(|e| {
-            let e = e.as_ref().unwrap();
+            let e = e.as_ref();
+
+            if e.is_err() {
+                return false;
+            }
+
+            let e = e.unwrap();
             let file_name = e.file_name().to_string_lossy();
             let path = e.path().to_str().unwrap();
 
@@ -31,9 +37,11 @@ pub fn get_spaces(value: &Value) -> Vec<&Map<String, Value>> {
     let mut result = Vec::new();
     let mut spaces = Vec::new();
 
-    let first_space = value.as_object().unwrap();
+    let first_space = value.as_object();
 
-    spaces.push(first_space);
+    if let Some(first_space) = first_space {
+        spaces.push(first_space);
+    }
 
     while !spaces.is_empty() {
         let space = spaces.pop().unwrap();
