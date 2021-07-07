@@ -25,31 +25,65 @@ impl fmt::Display for ToolName {
     }
 }
 
-pub struct Tool<'a> {
+pub struct Tool {
     pub name: ToolName,
-    command: &'a str,
+    command: String,
 }
 
-pub fn all_tools() -> Vec<Tool<'static>> {
+pub fn all_tools() -> Vec<Tool> {
     vec![
         Tool {
             name: ToolName::Rca,
-            command: "rust-code-analysis-cli -m -p ./* -I '*.rs' -X '/target' --pr -O json -o ",
+            command: "rust-code-analysis-cli -m -p ./* -I '*.rs' -X '/target' --pr -O json -o "
+                .to_string(),
         },
         Tool {
             name: ToolName::Finder,
-            command:
-                "rust-code-analysis-cli -p ./* -I '*.rs' -X '/target' -f lifetime,trait_bounds,reference,macro --pr -O json -o ",
+            command: format!(
+                "rust-code-analysis-cli -p ./* -I '*.rs' -X '/target' -f {} --pr -O json -o ",
+                all_features().join(",")
+            ),
         },
         Tool {
             name: ToolName::Clippy,
             command:
-                "cargo clippy --workspace --message-format=json | sed '1s/^/[/;$!s/$/,/;$s/$/]/' > ",
+                "cargo clippy --workspace --message-format=json | sed '1s/^/[/;$!s/$/,/;$s/$/]/' > "
+                    .to_string(),
         },
     ]
 }
 
-impl<'a> Tool<'a> {
+pub fn all_features() -> Vec<&'static str> {
+    vec![
+        "for_lifetimes",
+        "for_lifetimes_repeat1",
+        "lifetime",
+        "reference_type",
+        "reference_expression",
+        "macro_definition",
+        "variadic_parameter",
+        "macro_rules!",
+        "macro_rule",
+        "macro_definition_repeat1",
+        "macro_invocation",
+        "where_clause",
+        "where_predicate",
+        "higher_ranked_trait_bound",
+        "trait_bounds_repeat1",
+        "removed_trait_bound",
+        "where",
+        "trait_bounds",
+        "async_block",
+        "await",
+        "await_expression",
+        "async",
+        "unsafe_block",
+        "unsafe",
+        "line_comment",
+    ]
+}
+
+impl Tool {
     pub fn get_cmd_out_path(&self, repo_out_path: &Path) -> PathBuf {
         let mut cmd_out_path = PathBuf::from("../../../..");
         cmd_out_path.push(repo_out_path);

@@ -26,10 +26,6 @@ pub(crate) async fn analyze(repos: Vec<&str>, args: &Cli) -> Result<(), Box<dyn 
             println!("Filtering metrics on {}", repo.url);
             repo.filter().await;
         }
-        if args.analyze {
-            println!("Analyzing metrics on {}", repo.url);
-            repo.analyze().await;
-        }
         if args.delete {
             println!("Deleting tmp of {}", repo.url);
             repo.delete();

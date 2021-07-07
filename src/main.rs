@@ -1,6 +1,5 @@
 mod analyzer;
 mod finding;
-mod metrics;
 mod out;
 mod repo;
 mod src;
@@ -37,8 +36,6 @@ struct Cli {
     metrics: bool,
     #[structopt(long = "filter_metrics", short = "f")]
     filter: bool,
-    #[structopt(long = "analyze_metrics", short = "a")]
-    analyze: bool,
     #[structopt(long = "delete_tmp", short = "d")]
     delete: bool,
 }

@@ -1,12 +1,11 @@
 use async_gitlib::RepoClone;
 use std::{
-    collections::HashMap,
     fs,
     path::{Path, PathBuf},
 };
 use url::Url;
 
-use crate::{metrics::Metrics, out::OutFile, src::SrcFile, tool::ToolName, utils::snip_path};
+use crate::{out::OutFile, src::SrcFile, tool::ToolName, utils::snip_path};
 
 pub struct Repo<'a> {
     pub url: &'a Url,
@@ -104,18 +103,6 @@ impl<'a> Repo<'a> {
             let res_path = &self.get_path(None, "res");
 
             src_file.save_findings(res_path, findings);
-        }
-    }
-
-    pub async fn analyze(&self) {
-        let mut mapping: HashMap<&str, Metrics> = HashMap::new();
-
-        for mut src_file in self.get_src_files() {
-            src_file.analyze_out_files(&mut mapping);
-        }
-
-        for (identifier, metrics) in mapping {
-            println!("{}: {:#?}", identifier, metrics.avg())
         }
     }
 

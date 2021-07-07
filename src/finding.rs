@@ -1,7 +1,7 @@
 use serde::{ser::SerializeStruct, Serialize, Serializer};
 use serde_json::Value;
 
-use crate::{metrics::Metrics, tool::ToolName};
+use crate::tool::ToolName;
 
 #[derive(Debug)]
 pub struct Finding<'a> {
@@ -27,20 +27,6 @@ impl<'a> Finding<'a> {
             end_line,
             data,
         }
-    }
-
-    pub fn get_metrics(&self) -> Option<Metrics> {
-        self.data.map(|value| Metrics::from_value(&value))
-    }
-
-    pub fn is_inside(&self, other: &Self) -> bool {
-        self.start_line >= other.start_line && self.end_line <= other.end_line
-    }
-
-    pub fn get_size_ratio(&self, other: &Self) -> f64 {
-        let size_this: f64 = (self.end_line - self.start_line + 1) as f64;
-        let size_other: f64 = (other.end_line - other.start_line + 1) as f64;
-        size_this / size_other
     }
 }
 

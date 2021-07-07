@@ -1,7 +1,11 @@
 use serde_json::Value;
 use std::path::PathBuf;
 
-use crate::{finding::Finding, tool::ToolName, utils::{self, snip_path}};
+use crate::{
+    finding::Finding,
+    tool::ToolName,
+    utils::{self, snip_path},
+};
 
 pub struct OutFile {
     pub path: PathBuf,
