@@ -6,12 +6,15 @@ use crate::{repo::Repo, Cli};
 
 #[tokio::main]
 pub(crate) async fn analyze(repos: Vec<&str>, args: &Cli) -> Result<(), Box<dyn Error>> {
-    let repo_jobs = futures::stream::iter(repos.into_iter().map(|url| async move {
-        let url = Url::parse(url).unwrap_or_else(|err| {
-            eprintln!("Could not parse url {}: {}", url, err);
-            panic!();
-        });
+    let repo_jobs = futures::stream::iter(repos.into_iter().map(|url_str| async move {
+        let url = Url::parse(url_str);
 
+        if url.is_err() {
+            eprintln!("Could not parse url {}: {}", url_str, url.unwrap_err());
+            return;
+        }
+
+        let url = url.unwrap();
         let repo = Repo::new(&url);
 
         if args.clone {

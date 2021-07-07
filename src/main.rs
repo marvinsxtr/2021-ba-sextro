@@ -13,7 +13,7 @@ fn main() -> CliResult {
     let args = Cli::from_args();
 
     let repo_file = read_file(&args.input_path)?;
-    let repos: Vec<&str> = repo_file.lines().take(args.repo_count).collect();
+    let repos: Vec<&str> = repo_file.lines().skip(args.repo_skips).take(args.repo_count).collect();
 
     analyzer::analyze(repos, &args).unwrap_or_else(|err| eprintln!("{}", err));
 
@@ -30,6 +30,8 @@ struct Cli {
     input_path: String,
     #[structopt(long = "repo_count", short = "n", default_value = "1")]
     repo_count: usize,
+    #[structopt(long = "repo_skips", short = "s", default_value = "0")]
+    repo_skips: usize,
     #[structopt(long = "clone_repos", short = "c")]
     clone: bool,
     #[structopt(long = "collect_metrics", short = "m")]

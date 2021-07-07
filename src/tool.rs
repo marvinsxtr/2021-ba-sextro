@@ -1,4 +1,3 @@
-use futures::TryFutureExt;
 use std::{
     error::Error,
     fmt, fs,
@@ -109,17 +108,16 @@ impl Tool {
             );
         });
 
-        Command::new("sh")
+        let output = Command::new("sh")
             .arg("-c")
             .arg(format!("{}{}", self.command, cmd_out_path))
             .current_dir(&repo.tmp_path)
             .output()
-            .unwrap_or_else(|err| {
-                eprintln!("Could not run command: {}", err);
-                panic!();
-            })
             .await;
 
-        Ok(())
+        match output {
+            Ok(_) => Ok(()),
+            Err(e) => Err(Box::new(e)),
+        }
     }
 }
