@@ -5,7 +5,7 @@ use std::{
 };
 use url::Url;
 
-use crate::{out::OutFile, src::SrcFile, tool::ToolName, utils::snip_path};
+use crate::{out::OutFile, src::SrcFile, tool::ToolName, utils::{get_data_path, snip_path}};
 
 pub struct Repo<'a> {
     pub url: &'a Url,
@@ -14,21 +14,15 @@ pub struct Repo<'a> {
 
 impl<'a> Repo<'a> {
     pub fn new(url: &'a Url) -> Self {
-        let tmp_path = Self::get_tmp_path(url);
+        let tmp_path = Self::get_path(url, None, "tmp");
         Self { url, tmp_path }
     }
 
-    pub fn get_tmp_path(url: &Url) -> PathBuf {
+    pub fn get_path(url: &Url, tool_name: Option<&ToolName>, folder: &str) -> PathBuf {
         let repo_name = url.path().strip_prefix("/").unwrap();
-        let mut tmp_path = PathBuf::from("./data/tmp");
-
-        tmp_path.push(repo_name);
-        tmp_path
-    }
-
-    pub fn get_path(&self, tool_name: Option<&ToolName>, folder: &str) -> PathBuf {
-        let repo_name = self.url.path().strip_prefix("/").unwrap();
-        let mut out_path = PathBuf::from(format!("./data/{}", folder));
+        let mut out_path = get_data_path();
+        
+        out_path.push(folder);
 
         if let Some(tool_name) = tool_name {
             out_path.push(tool_name.to_string());
@@ -48,7 +42,7 @@ impl<'a> Repo<'a> {
             let mut out_files: Vec<OutFile> = Vec::new();
 
             for tool in crate::tool::all_tools() {
-                let mut out_path = self.get_path(Some(&tool.name), "out");
+                let mut out_path = Repo::get_path(&self.url, Some(&tool.name), "out");
                 let out_path_end: PathBuf = snip_path(&rust_file_path, 3);
 
                 let mut out_file_name = match tool.name {
@@ -98,11 +92,12 @@ impl<'a> Repo<'a> {
     }
 
     pub async fn filter(&self) {
+        let res_path = Self::get_path(&self.url, None, "res");
+
         for src_file in self.get_src_files() {
             let findings = src_file.get_findings();
-            let res_path = &self.get_path(None, "res");
 
-            src_file.save_findings(res_path, findings);
+            src_file.save_findings(&res_path, findings);
         }
     }
 

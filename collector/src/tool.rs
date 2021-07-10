@@ -84,7 +84,7 @@ pub fn all_features() -> Vec<&'static str> {
 
 impl Tool {
     pub fn get_cmd_out_path(&self, repo_out_path: &Path) -> PathBuf {
-        let mut cmd_out_path = PathBuf::from("../../../..");
+        let mut cmd_out_path = PathBuf::from("../../..");
         cmd_out_path.push(repo_out_path);
 
         if self.name == ToolName::Clippy {
@@ -95,9 +95,9 @@ impl Tool {
         cmd_out_path
     }
 
-    pub async fn run(&mut self, repo: &Repo<'_>) -> Result<(), Box<dyn Error>> {
-        let repo_out_path: &PathBuf = &repo.get_path(Some(&self.name), "out");
-        let cmd_out_path = self.get_cmd_out_path(repo_out_path);
+    pub async fn run<'a>(&mut self, repo: &Repo<'a>) -> Result<(), Box<dyn Error>> {
+        let repo_out_path: PathBuf = Repo::get_path(repo.url, Some(&self.name), "out");
+        let cmd_out_path = self.get_cmd_out_path(&repo_out_path);
         let cmd_out_path = cmd_out_path.to_str().unwrap();
 
         fs::create_dir_all(&repo_out_path).unwrap_or_else(|err| {

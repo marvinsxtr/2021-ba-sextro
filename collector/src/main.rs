@@ -1,4 +1,4 @@
-mod analyzer;
+mod collector;
 mod finding;
 mod out;
 mod repo;
@@ -15,7 +15,7 @@ fn main() -> CliResult {
     let repo_file = read_file(&args.input_path)?;
     let repos: Vec<&str> = repo_file.lines().skip(args.repo_skips).take(args.repo_count).collect();
 
-    analyzer::analyze(repos, &args).unwrap_or_else(|err| eprintln!("{}", err));
+    collector::collect(repos, &args).unwrap_or_else(|err| eprintln!("{}", err));
 
     Ok(())
 }
@@ -25,7 +25,7 @@ struct Cli {
     #[structopt(
         long = "input_path",
         short = "p",
-        default_value = "./data/in/awesome-rust.txt"
+        default_value = "../data/in/awesome-rust.txt"
     )]
     input_path: String,
     #[structopt(long = "repo_count", short = "n", default_value = "1")]

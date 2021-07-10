@@ -303,6 +303,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "collector"
+version = "0.0.1"
+dependencies = [
+ "async-gitlib",
+ "futures",
+ "quicli",
+ "serde",
+ "serde_json",
+ "structopt 0.3.21",
+ "tokio",
+ "url",
+ "walkdir",
+]
+
+[[package]]
 name = "concurrent-queue"
 version = "1.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -575,21 +590,6 @@ dependencies = [
  "openssl-probe",
  "openssl-sys",
  "url",
-]
-
-[[package]]
-name = "github-rust-tool"
-version = "0.0.1"
-dependencies = [
- "async-gitlib",
- "futures",
- "quicli",
- "serde",
- "serde_json",
- "structopt 0.3.21",
- "tokio",
- "url",
- "walkdir",
 ]
 
 [[package]]
