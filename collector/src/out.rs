@@ -36,7 +36,7 @@ impl OutFile {
                 for space in spaces {
                     let finding = Finding::new(
                         self.tool_name,
-                        space["kind"].as_str().unwrap().to_string(),
+                        space["name"].as_str().unwrap().to_string(),
                         space["start_line"].as_u64().unwrap(),
                         space["end_line"].as_u64().unwrap(),
                         Some(&space["metrics"]),

@@ -1,6 +1,8 @@
 # GitHub Rust Tool
 
-Tool to extract usability metrics from GitHub repositories and analyze the results.
+Tool to collect usability metrics from GitHub repositories and analyze the results.
+
+# Collector
 
 ## Setup
 
@@ -21,20 +23,33 @@ git clone https://github.com/marvinsxtr/rust-code-analysis.git
 Install the patched version
 
 ```shell
-cargo install -p rust-code-analysis/rust-code-analysis-cli
+cargo install --path rust-code-analysis/rust-code-analysis-cli
 ```
 
 ### Build the GitHub Rust Tool
 
 ```shell
 cargo build
+cargo build --release
 ```
 
 ## Usage
 
+### Flags
+
+```
+-c, --clone_repos        
+-d, --delete_tmp         
+-f, --filter_metrics     
+-m, --collect_metrics    
+```
+
 ### Options
 
 ```
--p, --input_path <input-path>     [default: ./data/in/awesome-rust.txt]
--c, --repo_count <repo-count>     [default: 1]
+-p, --input_path <input-path>     [default: ../data/in/awesome-rust.txt]
+-n, --repo_count <repo-count>     [default: 1]
+-s, --repo_skips <repo-skips>     [default: 0]
 ```
+
+# Analyzer
