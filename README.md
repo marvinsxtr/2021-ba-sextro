@@ -2,6 +2,10 @@
 
 Tool to collect usability metrics from GitHub repositories and analyze the results.
 
+### Data path
+
+For both collector and analyzer, the variable `DATA_PATH` can be changed to an absolute path, where any result may be saved.
+
 # Collector
 
 ## Setup
@@ -26,11 +30,25 @@ Install the patched version
 cargo install --path rust-code-analysis/rust-code-analysis-cli
 ```
 
-### Build the GitHub Rust Tool
+### Build and run
+
+```
+cd collector
+```
+
+#### Debug
 
 ```shell
 cargo build
+./target/debug/collector
 cargo build --release
+```
+
+#### Release
+
+```shell
+cargo build --release
+./target/release/collector
 ```
 
 ## Usage
@@ -53,3 +71,17 @@ cargo build --release
 ```
 
 # Analyzer
+
+## Run
+
+```
+python3 -m analyzer
+```
+
+## Usage
+
+### Options
+
+```
+-n REPO_COUNT, --repo_count REPO_COUNT (Number of repos to analyze)
+```
