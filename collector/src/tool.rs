@@ -76,6 +76,8 @@ pub fn all_features() -> Vec<&'static str> {
         "async",
         "unsafe_block",
         "unsafe",
+        "trait",
+        "trait_item",
         "line_comment",
     ]
 }

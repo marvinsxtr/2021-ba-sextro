@@ -1,5 +1,8 @@
+from analyzer.src.halstead import Halstead
+import json
 import argparse
 
+from analyzer.src.mappings import Mappings
 from analyzer.src.analyzer import analyze
 
 
@@ -11,4 +14,6 @@ def main():
 
   repo_count = args.repo_count
 
-  analyze(repo_count)
+  mappings: Mappings = analyze(repo_count)
+
+  print(json.dumps(mappings.avg(), indent=4))
