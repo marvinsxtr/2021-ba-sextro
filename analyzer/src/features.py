@@ -4,7 +4,8 @@ from enum import Enum
 
 class Features(Enum):
     LIFETIMES = ("for_lifetimes", "for_lifetimes_repeat1", "lifetime")
-    MACROS = ("macro_definition", "macro_rules!", "macro_rule", "macro_definition_repeat1", "macro_invocation")
+    MACROS = ("macro_definition", "macro_rules!", "macro_rule",
+              "macro_definition_repeat1", "macro_invocation")
     TRAIT_BOUNDS = ("where_clause", "where_predicate", "where_clause_repeat1", "higher_ranked_trait_bound",
                     "trait_bounds_repeat1", "removed_trait_bound", "where", "trait_bounds")
     ASYNC = ("async_block", "await", "await_expression", "async")
