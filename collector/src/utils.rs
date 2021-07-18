@@ -1,6 +1,13 @@
 use serde::Serialize;
 use serde_json::{Map, Value};
-use std::{env, error::Error, ffi::OsStr, fs::{self, File}, io::{BufReader, ErrorKind}, path::{Path, PathBuf}};
+use std::{
+    env,
+    error::Error,
+    ffi::OsStr,
+    fs::{self, File},
+    io::{BufReader, ErrorKind},
+    path::{Path, PathBuf},
+};
 use walkdir::WalkDir;
 
 pub fn read_json_from_file<P: AsRef<Path>>(path: P) -> Result<Value, Box<dyn Error>> {

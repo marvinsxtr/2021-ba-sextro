@@ -5,7 +5,12 @@ use std::{
 };
 use url::Url;
 
-use crate::{out::OutFile, src::SrcFile, tool::ToolName, utils::{get_data_path, snip_path}};
+use crate::{
+    out::OutFile,
+    src::SrcFile,
+    tool::ToolName,
+    utils::{get_data_path, snip_path},
+};
 
 pub struct Repo<'a> {
     pub url: &'a Url,
@@ -21,7 +26,7 @@ impl<'a> Repo<'a> {
     pub fn get_path(url: &Url, tool_name: Option<&ToolName>, folder: &str) -> PathBuf {
         let repo_name = url.path().strip_prefix("/").unwrap();
         let mut out_path = get_data_path();
-        
+
         out_path.push(folder);
 
         if let Some(tool_name) = tool_name {

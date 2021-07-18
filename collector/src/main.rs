@@ -13,7 +13,11 @@ fn main() -> CliResult {
     let args = Cli::from_args();
 
     let repo_file = read_file(&args.input_path)?;
-    let repos: Vec<&str> = repo_file.lines().skip(args.repo_skips).take(args.repo_count).collect();
+    let repos: Vec<&str> = repo_file
+        .lines()
+        .skip(args.repo_skips)
+        .take(args.repo_count)
+        .collect();
 
     collector::collect(repos, &args).unwrap_or_else(|err| eprintln!("{}", err));
 
