@@ -120,6 +120,6 @@ pub fn dump_findings<S: Serialize>(
 pub fn get_data_path() -> PathBuf {
     match env::var("DATA_PATH") {
         Ok(val) => PathBuf::from(val),
-        Err(_e) => PathBuf::from("../data/"),
+        Err(_) => PathBuf::from("../data/"),
     }
 }

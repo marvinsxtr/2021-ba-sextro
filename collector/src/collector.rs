@@ -16,21 +16,22 @@ pub(crate) async fn collect(repos: Vec<&str>, args: &Cli) -> Result<(), Box<dyn 
 
         let url = url.unwrap();
         let repo = Repo::new(&url);
+        let path = url.path();
 
         if args.clone {
-            println!("Cloning {}", repo.url);
+            println!("Cloning {}", path);
             repo.clone().await;
         }
         if args.metrics {
-            println!("Collecting metrics on {}", repo.url);
+            println!("Collecting metrics on {}", path);
             repo.metrics().await;
         }
         if args.filter {
-            println!("Filtering metrics on {}", repo.url);
+            println!("Filtering metrics on {}", path);
             repo.filter().await;
         }
         if args.delete {
-            println!("Deleting tmp of {}", repo.url);
+            println!("Deleting tmp of {}", path);
             repo.delete();
         }
     }))

@@ -30,7 +30,7 @@ impl OutFile {
         let mut findings = Vec::new();
 
         match self.tool_name {
-            ToolName::Rca => {
+            ToolName::Rca | ToolName::Node => {
                 let spaces = utils::get_spaces(&self.value);
 
                 for space in spaces {

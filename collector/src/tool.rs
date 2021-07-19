@@ -10,6 +10,7 @@ use crate::repo::Repo;
 #[derive(PartialEq, Clone, Copy, Debug)]
 pub enum ToolName {
     Rca,
+    Node,
     Finder,
     Clippy,
 }
@@ -18,6 +19,7 @@ impl fmt::Display for ToolName {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
             ToolName::Rca => write!(f, "rca"),
+            ToolName::Node => write!(f, "node"),
             ToolName::Finder => write!(f, "finder"),
             ToolName::Clippy => write!(f, "clippy"),
         }
@@ -34,6 +36,11 @@ pub fn all_tools() -> Vec<Tool> {
         Tool {
             name: ToolName::Rca,
             command: "rust-code-analysis-cli -m -p ./* -I '*.rs' -X '/target' --pr -O json -o "
+                .to_string(),
+        },
+        Tool {
+            name: ToolName::Node,
+            command: "NODE_MODE=true rust-code-analysis-cli -m -p ./* -I '*.rs' -X '/target' --pr -O json -o "
                 .to_string(),
         },
         Tool {
@@ -54,30 +61,33 @@ pub fn all_tools() -> Vec<Tool> {
 
 pub fn all_features() -> Vec<&'static str> {
     vec![
+        "lifetime",
         "for_lifetimes",
         "for_lifetimes_repeat1",
-        "lifetime",
         "macro_definition",
-        "macro_rules!",
         "macro_rule",
+        "macro_rules!",
         "macro_definition_repeat1",
         "macro_invocation",
-        "where_clause",
-        "where_predicate",
-        "where_clause_repeat1",
-        "higher_ranked_trait_bound",
+        "trait_bounds",
         "trait_bounds_repeat1",
+        "higher_ranked_trait_bound",
         "removed_trait_bound",
         "where",
-        "trait_bounds",
+        "where_clause",
+        "where_clause_repeat1",
+        "where_predicate",
+        "async",
         "async_block",
         "await",
         "await_expression",
-        "async",
-        "unsafe_block",
         "unsafe",
+        "unsafe_block",
         "trait",
         "trait_item",
+        "closure_parameters_repeat1",
+        "closure_expression",
+        "closure_parameters",
         "line_comment",
     ]
 }
