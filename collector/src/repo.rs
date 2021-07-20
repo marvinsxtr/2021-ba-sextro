@@ -1,3 +1,4 @@
+use crate::utils::findings_to_json;
 use async_gitlib::RepoClone;
 use std::{
     fs,
@@ -101,8 +102,9 @@ impl<'a> Repo<'a> {
 
         for src_file in self.get_src_files() {
             let findings = src_file.get_findings();
+            let root = findings_to_json(findings);
 
-            src_file.save_findings(&res_path, findings);
+            src_file.save_findings(&res_path, root);
         }
     }
 

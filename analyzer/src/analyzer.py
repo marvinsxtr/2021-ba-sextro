@@ -28,13 +28,16 @@ def analyze(repo_count: int) -> Mappings:
             result_files: List[str] = [f for f in listdir(repo_path) if isfile(join(repo_path, f))]
 
             for result_file in result_files:
-                findings: List[Dict[str, Any]] = load_json_file(join(repo_path, result_file))
+                findings: List[Dict[str, Any]] = load_json_file(
+                    join(repo_path, result_file))["node"]
 
                 for finding in findings:
+                    feature = Features.get_feature_by_token(finding["name"])
 
-                    if finding["tool"] == "rca":
-                        feature = Features.get_feature_by_token(finding["identifier"])
-                        new: Halstead = Halstead.from_data(finding["data"]["halstead"])
+                    if feature is None:
+                        continue
 
-                        mappings.merge(feature, new)
+                    new: Halstead = Halstead.from_data(finding["data"]["halstead"])
+
+                    mappings.merge(feature, new)
     return mappings

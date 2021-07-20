@@ -1,9 +1,11 @@
 use std::path::{Path, PathBuf};
 
+use serde_json::Value;
+
 use crate::{
     finding::Finding,
     out::OutFile,
-    utils::{dump_findings, snip_path},
+    utils::{save_json, snip_path},
 };
 
 pub struct SrcFile {
@@ -28,8 +30,8 @@ impl<'a> SrcFile {
         findings
     }
 
-    pub fn save_findings(&self, res_path: &Path, findings: Vec<Finding>) {
+    pub fn save_findings(&self, res_path: &Path, findings: Value) {
         let res_file_path: PathBuf = snip_path(&self.path, 3);
-        dump_findings(&findings, &res_file_path, &res_path.to_path_buf()).unwrap_or_default();
+        save_json(&findings, &res_file_path, &res_path.to_path_buf()).unwrap_or_default();
     }
 }

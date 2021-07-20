@@ -6,7 +6,8 @@ use crate::tool::ToolName;
 #[derive(Debug)]
 pub struct Finding<'a> {
     pub tool_name: ToolName,
-    pub identifier: String,
+    pub kind: String,
+    pub name: String,
     pub start_line: u64,
     pub end_line: u64,
     pub data: Option<&'a Value>,
@@ -15,14 +16,16 @@ pub struct Finding<'a> {
 impl<'a> Finding<'a> {
     pub fn new(
         tool_name: ToolName,
-        identifier: String,
+        kind: String,
+        name: String,
         start_line: u64,
         end_line: u64,
         data: Option<&'a Value>,
     ) -> Self {
         Self {
             tool_name,
-            identifier,
+            name,
+            kind,
             start_line,
             end_line,
             data,
@@ -36,9 +39,10 @@ impl<'a> Serialize for Finding<'a> {
         S: Serializer,
     {
         let data = &self.data.unwrap_or(&Value::Null);
+
         let mut s = serializer.serialize_struct("Finding", 5)?;
-        s.serialize_field("tool", &self.tool_name.to_string())?;
-        s.serialize_field("identifier", &self.identifier)?;
+        s.serialize_field("kind", &self.kind)?;
+        s.serialize_field("name", &self.name)?;
         s.serialize_field("start_line", &self.start_line)?;
         s.serialize_field("end_line", &self.end_line)?;
         s.serialize_field("data", data)?;

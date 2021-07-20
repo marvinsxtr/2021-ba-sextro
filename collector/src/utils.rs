@@ -1,5 +1,5 @@
 use serde::Serialize;
-use serde_json::{Map, Value};
+use serde_json::{json, Map, Value};
 use std::{
     env,
     error::Error,
@@ -10,12 +10,50 @@ use std::{
 };
 use walkdir::WalkDir;
 
-pub fn read_json_from_file<P: AsRef<Path>>(path: P) -> Result<Value, Box<dyn Error>> {
+use crate::finding::Finding;
+
+pub fn read_json<P: AsRef<Path>>(path: P) -> Result<Value, Box<dyn Error>> {
     let file = File::open(path)?;
     let reader = BufReader::new(file);
     let v: Value = serde_json::from_reader(reader)?;
 
     Ok(v)
+}
+
+pub fn save_json<S: Serialize>(data: &S, path: &Path, output_path: &Path) -> std::io::Result<()> {
+    let format_ext = ".json";
+
+    let path = path.strip_prefix("/").unwrap_or(path);
+    let path = path.strip_prefix("./").unwrap_or(path);
+
+    let cleaned_path: Vec<&str> = path
+        .iter()
+        .map(|os_str| {
+            let s_str = os_str.to_str().unwrap();
+            if s_str == ".." {
+                "_"
+            } else {
+                s_str
+            }
+        })
+        .collect();
+
+    let filename = cleaned_path.join("_") + format_ext;
+
+    let format_path = output_path.join(filename);
+
+    fs::create_dir_all(output_path).unwrap_or_else(|err| {
+        eprintln!(
+            "Could not create output folders {}: {}",
+            output_path.to_str().unwrap(),
+            err
+        );
+    });
+
+    let format_file = File::create(format_path)?;
+
+    serde_json::to_writer_pretty(format_file, &data)
+        .map_err(|e| std::io::Error::new(ErrorKind::Other, e.to_string()))
 }
 
 pub fn get_rust_files(path: &Path) -> Vec<String> {
@@ -77,49 +115,26 @@ where
         .collect()
 }
 
-pub fn dump_findings<S: Serialize>(
-    data: &S,
-    path: &Path,
-    output_path: &Path,
-) -> std::io::Result<()> {
-    let format_ext = ".json";
-
-    let path = path.strip_prefix("/").unwrap_or(path);
-    let path = path.strip_prefix("./").unwrap_or(path);
-
-    let cleaned_path: Vec<&str> = path
-        .iter()
-        .map(|os_str| {
-            let s_str = os_str.to_str().unwrap();
-            if s_str == ".." {
-                "_"
-            } else {
-                s_str
-            }
-        })
-        .collect();
-
-    let filename = cleaned_path.join("_") + format_ext;
-
-    let format_path = output_path.join(filename);
-
-    fs::create_dir_all(output_path).unwrap_or_else(|err| {
-        eprintln!(
-            "Could not create output folders {}: {}",
-            output_path.to_str().unwrap(),
-            err
-        );
-    });
-
-    let format_file = File::create(format_path)?;
-
-    serde_json::to_writer_pretty(format_file, &data)
-        .map_err(|e| std::io::Error::new(ErrorKind::Other, e.to_string()))
-}
-
 pub fn get_data_path() -> PathBuf {
     match env::var("DATA_PATH") {
         Ok(val) => PathBuf::from(val),
         Err(_) => PathBuf::from("../data/"),
     }
+}
+
+pub fn findings_to_json(findings: Vec<Finding>) -> Value {
+    let mut root = json!({});
+
+    for tool in crate::tool::all_tools() {
+        root[tool.name.to_string()] = json!([]);
+    }
+
+    for finding in findings {
+        root.as_object_mut().unwrap()[&finding.tool_name.to_string()]
+            .as_array_mut()
+            .unwrap()
+            .push(json!(finding));
+    }
+
+    root
 }

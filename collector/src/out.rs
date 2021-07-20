@@ -15,7 +15,7 @@ pub struct OutFile {
 
 impl OutFile {
     pub fn new(path: PathBuf, tool_name: ToolName) -> Self {
-        let value = utils::read_json_from_file(&path).unwrap_or_default();
+        let value = utils::read_json(&path).unwrap_or_default();
 
         Self {
             path,
@@ -36,6 +36,7 @@ impl OutFile {
                 for space in spaces {
                     let finding = Finding::new(
                         self.tool_name,
+                        space["kind"].as_str().unwrap().to_string(),
                         space["name"].as_str().unwrap().to_string(),
                         space["start_line"].as_u64().unwrap(),
                         space["end_line"].as_u64().unwrap(),
@@ -47,16 +48,14 @@ impl OutFile {
             }
             ToolName::Finder => {
                 for entry in entries {
-                    let start_line = entry["start_position"].as_array().unwrap()[0]
-                        .as_u64()
-                        .unwrap();
-                    let end_line = entry["end_position"].as_array().unwrap()[0]
-                        .as_u64()
-                        .unwrap();
-
-                    let kind = entry["kind"].as_str().unwrap().to_string();
-
-                    let finding = Finding::new(self.tool_name, kind, start_line, end_line, None);
+                    let finding = Finding::new(
+                        self.tool_name,
+                        entry["kind"].as_u64().unwrap().to_string(),
+                        entry["name"].as_str().unwrap().to_string(),
+                        entry["start_line"].as_u64().unwrap(),
+                        entry["end_line"].as_u64().unwrap(),
+                        None,
+                    );
 
                     findings.push(finding);
                 }
@@ -67,9 +66,10 @@ impl OutFile {
                         continue;
                     }
 
-                    let identifier = entry["message"]["code"]["code"].as_str();
+                    let name = entry["message"]["code"]["code"].as_str();
+                    let kind = entry["message"]["level"].as_str().unwrap_or_default();
 
-                    if identifier.is_none() {
+                    if name.is_none() {
                         continue;
                     }
 
@@ -80,12 +80,11 @@ impl OutFile {
                         continue;
                     }
 
+                    let name = name.unwrap();
                     let prefix = format!("{}::", self.tool_name.to_string());
-
-                    let identifier = identifier.unwrap();
-                    let identifier = match identifier.starts_with(&prefix) {
+                    let name = match name.starts_with(&prefix) {
+                        true => name.strip_prefix(&prefix).unwrap(),
                         false => continue,
-                        true => identifier.strip_prefix(&prefix).unwrap(),
                     };
 
                     let start_line = entry["message"]["spans"][0]["line_start"].as_u64().unwrap();
@@ -97,7 +96,8 @@ impl OutFile {
 
                     let finding = Finding::new(
                         self.tool_name,
-                        identifier.to_string(),
+                        kind.to_string(),
+                        name.to_string(),
                         start_line,
                         end_line,
                         None,
