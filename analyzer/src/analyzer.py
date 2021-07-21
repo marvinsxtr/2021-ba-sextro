@@ -63,31 +63,34 @@ class Analyzer:
             new_node: Halstead = Halstead.from_data(node["data"]["halstead"])
             mappings["nodes"].merge(feature, new_node)
 
-        for space in result_file["rca"]:
+        for feature in Features.as_dict().keys():
+            for space in result_file["rca"]:
 
-            if space["kind"] == "unit":
-                continue
-
-            for finding in result_file["finder"]:
-
-                feature = Features.get_feature_by_token(finding["name"])
-                new_space: Halstead
-
-                if feature is None:
+                if space["kind"] == "unit":
                     continue
 
-                # size_ratio = (finding["end_line"] - finding["start_line"] + 1) \
-                #     / (space["end_line"] - space["start_line"] + 1)
-                # if size_ratio < 0.1:
-                #     continue
+                is_inside = Analyzer.feature_in_space(feature, result_file["finder"], space)
+                new_space = Halstead.from_data(space["data"]["halstead"])
 
-                if finding["start_line"] >= space["start_line"] and \
-                        finding["end_line"] <= space["end_line"]:
-
-                    new_space = Halstead.from_data(space["data"]["halstead"])
+                if is_inside:
                     mappings["spaces"].merge(feature, new_space)
-
-                if finding["end_line"] < space["start_line"] or \
-                        finding["start_line"] > space["end_line"]:
-                    new_space = Halstead.from_data(space["data"]["halstead"])
+                else:
                     mappings["spaces"].merge("no_" + feature, new_space)
+
+    @staticmethod
+    def feature_in_space(
+        feature: str,
+        findings: List[Dict[str, Any]],
+        space: Dict[str, Any]
+    ) -> bool:
+        for finding in findings:
+            # size_ratio = (finding["end_line"] - finding["start_line"] + 1) \
+            #     / (space["end_line"] - space["start_line"] + 1)
+            # if size_ratio < 0.1:
+            #     continue
+
+            if Features.get_feature_by_token(finding["name"]) == feature and \
+                    finding["start_line"] >= space["start_line"] and \
+                    finding["end_line"] <= space["end_line"]:
+                return True
+        return False
