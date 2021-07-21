@@ -12,7 +12,7 @@ class Features(Enum):
     UNSAFE = ("unsafe", "unsafe_block")
     TRAITS = ("trait", "trait_item")
     CLOSURES = ("closure_parameters_repeat1", "closure_expression", "closure_parameters",)
-    LINE_COMMENTS = ("line_comment")
+    # LINE_COMMENTS = ("line_comment")
 
     @staticmethod
     def as_dict() -> Dict[str, List[str]]:

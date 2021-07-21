@@ -12,7 +12,7 @@ class Halstead:
         u_operands: float = 0.,
         operands: float = 0.
     ):
-        self.n: int = int(u_operators or operators or u_operands or operands)
+        self.n: int = int(sum([u_operators, operators, u_operands, operands]) > 0.)
 
         self.u_operators = u_operators
         self.operators: float = operators
@@ -121,6 +121,7 @@ class Halstead:
 
     def as_dict(self) -> Dict[str, Optional[float]]:
         return {
+            "n": self.n,
             "n1": self.u_operators,
             "N1": self.operators,
             "n2": self.u_operands,
@@ -142,15 +143,18 @@ class Halstead:
         return value / self.n
 
     def avg(self) -> Dict[str, Optional[float]]:
-        return Halstead(
+        avg = Halstead(
             self.avg_value(self.u_operators) or 0.,
             self.avg_value(self.operators) or 0.,
             self.avg_value(self.u_operands) or 0.,
             self.avg_value(self.operands) or 0.
-        ).as_dict()
+        )
+        avg.n = self.n
+
+        return avg.as_dict()
 
     def merge(self, other: Halstead) -> None:
-        self.n += 1
+        self.n += other.n
 
         self.u_operators += other.u_operators
         self.operators += other.operators

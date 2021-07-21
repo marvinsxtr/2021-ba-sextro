@@ -4,7 +4,7 @@ use url::Url;
 
 use crate::{repo::Repo, Cli};
 
-#[tokio::main]
+#[tokio::main(flavor = "multi_thread", worker_threads = 4)]
 pub(crate) async fn collect(repos: Vec<&str>, args: &Cli) -> Result<(), Box<dyn Error>> {
     let repo_jobs = futures::stream::iter(repos.into_iter().map(|url_str| async move {
         let url = Url::parse(url_str);

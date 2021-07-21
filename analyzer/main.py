@@ -1,8 +1,9 @@
 import json
 from argparse import Namespace, ArgumentParser
+from typing import Dict
 
-from analyzer.src.mappings import Mappings
-from analyzer.src.analyzer import analyze
+from analyzer.src.mapping import Mapping
+from analyzer.src.analyzer import Analyzer
 
 
 def main() -> None:
@@ -11,9 +12,8 @@ def main() -> None:
                         help='Number of repos to analyze')
 
     args: Namespace = parser.parse_args()
-
     repo_count: int = args.repo_count
 
-    mappings: Mappings = analyze(repo_count)
+    mappings: Dict[str, Mapping] = Analyzer.analyze(repo_count)
 
-    print(json.dumps(mappings.avg(), indent=4))
+    print(json.dumps({k: v.avg() for k, v in mappings.items()}, indent=4))

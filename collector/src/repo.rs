@@ -1,17 +1,17 @@
 use crate::utils::findings_to_json;
-use async_gitlib::RepoClone;
-use std::{
-    fs,
-    path::{Path, PathBuf},
-};
-use url::Url;
-
 use crate::{
     out::OutFile,
     src::SrcFile,
     tool::ToolName,
     utils::{get_data_path, snip_path},
 };
+use async_gitlib::RepoClone;
+use futures::StreamExt;
+use std::{
+    fs,
+    path::{Path, PathBuf},
+};
+use url::Url;
 
 pub struct Repo<'a> {
     pub url: &'a Url,
@@ -90,11 +90,18 @@ impl<'a> Repo<'a> {
     }
 
     pub async fn metrics(&self) {
-        for mut tool in crate::tool::all_tools() {
+        let tools = crate::tool::all_tools();
+        let size = tools.len();
+
+        let tool_jobs = futures::stream::iter(tools.into_iter().map(|mut tool| async move {
             tool.run(self).await.unwrap_or_else(|err| {
                 eprintln!("Failed to run tool {} on {}: {}", tool.name, self.url, err);
             });
-        }
+        }))
+        .buffer_unordered(size)
+        .collect::<Vec<()>>();
+
+        tool_jobs.await;
     }
 
     pub async fn filter(&self) {
