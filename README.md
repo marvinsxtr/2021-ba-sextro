@@ -41,7 +41,6 @@ cd collector
 ```shell
 cargo build
 ./target/debug/collector
-cargo build --release
 ```
 
 #### Release

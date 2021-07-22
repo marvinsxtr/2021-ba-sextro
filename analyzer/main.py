@@ -7,6 +7,7 @@ from analyzer.src.analyzer import Analyzer
 
 
 def main() -> None:
+    """Runs the `analyzer` and prints the results."""
     parser = ArgumentParser(description='Analyzer')
     parser.add_argument('-n', '--repo_count', type=int, default=1,
                         help='Number of repos to analyze')

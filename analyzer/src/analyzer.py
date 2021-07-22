@@ -10,8 +10,18 @@ from analyzer.src.features import Features
 
 
 class Analyzer:
+    """
+    This class contains methods for analyzing the collected metrics on the repositories.
+    """
+
     @staticmethod
     def get_repos(repo_count: int) -> Dict[str, List[str]]:
+        """
+        Returns a dict mapping the repository paths to a list of result files.
+
+        :param repo_count: Number of repositories to get
+        :return: Dict mapping repository paths to result files
+        """
         owners: List[str] = listdir(get_res_path())
         repos: Dict[str, List[str]] = dict()
 
@@ -26,6 +36,11 @@ class Analyzer:
 
     @staticmethod
     def get_mappings() -> Dict[str, Mapping]:
+        """
+        Returns the initialized mappings for different experiments.
+
+        :return: The initialized mappings.
+        """
         node_mappings = Mapping({k: Halstead() for k in Features.as_dict().keys()})
 
         double_features = [val for val in Features.as_dict().keys() for _ in (0, 1)]
@@ -39,6 +54,12 @@ class Analyzer:
 
     @staticmethod
     def analyze(repo_count: int) -> Dict[str, Mapping]:
+        """
+        Analyzes a given number of repositories.
+
+        :param repo_count: Number of repositories to analyze
+        :returns: The mappings for each experiment with the final data
+        """
         mappings = Analyzer.get_mappings()
 
         repos: Dict[str, List[str]] = Analyzer.get_repos(repo_count)
@@ -52,6 +73,12 @@ class Analyzer:
 
     @staticmethod
     def analyze_file(mappings: Dict[str, Mapping], file_path: str) -> None:
+        """
+        Analyzes a single result file.
+
+        :param mappings: The mappings to apply the results to
+        :param file_path: Path to the result file
+        """
         result_file: Dict[str, Any] = load_json_file(file_path)
 
         for node in result_file["node"]:
@@ -83,6 +110,13 @@ class Analyzer:
         findings: List[Dict[str, Any]],
         space: Dict[str, Any]
     ) -> bool:
+        """
+        :param feature: Name of the feature to look for
+        :param findings: List of findings in the file
+        :param space: Dict of the space to be searched
+
+        :return: Whether or not the feature could be found in the given space
+        """
         for finding in findings:
             # size_ratio = (finding["end_line"] - finding["start_line"] + 1) \
             #     / (space["end_line"] - space["start_line"] + 1)

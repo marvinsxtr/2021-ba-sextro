@@ -3,6 +3,9 @@ from enum import Enum
 
 
 class Features(Enum):
+    """
+    This class contains a mapping of so called features to their respective AST node token names.
+    """
     LIFETIMES = ("lifetime", "for_lifetimes", "for_lifetimes_repeat1")
     MACROS = ("macro_definition", "macro_rule", "macro_rules!",
               "macro_definition_repeat1", "macro_invocation")
@@ -16,10 +19,21 @@ class Features(Enum):
 
     @staticmethod
     def as_dict() -> Dict[str, List[str]]:
+        """
+        Returns a dict representation of all features.
+
+        :return: Dict mapping the features to a list of tokens
+        """
         return dict(map(lambda x: (x.name.lower(), x.value), Features))
 
     @staticmethod
     def get_feature_by_token(token: str) -> Optional[str]:
+        """
+        Finds the feature for a given token.
+
+        :param token: Name of the token to search
+        :return: Name of the feature if the token is valid
+        """
         for feature, tokens in Features.as_dict().items():
             if token in tokens:
                 return feature.lower()
