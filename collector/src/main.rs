@@ -9,6 +9,7 @@ mod utils;
 use quicli::prelude::*;
 use structopt::StructOpt;
 
+/// Run the command line interface of the `collector`.
 fn main() -> CliResult {
     let args = Cli::from_args();
 
@@ -24,24 +25,51 @@ fn main() -> CliResult {
     Ok(())
 }
 
+/// This struct contains all arguments which can be passed to the `collector`
+/// CLI. They can be used to define a pipeline with each stage being one
+/// optional flag. The base path of the mentioned output folders can be
+/// specified using the `DATA_PATH` environment variable.
+///
+/// # Examples
+///
+/// ```sh
+/// ./collector -n 3 -s 3 -c -m -f -d
+/// ```
+///
+/// This command runs on the 4th to 6th repository on the `awesome-rust` list
+/// and **c**lones them, collects the **m**etrics, **f**ilters them and
+/// **d**eletes the temporary files afterwards.
 #[derive(Debug, StructOpt)]
 struct Cli {
+    /// Path to use for the links to the GitHub repositories. By default, the
+    /// file contains links from the `awesome-rust` list.
     #[structopt(
         long = "input_path",
         short = "p",
         default_value = "../data/in/awesome-rust.txt"
     )]
     input_path: String,
+    /// Number of repositories to be cloned from the list.
     #[structopt(long = "repo_count", short = "n", default_value = "1")]
     repo_count: usize,
+    /// Number of repositories to be skipped on the list.
     #[structopt(long = "repo_skips", short = "s", default_value = "0")]
     repo_skips: usize,
+    /// Option for cloning the repositories into the `tmp` folder. If `-d`
+    /// is omitted, this flag only needs to be set once.
     #[structopt(long = "clone_repos", short = "c")]
     clone: bool,
+    /// Option to collect metrics. The output of this step can be found in the
+    /// `out` directory.
     #[structopt(long = "collect_metrics", short = "m")]
     metrics: bool,
+    /// Option to filter the metrics. This reorganizes and filters the raw
+    /// outputs from the `out` directory and saves the results in `res`.
     #[structopt(long = "filter_metrics", short = "f")]
     filter: bool,
+    /// Option to delete the temporary files immediately after the metrics are
+    /// collected and filtered. This can be useful in order to save disk space
+    /// when `-n` is large.
     #[structopt(long = "delete_tmp", short = "d")]
     delete: bool,
 }

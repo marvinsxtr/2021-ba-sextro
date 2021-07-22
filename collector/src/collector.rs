@@ -4,6 +4,8 @@ use url::Url;
 
 use crate::{repo::Repo, Cli};
 
+/// Runs the pipeline steps on a list of urls with respect to the given command
+/// line arguments.
 #[tokio::main(flavor = "multi_thread", worker_threads = 4)]
 pub(crate) async fn collect(repos: Vec<&str>, args: &Cli) -> Result<(), Box<dyn Error>> {
     let repo_jobs = futures::stream::iter(repos.into_iter().map(|url_str| async move {

@@ -7,6 +7,7 @@ use tokio::process::Command;
 
 use crate::repo::Repo;
 
+/// Enum containing all names of the used tools.
 #[derive(PartialEq, Clone, Copy, Debug)]
 pub enum ToolName {
     Rca,
@@ -16,6 +17,7 @@ pub enum ToolName {
 }
 
 impl fmt::Display for ToolName {
+    /// Prints the `ToolName`.
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
             ToolName::Rca => write!(f, "rca"),
@@ -26,11 +28,13 @@ impl fmt::Display for ToolName {
     }
 }
 
+/// This struct represents a single tool with a name and a command.
 pub struct Tool {
     pub name: ToolName,
     command: String,
 }
 
+/// Returns all tools used to collect metrics.
 pub fn all_tools() -> Vec<Tool> {
     vec![
         Tool {
@@ -40,7 +44,8 @@ pub fn all_tools() -> Vec<Tool> {
         },
         Tool {
             name: ToolName::Node,
-            command: "NODE_MODE=true rust-code-analysis-cli -m -p ./* -I '*.rs' -X '/target' --pr -O json -o "
+            command: "NODE_MODE=true rust-code-analysis-cli -m -p ./* -I '*.rs' -X '/target' --pr \
+                      -O json -o "
                 .to_string(),
         },
         Tool {
@@ -52,13 +57,14 @@ pub fn all_tools() -> Vec<Tool> {
         },
         Tool {
             name: ToolName::Clippy,
-            command:
-                "cargo clippy --workspace --message-format=json | sed '1s/^/[/;$!s/$/,/;$s/$/]/' > "
-                    .to_string(),
+            command: "cargo clippy --workspace --message-format=json | sed \
+                      '1s/^/[/;$!s/$/,/;$s/$/]/' > "
+                .to_string(),
         },
     ]
 }
 
+/// Returns all features of interest for the `Finder` tool.
 pub fn all_features() -> Vec<&'static str> {
     vec![
         "lifetime",
@@ -93,6 +99,7 @@ pub fn all_features() -> Vec<&'static str> {
 }
 
 impl Tool {
+    /// Returns the output path of the tool in the `out` directory.
     pub fn get_cmd_out_path(&self, repo_out_path: &Path) -> PathBuf {
         let mut cmd_out_path = PathBuf::from("../../..");
         cmd_out_path.push(repo_out_path);
@@ -105,6 +112,7 @@ impl Tool {
         cmd_out_path
     }
 
+    /// Runs this tool on the given repository and saves the outputs.
     pub async fn run<'a>(&mut self, repo: &Repo<'a>) -> Result<(), Box<dyn Error>> {
         let repo_out_path: PathBuf = Repo::get_path(repo.url, Some(&self.name), "out");
         let cmd_out_path = self.get_cmd_out_path(&repo_out_path);

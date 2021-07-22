@@ -13,17 +13,21 @@ use std::{
 };
 use url::Url;
 
+/// This struct represents a repository. It contains a url and a temporary path.
 pub struct Repo<'a> {
     pub url: &'a Url,
     pub tmp_path: PathBuf,
 }
 
 impl<'a> Repo<'a> {
+    /// Creates a new `Repo`.
     pub fn new(url: &'a Url) -> Self {
         let tmp_path = Self::get_path(url, None, "tmp");
         Self { url, tmp_path }
     }
 
+    /// Utility function for getting the tool- or repository-specific paths
+    /// inside the directory specified by the `DATA_PATH` environment variable.
     pub fn get_path(url: &Url, tool_name: Option<&ToolName>, folder: &str) -> PathBuf {
         let repo_name = url.path().strip_prefix("/").unwrap();
         let mut out_path = get_data_path();
@@ -38,6 +42,7 @@ impl<'a> Repo<'a> {
         out_path
     }
 
+    /// Returns a list of `SrcFile`s which are associated to this repository.
     pub fn get_src_files(&self) -> Vec<SrcFile> {
         let mut src_files = Vec::new();
 
@@ -72,6 +77,7 @@ impl<'a> Repo<'a> {
         src_files
     }
 
+    /// Clones the repository into the `tmp` folder via https.
     pub async fn clone(&self) {
         let mut task = RepoClone::default();
 
@@ -89,6 +95,8 @@ impl<'a> Repo<'a> {
         }
     }
 
+    /// Collects metrics on the repository by running all tools on it. The
+    /// output is saved in the `out` directory.
     pub async fn metrics(&self) {
         let tools = crate::tool::all_tools();
         let size = tools.len();
@@ -104,6 +112,8 @@ impl<'a> Repo<'a> {
         tool_jobs.await;
     }
 
+    /// Filters and reorganizes the raw output files by collecting and saving a
+    /// uniform list of `Finding`s.
     pub async fn filter(&self) {
         let res_path = Self::get_path(&self.url, None, "res");
 
@@ -115,6 +125,7 @@ impl<'a> Repo<'a> {
         }
     }
 
+    /// Deletes the cloned repository from the `tmp` directory.
     pub fn delete(&self) {
         let mut tmp_path = PathBuf::from(&self.tmp_path);
         tmp_path.pop();

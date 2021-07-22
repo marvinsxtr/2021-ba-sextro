@@ -70,6 +70,14 @@ cargo build --release
 -s, --repo_skips <repo-skips>     [default: 0]
 ```
 
+## Documentation
+
+```
+cargo doc
+```
+
+Open `target/doc/collector/index.html` in a browser.
+
 # Analyzer
 
 ## Run

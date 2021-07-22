@@ -1,6 +1,8 @@
 [package]
 authors = ["Marvin Sextro <marvin.sextro@gmail.com>"]
+description = "A tool for collecting metrics on Rust code."
 edition = "2018"
+license = "MIT"
 name = "collector"
 version = "0.0.1"
 
