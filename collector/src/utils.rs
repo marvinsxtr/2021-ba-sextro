@@ -124,9 +124,17 @@ where
 /// Returns the `DATA_PATH` environment variable. This is used as the base path
 /// for the output files.
 pub fn get_data_path() -> PathBuf {
+    let default_path = PathBuf::from("../data/collector/");
+
     match env::var("DATA_PATH") {
-        Ok(val) => PathBuf::from(val),
-        Err(_) => PathBuf::from("../data/"),
+        Ok(val) => {
+            if val.is_empty() {
+                default_path
+            } else {
+                PathBuf::from(val)
+            }
+        }
+        Err(_) => default_path,
     }
 }
 

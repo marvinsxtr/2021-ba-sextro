@@ -14,7 +14,7 @@ class Features(Enum):
     ASYNC = ("async", "async_block", "await", "await_expression")
     UNSAFE = ("unsafe", "unsafe_block")
     TRAITS = ("trait", "trait_item")
-    CLOSURES = ("closure_parameters_repeat1", "closure_expression", "closure_parameters",)
+    CLOSURES = ("closure_parameters_repeat1", "closure_expression", "closure_parameters")
     # LINE_COMMENTS = ("line_comment")
 
     @staticmethod

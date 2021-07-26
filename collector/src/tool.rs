@@ -101,7 +101,7 @@ pub fn all_features() -> Vec<&'static str> {
 impl Tool {
     /// Returns the output path of the tool in the `out` directory.
     pub fn get_cmd_out_path(&self, repo_out_path: &Path) -> PathBuf {
-        let mut cmd_out_path = PathBuf::from("../../..");
+        let mut cmd_out_path = PathBuf::from("../../../..");
         cmd_out_path.push(repo_out_path);
 
         if self.name == ToolName::Clippy {

@@ -1,5 +1,2 @@
-data/
-!data/in
-
 .vscode/*
 !.vscode/settings.json

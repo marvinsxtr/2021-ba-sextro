@@ -9,6 +9,14 @@ mod utils;
 use quicli::prelude::*;
 use structopt::StructOpt;
 
+/// Enum containing all pipeline tasks
+enum CollectorTask {
+    CloneRepos,
+    CollectMetrics,
+    FilterMetrics,
+    DeleteTmp,
+}
+
 /// Run the command line interface of the `collector`.
 fn main() -> CliResult {
     let args = Cli::from_args();
@@ -20,7 +28,27 @@ fn main() -> CliResult {
         .take(args.repo_count)
         .collect();
 
-    collector::collect(repos, &args).unwrap_or_else(|err| eprintln!("{}", err));
+    let mut tasks: Vec<CollectorTask> = Vec::new();
+
+    if args.clone {
+        tasks.push(CollectorTask::CloneRepos);
+    }
+    if args.metrics {
+        tasks.push(CollectorTask::CollectMetrics);
+    }
+    if args.filter {
+        tasks.push(CollectorTask::FilterMetrics);
+    }
+    if args.delete {
+        tasks.push(CollectorTask::DeleteTmp);
+    }
+
+    for batch in repos.chunks(args.batch_size) {
+        for task in &tasks {
+            collector::run_on_batch(batch.to_vec(), task)
+                .unwrap_or_else(|err| eprintln!("{}", err));
+        }
+    }
 
     Ok(())
 }
@@ -46,7 +74,7 @@ struct Cli {
     #[structopt(
         long = "input_path",
         short = "p",
-        default_value = "../data/in/awesome-rust.txt"
+        default_value = "../data/collector/in/awesome-rust.txt"
     )]
     input_path: String,
     /// Number of repositories to be cloned from the list.
@@ -55,6 +83,9 @@ struct Cli {
     /// Number of repositories to be skipped on the list.
     #[structopt(long = "repo_skips", short = "s", default_value = "0")]
     repo_skips: usize,
+    /// Number of repositories per batch
+    #[structopt(long = "batch_size", short = "b", default_value = "16")]
+    batch_size: usize,
     /// Option for cloning the repositories into the `tmp` folder. If `-d`
     /// is omitted, this flag only needs to be set once.
     #[structopt(long = "clone_repos", short = "c")]

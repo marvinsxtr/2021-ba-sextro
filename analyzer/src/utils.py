@@ -25,7 +25,11 @@ def get_data_path() -> str:
 
     :return: The data base path
     """
-    return os.environ.get("DATA_PATH", "./data/")
+
+    default_path = "./data/collector/"
+    data_path = os.environ.get("DATA_PATH", default_path)
+
+    return data_path if data_path else default_path
 
 
 def get_res_path(owner: str = "", repo: str = "") -> str:
