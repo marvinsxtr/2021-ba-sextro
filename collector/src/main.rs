@@ -6,6 +6,7 @@ mod src;
 mod tool;
 mod utils;
 
+use indicatif::ProgressBar;
 use quicli::prelude::*;
 use structopt::StructOpt;
 
@@ -43,12 +44,17 @@ fn main() -> CliResult {
         tasks.push(CollectorTask::DeleteTmp);
     }
 
-    for batch in repos.chunks(args.batch_size) {
+    let batches = repos.chunks(args.batch_size);
+    let progress_bar = ProgressBar::new(repos.len() as u64 * tasks.len() as u64);
+
+    for batch in batches {
         for task in &tasks {
-            collector::run_on_batch(batch.to_vec(), task)
+            collector::collect(batch.to_vec(), task, &progress_bar)
                 .unwrap_or_else(|err| eprintln!("{}", err));
         }
     }
+
+    progress_bar.finish_with_message("done");
 
     Ok(())
 }

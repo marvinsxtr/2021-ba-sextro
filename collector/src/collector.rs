@@ -1,14 +1,19 @@
 use futures::StreamExt;
-use std::error::Error;
+use indicatif::ProgressBar;
+use std::{
+    error::Error,
+    io::{stdout, Write},
+};
 use url::Url;
 
 use crate::{repo::Repo, CollectorTask};
 
 /// Runs a pipeline task on a batch of repositories
 #[tokio::main(flavor = "multi_thread", worker_threads = 4)]
-pub(crate) async fn run_on_batch(
+pub(crate) async fn collect(
     repos: Vec<&str>,
     task: &CollectorTask,
+    progress_bar: &ProgressBar,
 ) -> Result<(), Box<dyn Error>> {
     let repo_jobs = futures::stream::iter(repos.into_iter().map(|url_str| async move {
         let url = Url::parse(url_str);
@@ -22,24 +27,30 @@ pub(crate) async fn run_on_batch(
         let repo = Repo::new(&url);
         let path = url.path();
 
+        let mut stdout = stdout();
+
         match task {
             CollectorTask::CloneRepos => {
-                println!("Cloning {}", path);
+                print!("Cloning {}\r", path);
                 repo.clone().await;
             }
             CollectorTask::CollectMetrics => {
-                println!("Collecting metrics on {}", path);
+                print!("Collecting metrics on {}\r", path);
                 repo.metrics().await;
             }
             CollectorTask::FilterMetrics => {
-                println!("Filtering metrics on {}", path);
+                print!("Filtering metrics on {}\r", path);
                 repo.filter().await;
             }
             CollectorTask::DeleteTmp => {
-                println!("Deleting tmp of {}", path);
+                print!("Deleting tmp of {}\r", path);
                 repo.delete();
             }
         }
+
+        progress_bar.inc(1);
+
+        stdout.flush().unwrap();
     }))
     .buffer_unordered(8)
     .collect::<Vec<()>>();
