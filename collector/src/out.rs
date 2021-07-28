@@ -1,3 +1,4 @@
+use log::error;
 use serde_json::Value;
 use std::path::PathBuf;
 
@@ -96,7 +97,7 @@ impl OutFile {
                     let end_line = entry["message"]["spans"][0]["line_end"].as_u64().unwrap();
 
                     if entry["message"]["spans"].as_array().into_iter().len() > 1 {
-                        eprintln!("More than one span for a clippy message");
+                        error!("More than one span for a clippy message");
                     }
 
                     let finding = Finding::new(

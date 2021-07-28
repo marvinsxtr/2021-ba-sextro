@@ -6,20 +6,18 @@ mod src;
 mod tool;
 mod utils;
 
-use indicatif::ProgressBar;
+use collector::CollectorTask;
+use indicatif::{ProgressBar, ProgressStyle};
+use log::info;
 use quicli::prelude::*;
 use structopt::StructOpt;
-
-/// Enum containing all pipeline tasks
-enum CollectorTask {
-    CloneRepos,
-    CollectMetrics,
-    FilterMetrics,
-    DeleteTmp,
-}
+use utils::setup_logger;
 
 /// Run the command line interface of the `collector`.
 fn main() -> CliResult {
+    setup_logger().unwrap_or_else(|err| eprintln!("Failed to initialize logger: {}", err));
+    info!("Starting the collector");
+
     let args = Cli::from_args();
 
     let repo_file = read_file(&args.input_path)?;
@@ -44,17 +42,31 @@ fn main() -> CliResult {
         tasks.push(CollectorTask::DeleteTmp);
     }
 
-    let batches = repos.chunks(args.batch_size);
-    let progress_bar = ProgressBar::new(repos.len() as u64 * tasks.len() as u64);
+    let sty = ProgressStyle::default_bar()
+        .template(
+            "[{elapsed_precise}]  [{wide_bar:.cyan/blue}]  Task {pos:>2}/{len:2}    Batch \
+             {msg:>2}    ETA {eta:>1}",
+        )
+        .progress_chars("#>-");
+    let progress_bar = ProgressBar::new(repos.len() as u64 * tasks.len() as u64)
+        .with_style(sty)
+        .with_message("0/?");
+    progress_bar.enable_steady_tick(1000);
 
-    for batch in batches {
+    //
+    let batches = repos.chunks(args.batch_size);
+    let num_batches = batches.len();
+
+    for (i, batch) in batches.into_iter().enumerate() {
+        progress_bar.set_message(format!("{}/{}", i + 1, num_batches));
         for task in &tasks {
             collector::collect(batch.to_vec(), task, &progress_bar)
-                .unwrap_or_else(|err| eprintln!("{}", err));
+                .unwrap_or_else(|err| error!("Failed to run task on batch: {}", err));
         }
     }
 
-    progress_bar.finish_with_message("done");
+    progress_bar.finish();
+    info!("Done with {} repositories", repos.len());
 
     Ok(())
 }

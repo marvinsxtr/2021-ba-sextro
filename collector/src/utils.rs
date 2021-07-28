@@ -1,3 +1,4 @@
+use log::error;
 use serde::Serialize;
 use serde_json::{json, Map, Value};
 use std::{
@@ -45,7 +46,7 @@ pub fn save_json<S: Serialize>(data: &S, path: &Path, output_path: &Path) -> std
     let format_path = output_path.join(filename);
 
     fs::create_dir_all(output_path).unwrap_or_else(|err| {
-        eprintln!(
+        error!(
             "Could not create output folders {}: {}",
             output_path.to_str().unwrap(),
             err
@@ -154,4 +155,31 @@ pub fn findings_to_json(findings: Vec<Finding>) -> Value {
     }
 
     root
+}
+
+/// Initializes the logger to save logs in the `log` folder
+pub fn setup_logger() -> Result<(), fern::InitError> {
+    let path = get_data_path().join("log");
+
+    fs::create_dir_all(&path).unwrap_or_else(|err| {
+        eprintln!("Failed to create logging folder: {}", err);
+    });
+
+    fern::Dispatch::new()
+        .format(|out, message, record| {
+            out.finish(format_args!(
+                "{}[{}][{}] {}",
+                chrono::Local::now().format("[%Y-%m-%d][%H:%M:%S]"),
+                record.target(),
+                record.level(),
+                message
+            ))
+        })
+        .level(log::LevelFilter::Debug)
+        .chain(fern::log_file(path.join(format!(
+            "{}.log",
+            chrono::Local::now().format("%Y-%m-%d@%H:%M:%S")
+        )))?)
+        .apply()?;
+    Ok(())
 }

@@ -1,3 +1,4 @@
+use log::error;
 use std::{
     error::Error,
     fmt, fs,
@@ -119,7 +120,7 @@ impl Tool {
         let cmd_out_path = cmd_out_path.to_str().unwrap();
 
         fs::create_dir_all(&repo_out_path).unwrap_or_else(|err| {
-            eprintln!(
+            error!(
                 "Could not create output folders {}: {}",
                 repo_out_path.to_str().unwrap(),
                 err
