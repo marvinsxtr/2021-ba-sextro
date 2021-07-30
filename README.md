@@ -77,6 +77,10 @@ cargo doc
 
 Open `target/doc/collector/index.html` in a browser.
 
+## Logs
+
+The logs can be found in the `log` directory under the `DATA_PATH`.
+
 # Analyzer
 
 ## Run

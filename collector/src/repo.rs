@@ -74,6 +74,8 @@ impl<'a> Repo<'a> {
                 out_file_name.push_str(".json");
 
                 let mut out_path = self.out_path.clone();
+
+                out_path.push(tool.name.to_string());
                 out_path.push(out_file_name);
 
                 let out_file = OutFile::new(out_path.to_path_buf(), tool.name);

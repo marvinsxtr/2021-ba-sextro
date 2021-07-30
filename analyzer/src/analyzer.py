@@ -35,21 +35,21 @@ class Analyzer:
         return {k: repos[k] for k in list(repos)[:repo_count]}
 
     @staticmethod
-    def get_mappings() -> Dict[str, Mapping]:
+    def get_experiments() -> Dict[str, Mapping]:
         """
-        Returns the initialized mappings for different experiments.
+        Returns the initialized values for different experiments.
 
-        :return: The initialized mappings.
+        :return: The initialized experiment values.
         """
-        node_mappings = Mapping({k: Halstead() for k in Features.as_dict().keys()})
+        node_experiment = Mapping({k: Halstead() for k in Features.as_dict().keys()})
 
         double_features = [val for val in Features.as_dict().keys() for _ in (0, 1)]
-        space_mappings = Mapping({k if i % 2 else "no_" + k: Halstead()
-                                  for i, k in enumerate(double_features)})
+        space_experiment = Mapping({k if i % 2 else "no_" + k: Halstead()
+                                    for i, k in enumerate(double_features)})
 
         return {
-            "nodes": node_mappings,
-            "spaces": space_mappings
+            "nodes": node_experiment,
+            "spaces": space_experiment
         }
 
     @staticmethod
@@ -58,18 +58,18 @@ class Analyzer:
         Analyzes a given number of repositories.
 
         :param repo_count: Number of repositories to analyze
-        :returns: The mappings for each experiment with the final data
+        :returns: The experiments with the final data
         """
-        mappings = Analyzer.get_mappings()
+        experiments = Analyzer.get_experiments()
 
         repos: Dict[str, List[str]] = Analyzer.get_repos(repo_count)
 
         for repo_path, result_files in repos.items():
             for result_file in result_files:
                 file_path = join(repo_path, result_file)
-                Analyzer.analyze_file(mappings, file_path)
+                Analyzer.analyze_file(experiments, file_path)
 
-        return mappings
+        return experiments
 
     @staticmethod
     def analyze_file(mappings: Dict[str, Mapping], file_path: str) -> None:
@@ -118,11 +118,6 @@ class Analyzer:
         :return: Whether or not the feature could be found in the given space
         """
         for finding in findings:
-            # size_ratio = (finding["end_line"] - finding["start_line"] + 1) \
-            #     / (space["end_line"] - space["start_line"] + 1)
-            # if size_ratio < 0.1:
-            #     continue
-
             if Features.get_feature_by_token(finding["name"]) == feature and \
                     finding["start_line"] >= space["start_line"] and \
                     finding["end_line"] <= space["end_line"]:

@@ -1,7 +1,8 @@
-import json
 from argparse import Namespace, ArgumentParser
 from typing import Dict
+from os.path import join
 
+from analyzer.src.utils import get_res_path, save_json_file
 from analyzer.src.mapping import Mapping
 from analyzer.src.analyzer import Analyzer
 
@@ -16,5 +17,6 @@ def main() -> None:
     repo_count: int = args.repo_count
 
     mappings: Dict[str, Mapping] = Analyzer.analyze(repo_count)
+    result = {k: v.avg() for k, v in mappings.items()}
 
-    print(json.dumps({k: v.avg() for k, v in mappings.items()}, indent=4))
+    save_json_file(result, get_res_path(tool="analyzer"), name="res.json")
