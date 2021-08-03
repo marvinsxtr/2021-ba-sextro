@@ -426,7 +426,6 @@ https://github.com/gchp/rustbox
 https://github.com/nsf/termbox
 https://github.com/ivanceras/titik
 https://github.com/ende76/brotli-rs
-https://github.com/dropbox/rust-brotli
 https://github.com/alexcrichton/bzip2-rs
 https://github.com/velvia/compressed-vec
 https://github.com/carols10cents/zopfli
