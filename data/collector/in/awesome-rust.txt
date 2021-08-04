@@ -660,7 +660,6 @@ https://github.com/Immediate-Mode-UI/Nuklear
 https://github.com/snuk182/nuklear-rust
 https://github.com/woboq/qmetaobject-rs
 https://github.com/cyndis/qmlrs
-https://github.com/kitech/qt.rs
 https://github.com/White-Oak/qml-rust
 https://github.com/saurvs/nfd-rs
 https://github.com/mlabbe/nativefiledialog
