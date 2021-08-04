@@ -724,7 +724,6 @@ https://github.com/ivanceras/inquerest
 https://github.com/kevinmehall/rust-peg
 https://github.com/m4rw3r/chomp
 https://github.com/Marwes/combine
-https://github.com/lalrpop/lalrpop
 https://github.com/nrc/zero
 https://github.com/pest-parser/pest
 https://github.com/ptal/oak
