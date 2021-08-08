@@ -6,6 +6,7 @@ from enum import Enum
 
 
 class Metric(Enum):
+    """Enum containing the path to each value in the data dictionary."""
     NARGS = ("nargs", "sum")
     NEXITS = ("nexits", "sum")
     COGNITIVE = ("cognitive", "sum")

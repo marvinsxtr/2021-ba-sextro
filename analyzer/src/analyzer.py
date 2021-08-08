@@ -1,9 +1,10 @@
+from analyzer.src.statistics import Statistics
 from os import listdir
 from os.path import isfile, join
 from typing import Any, Dict, List
 
 from analyzer.src.mapping import Mapping
-from analyzer.src.utils import get_res_path, load_json_file
+from analyzer.src.utils import get_res_path, load_json_file, save_json_file
 from analyzer.src.metrics import Metrics
 from analyzer.src.features import Features
 
@@ -52,15 +53,13 @@ class Analyzer:
         }
 
     @staticmethod
-    def analyze(repo_count: int) -> Dict[str, Mapping]:
+    def analyze(repo_count: int) -> None:
         """
         Analyzes a given number of repositories.
 
         :param repo_count: Number of repositories to analyze
-        :returns: The experiments with the final data
         """
         experiments = Analyzer.get_experiments()
-
         repos: Dict[str, List[str]] = Analyzer.get_repos(repo_count)
 
         for repo_path, result_files in repos.items():
@@ -68,7 +67,10 @@ class Analyzer:
                 file_path = join(repo_path, result_file)
                 Analyzer.analyze_file(experiments, file_path)
 
-        return experiments
+        result = {k: v.as_dict() for k, v in experiments.items()}
+        save_json_file(result, get_res_path(tool="analyzer"), name="res.json")
+
+        Statistics.analyze(result)
 
     @staticmethod
     def analyze_file(mappings: Dict[str, Mapping], file_path: str) -> None:

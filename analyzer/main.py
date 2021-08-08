@@ -1,3 +1,4 @@
+from analyzer.src.statistics import Statistics
 from argparse import Namespace, ArgumentParser
 from typing import Dict
 from os.path import join
@@ -16,7 +17,4 @@ def main() -> None:
     args: Namespace = parser.parse_args()
     repo_count: int = args.repo_count
 
-    mappings: Dict[str, Mapping] = Analyzer.analyze(repo_count)
-    result = {k: v.as_dict() for k, v in mappings.items()}
-
-    save_json_file(result, get_res_path(tool="analyzer"), name="res.json")
+    Analyzer.analyze(repo_count)
