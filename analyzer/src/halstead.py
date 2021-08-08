@@ -21,7 +21,7 @@ class Halstead:
         self.n: int = int(sum([u_operators, operators, u_operands, operands]) > 0.)
 
         # `η1`, the number of distinct operators
-        self.u_operators = u_operators
+        self.u_operators: float = u_operators
         # `N1`, the number of total operators
         self.operators: float = operators
 
@@ -161,21 +161,6 @@ class Halstead:
 
         return pow(effort, 2. / 3.) / 3000.
 
-    @classmethod
-    def from_data(cls, data: Dict[str, float]) -> Halstead:
-        """
-        Reads the basic Halstead metrics from a dict.
-
-        :param data: Dict to read the metrics from
-        :return: The resulting Halstead suite
-        """
-        return cls(
-            u_operators=data["n1"],
-            operators=data["N1"],
-            u_operands=data["n2"],
-            operands=data["N2"]
-        )
-
     def __str__(self) -> str:
         """
         Prints the Halstead metrics.
@@ -214,38 +199,3 @@ class Halstead:
             "time": self.time(),
             "bugs": self.bugs()
         }
-
-    @try_calc
-    def avg_value(self, value: float) -> Optional[float]:
-        """
-        Calculates an average value.
-
-        :param value: Value to calculate the average of
-        """
-        return value / self.n
-
-    def avg(self) -> Dict[str, Optional[float]]:
-        """Returns the average of this Halstead suite."""
-        avg = Halstead(
-            self.avg_value(self.u_operators) or 0.,
-            self.avg_value(self.operators) or 0.,
-            self.avg_value(self.u_operands) or 0.,
-            self.avg_value(self.operands) or 0.
-        )
-        avg.n = self.n
-
-        return avg.as_dict()
-
-    def merge(self, other: Halstead) -> None:
-        """
-        Merges two Halstead suites.
-
-        :param other: The other Halstead suite
-        """
-        self.n += other.n
-
-        self.u_operators += other.u_operators
-        self.operators += other.operators
-
-        self.u_operands += other.u_operands
-        self.operands += other.operands

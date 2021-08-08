@@ -1,40 +1,31 @@
-from typing import Any, Dict, Optional
+from analyzer.src.metrics import Metrics
+from typing import Any, Dict
 import json
-
-from analyzer.src.halstead import Halstead
 
 
 class Mapping:
-    """This class maps features to Halstead suites."""
+    """This class maps features to metric suites."""
 
-    def __init__(self, mapping: Dict[str, Halstead]) -> None:
+    def __init__(self, mapping: Dict[str, Metrics]) -> None:
         self.mapping = mapping
 
-    def avg(self) -> Dict[str, Dict[str, Optional[float]]]:
+    def get(self, feature: str) -> Metrics:
         """
-        Calculate the averages of all mapped Halstead suites.
-
-        :return: The mapping containing the average Halstead suites
-        """
-        return {k: v.avg() for k, v in self.mapping.items()}
-
-    def get(self, feature: str) -> Halstead:
-        """
-        Returns the Halstead value for a feature key.
+        Returns the metrics for a feature key.
 
         :param feature: Feature key
-        :return: The Halstead suite identified by the feature key
+        :return: The metric suite identified by the feature key
         """
         return self.mapping[feature]
 
-    def merge(self, feature: str, new: Halstead) -> None:
+    def merge(self, feature: str, new: Metrics) -> None:
         """
-        Merges two Halstead suites for a given feature.
+        Merges two metric suites for a given feature.
 
         :param feature: Feature key
-        :param new: Halstead suite to merge
+        :param new: Metric suite to merge
         """
-        current: Halstead = self.get(feature)
+        current: Metrics = self.get(feature)
         current.merge(new)
 
         self.mapping[feature] = current

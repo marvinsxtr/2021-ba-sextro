@@ -4,7 +4,7 @@ from typing import Any, Dict, List
 
 from analyzer.src.mapping import Mapping
 from analyzer.src.utils import get_res_path, load_json_file
-from analyzer.src.halstead import Halstead
+from analyzer.src.metrics import Metrics
 from analyzer.src.features import Features
 
 
@@ -40,10 +40,10 @@ class Analyzer:
 
         :return: The initialized experiment values.
         """
-        node_experiment = Mapping({k: Halstead() for k in Features.as_dict().keys()})
+        node_experiment = Mapping({k: Metrics(None) for k in Features.as_dict().keys()})
 
         double_features = [val for val in Features.as_dict().keys() for _ in (0, 1)]
-        space_experiment = Mapping({k if i % 2 else "no_" + k: Halstead()
+        space_experiment = Mapping({k if i % 2 else "no_" + k: Metrics(None)
                                     for i, k in enumerate(double_features)})
 
         return {
@@ -86,7 +86,7 @@ class Analyzer:
             if feature is None:
                 continue
 
-            new_node: Halstead = Halstead.from_data(node["data"]["halstead"])
+            new_node = Metrics(node["data"])
             mappings["nodes"].merge(feature, new_node)
 
         for feature in Features.as_dict().keys():
@@ -96,7 +96,7 @@ class Analyzer:
                     continue
 
                 is_inside = Analyzer.feature_in_space(feature, result_file["finder"], space)
-                new_space = Halstead.from_data(space["data"]["halstead"])
+                new_space = Metrics(space["data"])
 
                 if is_inside:
                     mappings["spaces"].merge(feature, new_space)

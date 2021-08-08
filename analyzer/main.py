@@ -17,6 +17,6 @@ def main() -> None:
     repo_count: int = args.repo_count
 
     mappings: Dict[str, Mapping] = Analyzer.analyze(repo_count)
-    result = {k: v.avg() for k, v in mappings.items()}
+    result = {k: v.as_dict() for k, v in mappings.items()}
 
     save_json_file(result, get_res_path(tool="analyzer"), name="res.json")
