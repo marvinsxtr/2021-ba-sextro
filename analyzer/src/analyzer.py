@@ -1,3 +1,4 @@
+from genericpath import isdir
 from analyzer.src.statistics import Statistics
 from os import listdir
 from os.path import isfile, join
@@ -7,6 +8,7 @@ from analyzer.src.mapping import Mapping
 from analyzer.src.utils import get_res_path, load_json_file, save_json_file
 from analyzer.src.metrics import Metrics
 from analyzer.src.features import Features
+from analyzer.src.tables import generate_latex_tables
 
 
 class Analyzer:
@@ -26,11 +28,15 @@ class Analyzer:
         repos: Dict[str, List[str]] = dict()
 
         for owner in owners:
-            owned_repos: List[str] = listdir(get_res_path(owner=owner))
+            owner_path = get_res_path(owner=owner)
+            if isdir(owner_path):
+                owned_repos: List[str] = listdir(owner_path)
 
-            for owned_repo in owned_repos:
-                repo_path: str = get_res_path(owner=owner, repo=owned_repo)
-                repos[repo_path] = [f for f in listdir(repo_path) if isfile(join(repo_path, f))]
+                for owned_repo in owned_repos:
+                    repo_path: str = get_res_path(owner=owner, repo=owned_repo)
+                    if isdir(repo_path):
+                        repos[repo_path] = [f for f in listdir(
+                            repo_path) if isfile(join(repo_path, f))]
 
         return {k: repos[k] for k in list(repos)[:repo_count]}
 
@@ -53,34 +59,40 @@ class Analyzer:
         }
 
     @staticmethod
-    def analyze(repo_count: int) -> None:
+    def analyze(repo_count: int, generate_tables: bool) -> None:
         """
         Analyzes a given number of repositories.
 
         :param repo_count: Number of repositories to analyze
+        :param generate_tables: Whether to generate the latex tables
         """
         experiments = Analyzer.get_experiments()
         repos: Dict[str, List[str]] = Analyzer.get_repos(repo_count)
 
         for repo_path, result_files in repos.items():
             for result_file in result_files:
-                file_path = join(repo_path, result_file)
-                Analyzer.analyze_file(experiments, file_path)
+                Analyzer.analyze_file(experiments, repo_path, result_file)
 
         result = {k: v.as_dict() for k, v in experiments.items()}
         save_json_file(result, get_res_path(tool="analyzer"), name="res.json")
 
         Statistics.analyze(result)
 
+        if generate_tables:
+            generate_latex_tables()
+
     @staticmethod
-    def analyze_file(mappings: Dict[str, Mapping], file_path: str) -> None:
+    def analyze_file(mappings: Dict[str, Mapping], path: str, name: str) -> None:
         """
         Analyzes a single result file.
 
         :param mappings: The mappings to apply the results to
-        :param file_path: Path to the result file
+        :param path: Path to the result file
+        :param name: Name of the result file
         """
-        result_file: Dict[str, Any] = load_json_file(file_path)
+        result_file = load_json_file(path, name)
+        if not result_file:
+            return
 
         for node in result_file["node"]:
             feature = Features.get_feature_by_token(node["name"])

@@ -4,15 +4,16 @@ from os.path import join
 from typing import Any, Dict, Optional
 
 
-def load_json_file(path: str) -> Optional[Dict[str, Any]]:
+def load_json_file(path: str, name: str) -> Optional[Dict[str, Any]]:
     """
     Load the contents of a json file as a dict.
 
     :param path: Path of the file to load
+    :param name: Name of the file
     :return: Dict of the json if the file exists
     """
     try:
-        with open(path, "r", encoding="utf-8") as json_file:
+        with open(join(path, name), "r", encoding="utf-8") as json_file:
             data: Dict[str, Any] = json.load(json_file)
         return data
     except:

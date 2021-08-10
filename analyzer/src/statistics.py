@@ -1,8 +1,8 @@
 from typing import Any, Dict
-import random
 
 from analyzer.src.metrics import Metric
 from analyzer.src.features import Features
+from analyzer.src.utils import get_res_path, save_json_file
 
 import scipy.stats as st
 
@@ -14,15 +14,24 @@ class Statistics:
     def analyze(result: Dict[str, Any]) -> None:
         """Runs statistic tests on the result data."""
         spaces = result["spaces"]
+        statistics: Dict[str, Any] = dict()
 
         for feature in Features.as_dict().keys():
+            statistics[feature] = dict()
+
             for metric in Metric.as_dict().keys():
-                values_feature_used = spaces[feature][metric]["values"]
-                values_feature_not_used = spaces["no_" + feature][metric]["values"]
+                statistics[feature][metric] = dict()
 
-                min_len = min([len(values_feature_used), len(values_feature_not_used)])
+                sample_used = spaces[feature][metric]["values"]
+                sample_not_used = spaces["no_" + feature][metric]["values"]
 
-                sample_used = random.sample(values_feature_used, min_len)
-                sample_not_used = random.sample(values_feature_not_used, min_len)
+                if len(sample_used) == 0 or len(sample_not_used) == 0:
+                    continue
 
-                print(feature, metric, st.wilcoxon(sample_used, sample_not_used, zero_method="zsplit"))
+                res = st.mannwhitneyu(sample_used, sample_not_used)
+                statistics[feature][metric]["mannwhitneyu"] = {
+                    "statistic": res[0],
+                    "pvalue": res[1]
+                }
+
+        save_json_file(statistics, get_res_path(tool="analyzer"), name="tst.json")
