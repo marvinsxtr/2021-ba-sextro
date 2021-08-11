@@ -37,13 +37,9 @@ class Metric(Enum):
 
 
 class Metrics:
-    """
-    This class represents the whole metric suite and offers a range of utility methods for
-    performing calculations on it.
-    """
+    """This class represents the whole metric suite and offers a range of utility methods."""
 
     def __init__(self, data: Optional[Dict[str, Any]] = None):
-        # Set attributes for metrics
         for name, path in Metric.as_dict().items():
             if data:
                 values = Values([data[path[0]][path[1]]])
@@ -70,7 +66,7 @@ class Metrics:
         """
         Returns a dict representation.
 
-        :returns: Dict containing all metrics
+        :return: Dict containing all metrics
         """
         return {k: getattr(self, k).as_dict() for k in Metric.as_dict().keys()}
 

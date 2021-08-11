@@ -34,6 +34,11 @@ class Values:
         return sum(self.filtered_values())
 
     def count(self) -> float:
+        """
+        Returns the number of values that are not `None`.
+
+        :return: Number of values
+        """
         return len(self.filtered_values())
 
     def avg(self) -> Optional[float]:
@@ -48,11 +53,12 @@ class Values:
             return None
 
     def merge(self, other: Values) -> None:
-        """Merges two values if the second list contains one element."""
-        if len(other.values()) > 1:
-            raise Exception
+        """
+        Merges two values.
 
-        self._values.append(other.values()[0])
+        :param other: The other values
+        """
+        self._values.extend(other.values())
 
     def as_dict(self) -> Dict[str, Any]:
         """

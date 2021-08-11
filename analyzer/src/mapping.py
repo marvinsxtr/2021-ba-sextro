@@ -1,6 +1,8 @@
-from analyzer.src.metrics import Metrics
+from __future__ import annotations
 from typing import Any, Dict
 import json
+
+from analyzer.src.metrics import Metrics
 
 
 class Mapping:
@@ -18,7 +20,7 @@ class Mapping:
         """
         return self.mapping[feature]
 
-    def merge(self, feature: str, new: Metrics) -> None:
+    def merge_feature(self, feature: str, new: Metrics) -> None:
         """
         Merges two metric suites for a given feature.
 
@@ -29,6 +31,15 @@ class Mapping:
         current.merge(new)
 
         self.mapping[feature] = current
+
+    def merge(self, other: Mapping) -> None:
+        """
+        Merges two Mappings.
+
+        :param other: The other mapping
+        """
+        for feature in self.mapping.keys():
+            self.merge_feature(feature, other.get(feature))
 
     def as_dict(self) -> Dict[str, Any]:
         """

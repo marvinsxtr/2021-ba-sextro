@@ -1,14 +1,17 @@
 from genericpath import isdir
-from analyzer.src.statistics import Statistics
+import multiprocessing
 from os import listdir
 from os.path import isfile, join
 from typing import Any, Dict, List
 
-from analyzer.src.mapping import Mapping
+from analyzer.src.statistics import Statistics
 from analyzer.src.utils import get_res_path, load_json_file, save_json_file
 from analyzer.src.metrics import Metrics
 from analyzer.src.features import Features
 from analyzer.src.tables import generate_latex_tables
+from analyzer.src.experiments import Experiments
+
+from tqdm import tqdm
 
 
 class Analyzer:
@@ -17,11 +20,12 @@ class Analyzer:
     """
 
     @staticmethod
-    def get_repos(repo_count: int) -> Dict[str, List[str]]:
+    def get_repos(repo_count: int, skip_repos: int) -> Dict[str, List[str]]:
         """
         Returns a dict mapping the repository paths to a list of result files.
 
         :param repo_count: Number of repositories to get
+        :param skip_repos: Number of repositories to skip
         :return: Dict mapping repository paths to result files
         """
         owners: List[str] = listdir(get_res_path())
@@ -38,42 +42,37 @@ class Analyzer:
                         repos[repo_path] = [f for f in listdir(
                             repo_path) if isfile(join(repo_path, f))]
 
-        return {k: repos[k] for k in list(repos)[:repo_count]}
+        return {k: repos[k] for k in list(repos)[skip_repos:repo_count + skip_repos]}
 
     @staticmethod
-    def get_experiments() -> Dict[str, Mapping]:
-        """
-        Returns the initialized values for different experiments.
-
-        :return: The initialized experiment values.
-        """
-        node_experiment = Mapping({k: Metrics(None) for k in Features.as_dict().keys()})
-
-        double_features = [val for val in Features.as_dict().keys() for _ in (0, 1)]
-        space_experiment = Mapping({k if i % 2 else "no_" + k: Metrics(None)
-                                    for i, k in enumerate(double_features)})
-
-        return {
-            "nodes": node_experiment,
-            "spaces": space_experiment
-        }
-
-    @staticmethod
-    def analyze(repo_count: int, generate_tables: bool) -> None:
+    def analyze(repo_count: int, skip_repos: int, generate_tables: bool) -> None:
         """
         Analyzes a given number of repositories.
 
         :param repo_count: Number of repositories to analyze
+        :param skip_repos: Number of repositories to skip
         :param generate_tables: Whether to generate the latex tables
         """
-        experiments = Analyzer.get_experiments()
-        repos: Dict[str, List[str]] = Analyzer.get_repos(repo_count)
+        init_experiments = Experiments.initialized()
+        result_experiments = Experiments.initialized()
 
-        for repo_path, result_files in repos.items():
-            for result_file in result_files:
-                Analyzer.analyze_file(experiments, repo_path, result_file)
+        repos: Dict[str, List[str]] = Analyzer.get_repos(repo_count, skip_repos)
 
-        result = {k: v.as_dict() for k, v in experiments.items()}
+        processes = 2 * multiprocessing.cpu_count() + 1
+        pool = multiprocessing.Pool(processes=processes)
+
+        with tqdm(total=repo_count) as t:
+            for path, files in repos.items():
+                repo_result = pool.apply_async(
+                    Analyzer.analyze_repo, args=(init_experiments, path, files))
+
+                result_experiments.merge(repo_result.get())
+                t.update()
+
+        pool.close()
+        pool.join()
+
+        result = result_experiments.as_dict()
         save_json_file(result, get_res_path(tool="analyzer"), name="res.json")
 
         Statistics.analyze(result)
@@ -82,11 +81,25 @@ class Analyzer:
             generate_latex_tables()
 
     @staticmethod
-    def analyze_file(mappings: Dict[str, Mapping], path: str, name: str) -> None:
+    def analyze_repo(experiments: Experiments, path: str, files: List[str]) -> Experiments:
+        """
+        Analyzes a repository.
+
+        :param experiments: The experiments to add the results to
+        :param path: The path of the repository
+        :param files: The list of result files in the repository
+        """
+        for file in files:
+            Analyzer.analyze_file(experiments, path, file)
+
+        return experiments
+
+    @staticmethod
+    def analyze_file(experiments: Experiments, path: str, name: str) -> None:
         """
         Analyzes a single result file.
 
-        :param mappings: The mappings to apply the results to
+        :param experiments: The experiments to add the results to
         :param path: Path to the result file
         :param name: Name of the result file
         """
@@ -101,7 +114,7 @@ class Analyzer:
                 continue
 
             new_node = Metrics(node["data"])
-            mappings["nodes"].merge(feature, new_node)
+            experiments.get("nodes").merge_feature(feature, new_node)
 
         for feature in Features.as_dict().keys():
             for space in result_file["rca"]:
@@ -113,9 +126,9 @@ class Analyzer:
                 new_space = Metrics(space["data"])
 
                 if is_inside:
-                    mappings["spaces"].merge(feature, new_space)
+                    experiments.get("spaces").merge_feature(feature, new_space)
                 else:
-                    mappings["spaces"].merge("no_" + feature, new_space)
+                    experiments.get("spaces").merge_feature("no_" + feature, new_space)
 
     @staticmethod
     def feature_in_space(

@@ -4,7 +4,7 @@ from analyzer.src.metrics import Metric
 
 
 def generate_latex_tables() -> None:
-    """Generates LaTex tables from the results."""
+    """Generates LaTeX tables from the results."""
     statistics = load_json_file(get_res_path(tool="analyzer"), name="tst.json")
     table_number = 1
 
