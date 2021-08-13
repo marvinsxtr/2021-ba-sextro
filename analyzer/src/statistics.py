@@ -1,4 +1,5 @@
 from typing import Any, Dict
+import random
 
 from analyzer.src.values import Values
 from analyzer.src.metrics import Metric
@@ -23,12 +24,17 @@ class Statistics:
             for metric in Metric.as_dict().keys():
                 statistics[feature][metric] = dict()
 
-                sample_used = Values(spaces[feature][metric]["values"]).filtered_values()
-                sample_not_used = Values(spaces["no_" + feature]
+                values_used = Values(spaces[feature][metric]["values"]).filtered_values()
+                values_not_used = Values(spaces["no_" + feature]
                                          [metric]["values"]).filtered_values()
 
-                if len(sample_used) == 0 or len(sample_not_used) == 0:
+                min_len = min([len(values_used), len(values_not_used)])
+
+                if min_len == 0:
                     continue
+
+                sample_used = random.sample(values_used, min_len)
+                sample_not_used = random.sample(values_not_used, min_len)
 
                 res = st.mannwhitneyu(sample_used, sample_not_used)
                 statistics[feature][metric]["mannwhitneyu"] = {
