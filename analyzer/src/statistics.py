@@ -4,7 +4,7 @@ import random
 from analyzer.src.values import Values
 from analyzer.src.metrics import Metric
 from analyzer.src.features import Features
-from analyzer.src.utils import get_res_path, save_json_file
+from analyzer.src.utils import get_res_path, load_json_file, save_json_file
 
 import scipy.stats as st
 
@@ -13,8 +13,12 @@ class Statistics:
     """This class handles statistic significance tests."""
 
     @staticmethod
-    def analyze(result: Dict[str, Any]) -> None:
+    def analyze_results() -> None:
         """Runs statistic tests on the result data."""
+        result = load_json_file(get_res_path(tool="analyzer"), name="res.json")
+        if not result:
+            return
+
         spaces = result["spaces"]
         statistics: Dict[str, Any] = dict()
 

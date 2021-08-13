@@ -45,13 +45,29 @@ class Analyzer:
         return {k: repos[k] for k in list(repos)[skip_repos:repo_count + skip_repos]}
 
     @staticmethod
-    def analyze(repo_count: int, skip_repos: int, generate_tables: bool) -> None:
+    def analyze(repo_count: int, skip_repos: int, generate_tables: bool, only_statistics: bool) -> None:
         """
         Analyzes a given number of repositories.
 
         :param repo_count: Number of repositories to analyze
         :param skip_repos: Number of repositories to skip
         :param generate_tables: Whether to generate the latex tables
+        """
+        if not only_statistics:
+            Analyzer.analyze_repos(repo_count, skip_repos)
+
+        Statistics.analyze_results()
+
+        if generate_tables:
+            generate_latex_tables()
+
+    @staticmethod
+    def analyze_repos(repo_count: int, skip_repos: int) -> None:
+        """
+        Collects the raw data for each experiment on the dataset.
+
+        :param repo_count: Number of repositories to collect data of
+        :param skip_repos: Number of repositories to skip
         """
         init_experiments = Experiments.initialized()
         result_experiments = Experiments.initialized()
@@ -74,11 +90,6 @@ class Analyzer:
 
         result = result_experiments.as_dict()
         save_json_file(result, get_res_path(tool="analyzer"), name="res.json")
-
-        Statistics.analyze(result)
-
-        if generate_tables:
-            generate_latex_tables()
 
     @staticmethod
     def analyze_repo(experiments: Experiments, path: str, files: List[str]) -> Experiments:

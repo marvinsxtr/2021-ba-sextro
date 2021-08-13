@@ -13,11 +13,14 @@ def main() -> None:
                         help='Number of repos to skip')
     parser.add_argument('-t', '--generate_tables', action='store_true',
                         help='Whether to generate LaTeX tables')
+    parser.add_argument('-o', '--only_statistics', action='store_true',
+                        help='Whether to only conduct the statistical tests')
 
     args: Namespace = parser.parse_args()
 
     repo_count: int = args.repo_count
     skip_repos: int = args.skip_repos
     generate_tables: bool = args.generate_tables
+    only_statistics: bool = args.only_statistics
 
-    Analyzer.analyze(repo_count, skip_repos, generate_tables)
+    Analyzer.analyze(repo_count, skip_repos, generate_tables, only_statistics)
