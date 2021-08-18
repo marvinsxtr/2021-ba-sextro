@@ -5,7 +5,7 @@ from os.path import isfile, join
 from typing import Any, Dict, List
 
 from analyzer.src.statistics import Statistics
-from analyzer.src.utils import get_res_path, load_json_file, save_json_file
+from analyzer.src.utils import get_res_path, load_json_file, remove_keys, save_json_file
 from analyzer.src.metrics import Metrics
 from analyzer.src.features import Features
 from analyzer.src.tables import Tables
@@ -98,7 +98,11 @@ class Analyzer:
         pool.join()
 
         result = result_experiments.as_dict()
-        save_json_file(result, get_res_path(tool="analyzer"), name="res.json")
+        save_json_file(result, get_res_path(tool="analyzer"), name="res_with_raw_values.json")
+
+        filtered_result = remove_keys(result, "values")
+        save_json_file(filtered_result, get_res_path(
+            tool="analyzer"), name="res_without_raw_values.json")
 
     @staticmethod
     def analyze_repo(experiments: Experiments, path: str, files: List[str]) -> Experiments:

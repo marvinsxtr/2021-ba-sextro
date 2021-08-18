@@ -59,3 +59,23 @@ def get_res_path(tool: Optional[str] = None, owner: str = "", repo: str = "") ->
     """
     base_path = get_data_path() if tool is None else get_data_path(tool=tool)
     return join(base_path, "res", owner, repo)
+
+
+def remove_keys(dictionary: Dict[str, Any], remove: str) -> Dict[str, Any]:
+    """
+    Removes a specific key from a dictionary.
+
+    :param dictionary: Dictionary to delete the key from
+    ;param key; Key to delete from the dictionary
+    """
+    if isinstance(dictionary, dict):
+        dictionary = {
+            key: remove_keys(value, remove)
+            for key, value in dictionary.items()
+            if key not in remove
+        }
+    elif isinstance(dictionary, list):
+        dictionary = [remove_keys(item, remove)
+                      for item in dictionary
+                      if item not in remove]
+    return dictionary
