@@ -1,3 +1,4 @@
+from analyzer.src.experiments import Experiment
 from typing import Any, Dict
 import random
 
@@ -16,34 +17,38 @@ class Statistics:
     def analyze_results() -> None:
         """Runs statistic tests on the result data."""
         result = load_json_file(get_res_path(tool="analyzer"), name="res.json")
+
         if not result:
             return
 
-        spaces = result["spaces"]
-        statistics: Dict[str, Any] = dict()
+        statistics = dict()
 
-        for feature in Features.as_dict().keys():
-            statistics[feature] = dict()
+        spaces = result.get(Experiment.SPACES)
+        if spaces:
+            spaces_statistics: Dict[str, Any] = dict()
 
-            for metric in Metric.as_dict().keys():
-                statistics[feature][metric] = dict()
+            for feature in Features.as_dict().keys():
+                spaces_statistics[feature] = dict()
 
-                values_used = Values(spaces[feature][metric]["values"]).filtered_values()
-                values_not_used = Values(spaces["no_" + feature]
-                                         [metric]["values"]).filtered_values()
+                for metric in Metric.as_dict().keys():
+                    spaces_statistics[feature][metric] = dict()
 
-                min_len = min([len(values_used), len(values_not_used)])
+                    values_used = Values(spaces[feature][metric]["values"]).filtered_values()
+                    values_not_used = Values(spaces["no_" + feature]
+                                             [metric]["values"]).filtered_values()
 
-                if min_len == 0:
-                    continue
+                    min_len = min([len(values_used), len(values_not_used)])
 
-                sample_used = random.sample(values_used, min_len)
-                sample_not_used = random.sample(values_not_used, min_len)
+                    if min_len == 0:
+                        continue
 
-                res = st.mannwhitneyu(sample_used, sample_not_used)
-                statistics[feature][metric]["mannwhitneyu"] = {
-                    "statistic": res[0],
-                    "pvalue": res[1]
-                }
+                    sample_used = random.sample(values_used, min_len)
+                    sample_not_used = random.sample(values_not_used, min_len)
 
+                    res = st.mannwhitneyu(sample_used, sample_not_used)
+                    spaces_statistics[feature][metric]["mannwhitneyu"] = {
+                        "statistic": res[0],
+                        "pvalue": res[1]
+                    }
+            statistics[str(Experiment.SPACES)] = spaces_statistics
         save_json_file(statistics, get_res_path(tool="analyzer"), name="tst.json")

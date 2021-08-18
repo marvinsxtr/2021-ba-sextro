@@ -8,8 +8,8 @@ from analyzer.src.statistics import Statistics
 from analyzer.src.utils import get_res_path, load_json_file, save_json_file
 from analyzer.src.metrics import Metrics
 from analyzer.src.features import Features
-from analyzer.src.tables import generate_latex_tables
-from analyzer.src.experiments import Experiments
+from analyzer.src.tables import Tables
+from analyzer.src.experiments import Experiment, Experiments
 
 from tqdm import tqdm
 
@@ -45,32 +45,41 @@ class Analyzer:
         return {k: repos[k] for k in list(repos)[skip_repos:repo_count + skip_repos]}
 
     @staticmethod
-    def analyze(repo_count: int, skip_repos: int, generate_tables: bool, only_statistics: bool) -> None:
+    def analyze(
+        repo_count: int,
+        skip_repos: int,
+        analyze_repos: bool,
+        statistic_tests: bool,
+        generate_tables: bool,
+        experiment_names: List[str]
+    ) -> None:
         """
         Analyzes a given number of repositories.
 
         :param repo_count: Number of repositories to analyze
         :param skip_repos: Number of repositories to skip
         :param generate_tables: Whether to generate the latex tables
+        :param experiments: The experiments to run on the data
         """
-        if not only_statistics:
-            Analyzer.analyze_repos(repo_count, skip_repos)
+        if analyze_repos:
+            Analyzer.analyze_repos(repo_count, skip_repos, experiment_names)
 
-        Statistics.analyze_results()
+        if statistic_tests:
+            Statistics.analyze_results()
 
         if generate_tables:
-            generate_latex_tables()
+            Tables.generate_latex_tables()
 
     @staticmethod
-    def analyze_repos(repo_count: int, skip_repos: int) -> None:
+    def analyze_repos(repo_count: int, skip_repos: int, experiment_names: List[str]) -> None:
         """
         Collects the raw data for each experiment on the dataset.
 
         :param repo_count: Number of repositories to collect data of
         :param skip_repos: Number of repositories to skip
         """
-        init_experiments = Experiments.initialized()
-        result_experiments = Experiments.initialized()
+        init_experiments = Experiments.initialized(experiment_names)
+        result_experiments = Experiments.initialized(experiment_names)
 
         repos: Dict[str, List[str]] = Analyzer.get_repos(repo_count, skip_repos)
 
@@ -118,28 +127,40 @@ class Analyzer:
         if not result_file:
             return
 
-        for node in result_file["node"]:
-            feature = Features.get_feature_by_token(node["name"])
+        nodes_experiment = experiments.get(Experiment.NODES)
+        if nodes_experiment:
+            for node in result_file["node"]:
+                feature = Features.get_feature_by_token(node["name"])
 
-            if feature is None:
-                continue
-
-            new_node = Metrics(node["data"])
-            experiments.get("nodes").merge_feature(feature, new_node)
-
-        for feature in Features.as_dict().keys():
-            for space in result_file["rca"]:
-
-                if space["kind"] == "unit":
+                if feature is None:
                     continue
 
-                is_inside = Analyzer.feature_in_space(feature, result_file["finder"], space)
-                new_space = Metrics(space["data"])
+                new_node = Metrics(node["data"])
+                nodes_experiment.merge_feature(feature, new_node)
 
-                if is_inside:
-                    experiments.get("spaces").merge_feature(feature, new_space)
-                else:
-                    experiments.get("spaces").merge_feature("no_" + feature, new_space)
+        spaces_experiment = experiments.get(Experiment.SPACES)
+        if spaces_experiment:
+            for feature in Features.as_dict().keys():
+                for space in result_file["rca"]:
+
+                    if space["kind"] == "unit":
+                        continue
+
+                    is_inside = Analyzer.feature_in_space(feature, result_file["finder"], space)
+                    new_space = Metrics(space["data"])
+
+                    if is_inside:
+                        spaces_experiment.merge_feature(feature, new_space)
+                    else:
+                        spaces_experiment.merge_feature("no_" + feature, new_space)
+
+        files_experiment = experiments.get(Experiment.FILES)
+        if files_experiment:
+            for feature in Features.as_dict().keys():
+                for space in result_file["rca"]:
+                    if space["kind"] == "unit":
+                        new_space = Metrics(space["data"])
+                        files_experiment.merge_feature(feature, new_space)
 
     @staticmethod
     def feature_in_space(
