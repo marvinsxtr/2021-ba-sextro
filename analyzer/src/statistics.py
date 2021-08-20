@@ -14,6 +14,7 @@ import scipy.stats as st
 class Tests(str, Enum):
     MANN_WHITNEY_U = "mann_whitney_u"
     WILCOXON_RANK_SUM = "wilcoxon_rank_sum"
+    WILCOXON_SIGNED_RANK = "wilcoxon_signed_rank"
 
     def __str__(self) -> str:
         """
@@ -73,6 +74,8 @@ class Statistics:
                          st.mannwhitneyu(sample_used, sample_not_used)),
                         (str(Tests.WILCOXON_RANK_SUM) + "_same_sample_size",
                          st.ranksums(sample_used, sample_not_used)),
+                        (str(Tests.WILCOXON_SIGNED_RANK) + "_same_sample_size",
+                         st.wilcoxon(sample_used, sample_not_used, zero_method="zsplit")),
                         (str(Tests.MANN_WHITNEY_U) + "_different_sample_size",
                          st.mannwhitneyu(values_used, values_not_used)),
                         (str(Tests.WILCOXON_RANK_SUM) + "_different_sample_size",
