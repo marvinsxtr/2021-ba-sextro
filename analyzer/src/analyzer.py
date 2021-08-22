@@ -68,7 +68,7 @@ class Analyzer:
             Statistics.analyze_results()
 
         if generate_tables:
-            Tables.generate_latex_tables()
+            Tables.generate_tables()
 
     @staticmethod
     def analyze_repos(repo_count: int, skip_repos: int, experiment_names: List[str]) -> None:
@@ -98,11 +98,11 @@ class Analyzer:
         pool.join()
 
         result = result_experiments.as_dict()
-        save_json_file(result, get_res_path(tool="analyzer"), name="res_with_raw_values.json")
+        save_json_file(result, get_res_path(tool="analyzer"), name="results_with_raw_values.json")
 
         filtered_result = remove_keys(result, "values")
         save_json_file(filtered_result, get_res_path(
-            tool="analyzer"), name="res_without_raw_values.json")
+            tool="analyzer"), name="results_without_raw_values.json")
 
     @staticmethod
     def analyze_repo(experiments: Experiments, path: str, files: List[str]) -> Experiments:
@@ -160,11 +160,10 @@ class Analyzer:
 
         files_experiment = experiments.get(Experiment.FILES)
         if files_experiment:
-            for feature in Features.as_dict().keys():
-                for space in result_file["rca"]:
-                    if space["kind"] == "unit":
-                        new_space = Metrics(space["data"])
-                        files_experiment.merge_feature(feature, new_space)
+            for space in result_file["rca"]:
+                if space["kind"] == "unit":
+                    new_space = Metrics(space["data"])
+                    files_experiment.merge_feature("all_features", new_space)
 
     @staticmethod
     def feature_in_space(

@@ -63,8 +63,7 @@ class Experiments():
                                                            for i, k in enumerate(double_features)})
 
         if Experiment.FILES in experiment_names:
-            experiments[str(Experiment.FILES)] = Mapping(
-                {k: Metrics(None) for k in Features.as_dict().keys()})
+            experiments[str(Experiment.FILES)] = Mapping({"all_features": Metrics(None)})
 
         return experiments
 

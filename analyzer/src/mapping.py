@@ -27,10 +27,7 @@ class Mapping:
         :param feature: Feature key
         :param new: Metric suite to merge
         """
-        current: Metrics = self.get(feature)
-        current.merge(new)
-
-        self.mapping[feature] = current
+        self.get(feature).merge(new)
 
     def merge(self, other: Mapping) -> None:
         """

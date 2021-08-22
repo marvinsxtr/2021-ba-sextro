@@ -67,7 +67,7 @@ class Values:
         :return: Dictionary containing the values, the average and the count
         """
         return {
-            "values": self.values(),
+            "values": self.filtered_values(),
             "average": self.avg(),
             "count": self.count()
         }

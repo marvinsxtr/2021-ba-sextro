@@ -66,7 +66,7 @@ def remove_keys(dictionary: Dict[str, Any], remove: str) -> Dict[str, Any]:
     Removes a specific key from a dictionary.
 
     :param dictionary: Dictionary to delete the key from
-    ;param key; Key to delete from the dictionary
+    :param key: Key to delete from the dictionary
     """
     if isinstance(dictionary, dict):
         dictionary = {

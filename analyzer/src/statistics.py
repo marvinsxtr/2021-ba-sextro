@@ -1,4 +1,4 @@
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 import random
 from enum import Enum
 
@@ -13,8 +13,6 @@ import scipy.stats as st
 
 class Tests(str, Enum):
     MANN_WHITNEY_U = "mann_whitney_u"
-    WILCOXON_RANK_SUM = "wilcoxon_rank_sum"
-    WILCOXON_SIGNED_RANK = "wilcoxon_signed_rank"
 
     def __str__(self) -> str:
         """
@@ -33,6 +31,25 @@ class Tests(str, Enum):
         """
         return list(map(lambda x: x.value, Tests))
 
+    @staticmethod
+    def proportion(u: float, m: float, n: float) -> Optional[float]:
+        """
+        Specific to the Mann-Whitney U test.
+        Proportion of cases in which a value from one sample exceeds a value from the other, 
+        which takes values between 0 and 1. The null case corresponds to an expected proportion of 1/2.
+
+        :param u: The statistic of the Mann-Whitney U test
+        :param m: First sample size
+        :param n: Second sample size
+        :return: The proportion
+        """
+        product = m * n
+
+        if not product:
+            return None
+        else:
+            return u / product
+
 
 class Statistics:
     """This class handles statistic significance tests."""
@@ -40,7 +57,7 @@ class Statistics:
     @staticmethod
     def analyze_results() -> None:
         """Runs statistic tests on the result data."""
-        result = load_json_file(get_res_path(tool="analyzer"), name="res_with_raw_values.json")
+        result = load_json_file(get_res_path(tool="analyzer"), name="results_with_raw_values.json")
 
         if not result:
             return
@@ -66,27 +83,14 @@ class Statistics:
                     if min_len == 0:
                         continue
 
-                    sample_used = random.sample(values_used, min_len)
-                    sample_not_used = random.sample(values_not_used, min_len)
+                    test_result = st.mannwhitneyu(
+                        values_used, values_not_used, use_continuity=False)
 
-                    statistic_tests = [
-                        (str(Tests.MANN_WHITNEY_U) + "_same_sample_size",
-                         st.mannwhitneyu(sample_used, sample_not_used)),
-                        (str(Tests.WILCOXON_RANK_SUM) + "_same_sample_size",
-                         st.ranksums(sample_used, sample_not_used)),
-                        (str(Tests.WILCOXON_SIGNED_RANK) + "_same_sample_size",
-                         st.wilcoxon(sample_used, sample_not_used, zero_method="zsplit")),
-                        (str(Tests.MANN_WHITNEY_U) + "_different_sample_size",
-                         st.mannwhitneyu(values_used, values_not_used)),
-                        (str(Tests.WILCOXON_RANK_SUM) + "_different_sample_size",
-                         st.ranksums(values_used, values_not_used))
-                    ]
-
-                    for test_name, test_result in statistic_tests:
-                        spaces_statistics[feature][metric][test_name] = {
-                            "statistic": test_result[0],
-                            "p_value": test_result[1]
-                        }
+                    spaces_statistics[feature][metric][str(Tests.MANN_WHITNEY_U)] = {
+                        "statistic": test_result[0],
+                        "p_value": test_result[1],
+                        "proportion": Tests.proportion(test_result[0], len(values_used), len(values_not_used))
+                    }
 
             statistics[str(Experiment.SPACES)] = spaces_statistics
-        save_json_file(statistics, get_res_path(tool="analyzer"), name="tst.json")
+        save_json_file(statistics, get_res_path(tool="analyzer"), name="statistic_tests.json")
