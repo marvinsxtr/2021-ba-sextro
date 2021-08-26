@@ -83,10 +83,33 @@ The logs can be found in the `log` directory under the `DATA_PATH`.
 
 # Analyzer
 
+## Setup
+
+### Virtual environment
+
+```sh
+cd analyzer
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### Install dependencies
+
+```sh
+pip3 install -r requirements.txt
+```
+
 ## Run
 
 ```
+cd ..
 python3 -m analyzer
+```
+
+## Scripts
+
+```
+python3 -m analyzer.scripts.<SCRIPT>
 ```
 
 ## Usage
@@ -94,5 +117,9 @@ python3 -m analyzer
 ### Options
 
 ```
--n REPO_COUNT, --repo_count REPO_COUNT (Number of repos to analyze)
+-n REPO_COUNT, --repo_count REPO_COUNT - Number of repositories to analyze
+-s SKIP_REPOS, --skip_repos SKIP_REPOS - Number of repositories to skip
+-a, --analyze_repos - Whether to analyze the repositories
+-t, --statistic_tests - Whether to conduct the statistical tests
+-e EXPERIMENT_NAMES, --experiment_names EXPERIMENT_NAMES - Which experiments to run
 ```

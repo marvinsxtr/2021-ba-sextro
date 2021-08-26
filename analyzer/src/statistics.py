@@ -1,12 +1,11 @@
 from typing import Any, Dict, List, Optional
-import random
 from enum import Enum
 
 from analyzer.src.experiments import Experiment
 from analyzer.src.values import Values
 from analyzer.src.metrics import Metric
 from analyzer.src.features import Features
-from analyzer.src.utils import get_res_path, load_json_file, save_json_file
+from analyzer.src.utils import get_analyzer_res_path, load_json_file, save_json_file
 
 import scipy.stats as st
 
@@ -57,7 +56,7 @@ class Statistics:
     @staticmethod
     def analyze_results() -> None:
         """Runs statistic tests on the result data."""
-        result = load_json_file(get_res_path(tool="analyzer"), name="results_with_raw_values.json")
+        result = load_json_file(get_analyzer_res_path(), name="results_with_raw_values.json")
 
         if not result:
             return
@@ -93,4 +92,4 @@ class Statistics:
                     }
 
             statistics[str(Experiment.SPACES)] = spaces_statistics
-        save_json_file(statistics, get_res_path(tool="analyzer"), name="statistic_tests.json")
+        save_json_file(statistics, get_analyzer_res_path(), name="statistic_tests.json")

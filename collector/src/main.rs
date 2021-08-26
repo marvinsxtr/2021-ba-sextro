@@ -53,7 +53,6 @@ fn main() -> CliResult {
         .with_message("0/?");
     progress_bar.enable_steady_tick(1000);
 
-    //
     let batches = repos.chunks(args.batch_size);
     let num_batches = batches.len();
 

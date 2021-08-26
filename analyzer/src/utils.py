@@ -1,4 +1,5 @@
 import json
+import sys
 import os
 from os.path import join
 from typing import Any, Dict, Optional
@@ -36,6 +37,16 @@ def save_json_file(data: Dict[str, Any], path: str, name: str) -> None:
         return None
 
 
+def get_root_path() -> str:
+    """
+    Returns the root path of the repository.
+
+    :return: The root path of the project
+    """
+    path = os.path.dirname(sys.modules['__main__'].__file__).split("/")
+    return "/".join(path[:path.index("analyzer")])
+
+
 def get_data_path(tool: str = "collector") -> str:
     """
     Returns the base path to the data folder.
@@ -43,22 +54,33 @@ def get_data_path(tool: str = "collector") -> str:
     :param tool: The tool in the data folder (collector or analyzer)
     :return: The data base path
     """
-    default_path = join("./data", tool)
+    default_path = join(get_root_path(), "data", tool)
     data_path = os.environ.get("DATA_PATH", default_path)
 
     return data_path if data_path else default_path
 
 
-def get_res_path(tool: Optional[str] = None, owner: str = "", repo: str = "") -> str:
+def get_collector_res_path(owner: str = "", repo: str = "") -> str:
     """
     Returns the path of a repository in the data folder.
 
+    :param collector: Whether to choose the collector or analyzer folder
     :param owner: The owner of the repository
     :param repo: The name of the repository
     :return: The path to the repository
     """
-    base_path = get_data_path() if tool is None else get_data_path(tool=tool)
+    base_path = get_data_path(tool="collector")
     return join(base_path, "res", owner, repo)
+
+
+def get_analyzer_res_path() -> str:
+    """
+    Returns the result path of the analyzer data folder.
+
+    :return: The path to the result folder
+    """
+    base_path = get_data_path(tool="analyzer")
+    return join(base_path, "res")
 
 
 def remove_keys(dictionary: Dict[str, Any], remove: str) -> Dict[str, Any]:

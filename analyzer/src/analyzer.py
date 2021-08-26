@@ -5,19 +5,16 @@ from os.path import isfile, join
 from typing import Any, Dict, List
 
 from analyzer.src.statistics import Statistics
-from analyzer.src.utils import get_res_path, load_json_file, remove_keys, save_json_file
+from analyzer.src.utils import get_analyzer_res_path, get_collector_res_path, load_json_file, remove_keys, save_json_file
 from analyzer.src.metrics import Metrics
 from analyzer.src.features import Features
-from analyzer.src.tables import Tables
 from analyzer.src.experiments import Experiment, Experiments
 
 from tqdm import tqdm
 
 
 class Analyzer:
-    """
-    This class contains methods for analyzing the collected metrics on the repositories.
-    """
+    """This class contains methods for analyzing the collected metrics on the repositories."""
 
     @staticmethod
     def get_repos(repo_count: int, skip_repos: int) -> Dict[str, List[str]]:
@@ -28,16 +25,16 @@ class Analyzer:
         :param skip_repos: Number of repositories to skip
         :return: Dict mapping repository paths to result files
         """
-        owners: List[str] = listdir(get_res_path())
+        owners: List[str] = listdir(get_collector_res_path())
         repos: Dict[str, List[str]] = dict()
 
         for owner in owners:
-            owner_path = get_res_path(owner=owner)
+            owner_path = get_collector_res_path(owner=owner)
             if isdir(owner_path):
                 owned_repos: List[str] = listdir(owner_path)
 
                 for owned_repo in owned_repos:
-                    repo_path: str = get_res_path(owner=owner, repo=owned_repo)
+                    repo_path: str = get_collector_res_path(owner=owner, repo=owned_repo)
                     if isdir(repo_path):
                         repos[repo_path] = [f for f in listdir(
                             repo_path) if isfile(join(repo_path, f))]
@@ -50,7 +47,6 @@ class Analyzer:
         skip_repos: int,
         analyze_repos: bool,
         statistic_tests: bool,
-        generate_tables: bool,
         experiment_names: List[str]
     ) -> None:
         """
@@ -58,7 +54,6 @@ class Analyzer:
 
         :param repo_count: Number of repositories to analyze
         :param skip_repos: Number of repositories to skip
-        :param generate_tables: Whether to generate the latex tables
         :param experiments: The experiments to run on the data
         """
         if analyze_repos:
@@ -66,9 +61,6 @@ class Analyzer:
 
         if statistic_tests:
             Statistics.analyze_results()
-
-        if generate_tables:
-            Tables.generate_tables()
 
     @staticmethod
     def analyze_repos(repo_count: int, skip_repos: int, experiment_names: List[str]) -> None:
@@ -98,11 +90,11 @@ class Analyzer:
         pool.join()
 
         result = result_experiments.as_dict()
-        save_json_file(result, get_res_path(tool="analyzer"), name="results_with_raw_values.json")
+        save_json_file(result, get_analyzer_res_path(), name="results_with_raw_values.json")
 
         filtered_result = remove_keys(result, "values")
-        save_json_file(filtered_result, get_res_path(
-            tool="analyzer"), name="results_without_raw_values.json")
+        save_json_file(filtered_result, get_analyzer_res_path(),
+                       name="results_without_raw_values.json")
 
     @staticmethod
     def analyze_repo(experiments: Experiments, path: str, files: List[str]) -> Experiments:
