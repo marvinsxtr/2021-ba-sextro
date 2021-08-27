@@ -136,7 +136,7 @@ class Analyzer:
 
         spaces_experiment = experiments.get(Experiment.SPACES)
         if spaces_experiment:
-            for feature in Features.as_dict().keys():
+            for feature in Features.as_list():
                 for space in result_file["rca"]:
 
                     if space["kind"] == "unit":

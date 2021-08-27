@@ -12,8 +12,8 @@ from analyzer.src.features import Features
 
 def generate_histograms() -> None:
     """Generate histograms from the raw values."""
-    features = list(Features.as_dict().keys())
-    metrics = list(Metric.as_dict().keys())
+    features = Features.as_list()
+    metrics = Metric.as_list()
 
     with open(join(get_analyzer_res_path(), "results_with_raw_values.json"), "r", encoding="utf-8") as res:
         data = json.load(res)

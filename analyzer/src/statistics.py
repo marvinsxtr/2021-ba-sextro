@@ -67,10 +67,10 @@ class Statistics:
         if spaces:
             spaces_statistics: Dict[str, Any] = dict()
 
-            for feature in Features.as_dict().keys():
+            for feature in Features.as_list():
                 spaces_statistics[feature] = dict()
 
-                for metric in Metric.as_dict().keys():
+                for metric in Metric.as_list():
                     spaces_statistics[feature][metric] = dict()
 
                     values_used = Values(spaces[feature][metric]["values"]).filtered_values()

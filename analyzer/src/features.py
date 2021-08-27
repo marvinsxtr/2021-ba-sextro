@@ -17,6 +17,15 @@ class Features(Enum):
     CLOSURES = ("closure_parameters_repeat1", "closure_expression", "closure_parameters")
 
     @staticmethod
+    def as_list() -> List[str]:
+        """
+        Returns a list of all features.
+
+        :return: List of all features
+        """
+        return list(map(lambda x: x.name.lower(), Features))
+
+    @staticmethod
     def as_dict() -> Dict[str, List[str]]:
         """
         Returns a dict representation of all features.

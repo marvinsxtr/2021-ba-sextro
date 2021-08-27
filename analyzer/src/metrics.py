@@ -37,6 +37,26 @@ class Metric(Enum):
     MI_VISUAL_STUDIO = ("mi", "mi_visual_studio")
 
     @staticmethod
+    def as_list() -> List[str]:
+        """
+        Returns a list of all metrics.
+
+        :return: List of all metrics
+        """
+        return list(map(lambda x: x.name.lower(), Metric))
+
+    @staticmethod
+    def usability_metrics() -> List[str]:
+        """
+        Returns a list of metrics which are linked to usability.
+
+        :return: Usability metrics
+        """
+        usability_metrics = [Metric.COGNITIVE, Metric.CYCLOMATIC, Metric.LENGTH, Metric.ESTIMATED_PROGRAM_LENGTH, Metric.PURITY_RATIO, Metric.VOCABULARY,
+                             Metric.VOLUME, Metric.DIFFICULTY, Metric.LEVEL, Metric.EFFORT, Metric.TIME, Metric.BUGS, Metric.MI_ORIGINAL, Metric.MI_SEI, Metric.MI_VISUAL_STUDIO]
+        return list(map(lambda x: x.name.lower(), usability_metrics))
+
+    @staticmethod
     def as_dict() -> Dict[str, List[str]]:
         """
         Returns a dict representation of all metrics.
@@ -78,7 +98,7 @@ class Metrics:
 
         :return: Dict containing all metrics
         """
-        return {k: getattr(self, k).as_dict() for k in Metric.as_dict().keys()}
+        return {k: getattr(self, k).as_dict() for k in Metric.as_list()}
 
     def merge(self, other: Metrics) -> None:
         """
@@ -86,7 +106,7 @@ class Metrics:
 
         :param other: The other metrics
         """
-        for name in Metric.as_dict().keys():
+        for name in Metric.as_list():
             self_metric: Values = getattr(self, name)
             other_metric: Values = getattr(other, name)
 

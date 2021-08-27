@@ -21,6 +21,15 @@ class Experiment(str, Enum):
         return self.value
 
     @staticmethod
+    def as_list() -> List[str]:
+        """
+        Returns a list of all experiments.
+
+        :return: List of all experiments
+        """
+        return list(map(lambda x: x.name.lower(), Experiment))
+
+    @staticmethod
     def as_dict() -> Dict[str, List[str]]:
         """
         Returns a dict representation of all Experiments.
@@ -55,15 +64,15 @@ class Experiments():
 
         if Experiment.NODES in experiment_names:
             experiments[str(Experiment.NODES)] = Mapping(
-                {k: Metrics(None) for k in Features.as_dict().keys()})
+                {k: Metrics() for k in Features.as_list()})
 
         if Experiment.SPACES in experiment_names:
-            double_features = [val for val in Features.as_dict().keys() for _ in (0, 1)]
-            experiments[str(Experiment.SPACES)] = Mapping({k if i % 2 else "no_" + k: Metrics(None)
+            double_features = [val for val in Features.as_list() for _ in (0, 1)]
+            experiments[str(Experiment.SPACES)] = Mapping({k if i % 2 else "no_" + k: Metrics()
                                                            for i, k in enumerate(double_features)})
 
         if Experiment.FILES in experiment_names:
-            experiments[str(Experiment.FILES)] = Mapping({"all_features": Metrics(None)})
+            experiments[str(Experiment.FILES)] = Mapping({"all_features": Metrics()})
 
         return experiments
 

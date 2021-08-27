@@ -14,8 +14,8 @@ def bonferroni_correction() -> None:
 
     n = num_features * num_metrics
 
-    for feature in Features.as_dict().keys():
-        for metric in Metric.as_dict().keys():
+    for feature in Features.as_list():
+        for metric in Metric.as_list():
             statistic_test = test_data["spaces"][feature][metric]["mann_whitney_u"]
             new_p_value = statistic_test["p_value"] * n
             statistic_test["corrected_p_value"] = new_p_value if new_p_value < 1.0 else 1.0
