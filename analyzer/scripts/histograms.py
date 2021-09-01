@@ -2,10 +2,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 import os
-import json
 from os.path import join
 
-from analyzer.src.utils import get_analyzer_res_path
+from analyzer.src.utils import get_analyzer_res_path, load_json_file
 from analyzer.src.metrics import Metric
 from analyzer.src.features import Features
 
@@ -15,10 +14,12 @@ def generate_histograms() -> None:
     features = Features.as_list()
     metrics = Metric.as_list()
 
-    with open(join(get_analyzer_res_path(), "results_with_raw_values.json"), "r", encoding="utf-8") as res:
-        data = json.load(res)
+    results = load_json_file(get_analyzer_res_path(), "results_with_raw_values.json")
+    if not results:
+        print("Make sure to run the analyzer first.")
+        return
 
-    spaces = data["spaces"]
+    spaces = results["spaces"]
 
     for feature in features:
         metrics_feature = spaces[feature]

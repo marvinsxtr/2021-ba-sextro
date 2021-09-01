@@ -87,7 +87,12 @@ def generate_table(statistics: Dict[str, Any], experiment: str, test: str) -> No
 \\label{{tab:{2}_{3}}}
 \\end{{center}}
 \\end{{table}}
-                """.format(feature, "\n".join(rows), feature.replace("\\", ""), metric.replace("\\", "")))
+""".format(
+                feature,
+                "\n".join(rows),
+                feature.replace("\\", ""),
+                metric.replace("\\", "")
+            ))
 
 
 bonferroni_correction()
