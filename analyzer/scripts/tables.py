@@ -4,7 +4,7 @@ import os
 
 from analyzer.src.statistics import Tests
 from analyzer.src.experiments import Experiment
-from analyzer.src.utils import get_analyzer_res_path, load_json_file
+from analyzer.src.utils import get_analyzer_res_path, load_json_file, to_camel_case
 from analyzer.src.features import Features
 from analyzer.src.metrics import Metric
 from analyzer.scripts.correction import bonferroni_correction
@@ -36,9 +36,9 @@ def generate_table(statistics: Dict[str, Any], experiment: str, test: str) -> No
     os.makedirs(path, exist_ok=True)
 
     with open(join(path, f"tables_{experiment}_{test}.txt"), "w+", encoding="utf-8") as tables:
-        for feature in Features.as_list():
+        for metric in Metric.usability_metrics():
             rows = list()
-            for metric in Metric.usability_metrics():
+            for feature in Features.as_list():
                 test_results = statistics[experiment][feature][metric].get(test)
                 if not test_results:
                     continue
@@ -58,9 +58,6 @@ def generate_table(statistics: Dict[str, Any], experiment: str, test: str) -> No
                 if p_value < 0.001:
                     significance = "***"
 
-                metric = "estimated_length" if metric == "estimated_program_length" else metric
-                metric = metric.replace("_", "\_")
-
                 if p_value < 0.0001 and p_value != 0:
                     p_value = "{:0.3e}".format(p_value)
                     number, exponent = p_value.split("e")
@@ -68,30 +65,30 @@ def generate_table(statistics: Dict[str, Any], experiment: str, test: str) -> No
                 else:
                     p_value = round(p_value, 3)
 
-                rows.append(
-                    f"{metric} & ${p_value}$ & ${proportion}$ & {rejected} & ${significance}$ \\\\")
+                escaped_metric = metric.replace("_", "\_")
+                camel_case_feature = to_camel_case(feature)
 
-            feature = feature.replace("_", "\_")
+                rows.append(
+                    f"{camel_case_feature} & ${p_value}$ & ${proportion}$ & {rejected} & ${significance}$ \\\\")
+
             tables.write("""
 \\begin{{table}}
 \\begin{{center}}
-\\caption*{{Comparison of metrics between code spaces with and without {0}}}
 \\begin{{tabular}}{{ l c c c c }}
 \\toprule
-\\textbf{{Metric}} & \\textbf{{p-value}} & \\textbf{{Proportion}} & \\textbf{{Decision}} & \\textbf{{Significance}} \\\\ 
+\\textbf{{Feature}} & \\textbf{{p-value}} & \\textbf{{Proportion}} & \\textbf{{Decision}} & \\textbf{{Significance}} \\\\ 
 \\midrule
-{1}
+{0}
 \\bottomrule
 \\end{{tabular}}
-\\caption[Comparison of metrics between code spaces with and without {0}]{{Results for {0} obtained by applying the Mann-Whitney U test with Bonferroni correction. Null hypothesis: No significant difference in each metric between code spaces with {0} and without. (Significance codes: 0 "***" 0.001 "**" 0.01 "*" 0.05 "." 0.1 "–" 1)}}
-\\label{{tab:{2}_{3}}}
+\\caption[Mann-Whitney U test results for the comparison of "{1}"]{{Results for the "{1}" metric obtained by applying the Mann-Whitney U test with Bonferroni correction. Null hypothesis: No significant difference in {1} between code spaces with each feature and without. (Significance codes: 0 "***" 0.001 "**" 0.01 "*" 0.05 "." 0.1 "–" 1)}}
+\\label{{tab:comparison_table_{2}}}
 \\end{{center}}
 \\end{{table}}
 """.format(
-                feature,
                 "\n".join(rows),
-                feature.replace("\\", ""),
-                metric.replace("\\", "")
+                escaped_metric,
+                metric
             ))
 
 

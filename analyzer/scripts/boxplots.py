@@ -1,16 +1,18 @@
 import os
 from os.path import join
+from typing import Any, Dict, List
 
 from analyzer.src.metrics import Metric
 from analyzer.src.features import Features
-from analyzer.src.utils import get_analyzer_res_path, load_json_file
+from analyzer.src.utils import get_analyzer_res_path, load_json_file, to_camel_case
 
 import pandas as pd
+from matplotlib.cbook import boxplot_stats
 
 
 def generate_boxplots() -> None:
     """Generates boxplots from the raw result data."""
-    metrics = Metric.as_list()
+    metrics = Metric.usability_metrics()
     features = Features.as_list()
 
     results = load_json_file(get_analyzer_res_path(), "results_with_raw_values.json")
@@ -25,7 +27,7 @@ def generate_boxplots() -> None:
 
     with open(join(path, f"boxplots.txt"), "w+", encoding="utf-8") as boxplots:
         for metric in metrics:
-            data = list()
+            series_data: List[List[float]] = list()
 
             for feature in features:
                 metrics_feature = spaces[feature]
@@ -34,7 +36,12 @@ def generate_boxplots() -> None:
                 no_series = pd.Series(metrics_no_feature[metric]["values"])
                 series = pd.Series(metrics_feature[metric]["values"])
 
-                data.extend([no_series, series])
+                series_data.extend([no_series, series])
+
+            boxplot_data: List[Dict[str, Any]] = [
+                boxplot_stats(series)[0] for series in series_data]
+
+            escaped_metric = metric.replace("_", "\_")
 
             plots = ["""\\addplot+ [
 boxplot prepared={{
@@ -44,17 +51,18 @@ upper quartile={3}, upper whisker={4},
 }},
 ] coordinates {{}};
 """.format(
-                series.quantile(.025),
-                series.quantile(.25),
-                series.quantile(.5),
-                series.quantile(.75),
-                series.quantile(.975)
-            ) for series in data]
+                boxplot["whislo"],
+                boxplot["q1"],
+                boxplot["med"],
+                boxplot["q3"],
+                boxplot["whishi"]
+            ) for boxplot in boxplot_data]
 
-            boxplots.write("""\\begin{{tikzpicture}}
+            boxplots.write("""\\begin{{figure}}
+\\begin{{tikzpicture}}
 \\begin{{axis}}[
 boxplot/draw direction=y,
-width=14cm, height=8cm, enlarge x limits=0.05,
+width=\\textwidth, height=8cm, enlarge x limits=0.05,
 x axis line style={{opacity=0}},
 axis x line*=bottom,
 axis y line=left,
@@ -78,14 +86,17 @@ boxplot={{
 {3}
 \\end{{axis}}
 \\end{{tikzpicture}}
-\\\\
+\\caption[Comparison of the "{0}" metric depending on the use of each feature]{{Comparison between the distributions of the "{0}" metric in code spaces with and without usage of each Rust feature.}}
+\\label{{fig:comparison_boxplots_{4}}}
+\\end{{figure}}
 """.format(
-                metric.replace("_", "\_"),
+                escaped_metric,
                 ",".join(map(str, list(range(len(features) + 1)))),
                 ",".join([f"{{{val}\\\\\\tiny{{not used/used}}}}" for val in list(
-                    map(lambda x: "bounds" if x == "trait_bounds" else x, features))]),
-                "".join(plots))
-            )
+                    map(lambda x: to_camel_case("bounds" if x == "trait_bounds" else x), features))]),
+                "".join(plots),
+                metric
+            ))
 
 
 generate_boxplots()

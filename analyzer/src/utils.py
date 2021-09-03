@@ -101,3 +101,14 @@ def remove_keys(dictionary: Dict[str, Any], remove: str) -> Dict[str, Any]:
                       for item in dictionary
                       if item not in remove]
     return dictionary
+
+
+def to_camel_case(snake_str: str) -> str:
+    """
+    Converts snake case to camel case.
+
+    :param snake_str: The string in snake case to be converted
+    :return: The converted string in camel case
+    """
+    components = snake_str.split('_')
+    return ' '.join(x.title() for x in components)
