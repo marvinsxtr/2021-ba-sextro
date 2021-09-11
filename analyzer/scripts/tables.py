@@ -72,7 +72,7 @@ def generate_table(statistics: Dict[str, Any], experiment: str, test: str) -> No
                     f"{camel_case_feature} & ${p_value}$ & ${proportion}$ & {rejected} & ${significance}$ \\\\")
 
             tables.write("""
-\\begin{{table}}
+\\begin{{table}}[htb]
 \\begin{{center}}
 \\begin{{tabular}}{{ l c c c c }}
 \\toprule
@@ -81,7 +81,7 @@ def generate_table(statistics: Dict[str, Any], experiment: str, test: str) -> No
 {0}
 \\bottomrule
 \\end{{tabular}}
-\\caption[Mann-Whitney U test results for the comparison of "{1}"]{{Results for the "{1}" metric obtained by applying the Mann-Whitney U test with Bonferroni correction. Null hypothesis: No significant difference in {1} between code spaces with each feature and without. (Significance codes: 0 "***" 0.001 "**" 0.01 "*" 0.05 "." 0.1 "–" 1)}}
+\\caption[Mann-Whitney U test results for the metric "{1}"]{{Results for the "{1}" metric obtained by applying the Mann-Whitney U test with Bonferroni correction. Null hypothesis: No significant difference in {1} between code spaces with each feature and without. (Significance codes: 0 "***" 0.001 "**" 0.01 "*" 0.05 "." 0.1 "–" 1)}}
 \\label{{tab:comparison_table_{2}}}
 \\end{{center}}
 \\end{{table}}

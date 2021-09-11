@@ -58,7 +58,7 @@ upper quartile={3}, upper whisker={4},
                 boxplot["whishi"]
             ) for boxplot in boxplot_data]
 
-            boxplots.write("""\\begin{{figure}}
+            boxplots.write("""\\begin{{figure}}[htb]
 \\begin{{tikzpicture}}
 \\begin{{axis}}[
 boxplot/draw direction=y,
@@ -69,6 +69,7 @@ axis y line=left,
 cycle list={{{{dashed}},{{black}}}},
 enlarge y limits,
 ylabel={{{0}}},
+xlabel={{Feature}},
 xtick={{{1}}},
 xticklabels={{{2}}},
 x tick label style={{
@@ -76,7 +77,7 @@ x tick label style={{
     align=center,
     anchor=center
 }},
-x=2cm,
+x=1.85cm,
 x tick label as interval,
 boxplot={{
     draw position={{1/3 + Floor(\plotnumofactualtype/2) + 1/3*mod(\plotnumofactualtype,2)}},
@@ -86,7 +87,7 @@ boxplot={{
 {3}
 \\end{{axis}}
 \\end{{tikzpicture}}
-\\caption[Comparison of the "{0}" metric depending on the use of each feature]{{Comparison between the distributions of the "{0}" metric in code spaces with and without usage of each Rust feature.}}
+\\caption[Feature usage comparisons for the metric "{0}"]{{Comparison between the distributions of the "{0}" metric in code spaces with and without the usage of each Rust feature.}}
 \\label{{fig:comparison_boxplots_{4}}}
 \\end{{figure}}
 """.format(
