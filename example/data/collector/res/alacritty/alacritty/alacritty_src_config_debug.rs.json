@@ -1,0 +1,265 @@
+{
+  "rca": [
+    {
+      "kind": "unit",
+      "name": "./alacritty/src/config/debug.rs",
+      "start_line": 1,
+      "end_line": 33,
+      "data": {
+        "nargs": {
+          "sum": 0.0,
+          "average": 0.0
+        },
+        "nexits": {
+          "sum": 1.0,
+          "average": 1.0
+        },
+        "cognitive": {
+          "sum": 0.0,
+          "average": 0.0
+        },
+        "cyclomatic": {
+          "sum": 4.0,
+          "average": 1.3333333333333333
+        },
+        "halstead": {
+          "n1": 9.0,
+          "N1": 39.0,
+          "n2": 17.0,
+          "N2": 26.0,
+          "length": 65.0,
+          "estimated_program_length": 98.01619331423656,
+          "purity_ratio": 1.5079414356036396,
+          "vocabulary": 26.0,
+          "volume": 305.52858167917094,
+          "difficulty": 6.882352941176471,
+          "level": 0.14529914529914528,
+          "effort": 2102.755532733118,
+          "time": 116.81975181850656,
+          "bugs": 0.054710573615930125
+        },
+        "loc": {
+          "sloc": 33.0,
+          "ploc": 22.0,
+          "lloc": 4.0,
+          "cloc": 4.0,
+          "blank": 7.0
+        },
+        "nom": {
+          "functions": 1.0,
+          "closures": 0.0,
+          "total": 1.0
+        },
+        "mi": {
+          "mi_original": 83.68195218155189,
+          "mi_sei": 71.11330779134242,
+          "mi_visual_studio": 48.93681414125842
+        }
+      }
+    },
+    {
+      "kind": "impl",
+      "name": "Debug",
+      "start_line": 23,
+      "end_line": 33,
+      "data": {
+        "nargs": {
+          "sum": 0.0,
+          "average": 0.0
+        },
+        "nexits": {
+          "sum": 1.0,
+          "average": 1.0
+        },
+        "cognitive": {
+          "sum": 0.0,
+          "average": 0.0
+        },
+        "cyclomatic": {
+          "sum": 3.0,
+          "average": 1.5
+        },
+        "halstead": {
+          "n1": 6.0,
+          "N1": 16.0,
+          "n2": 4.0,
+          "N2": 11.0,
+          "length": 27.0,
+          "estimated_program_length": 23.509775004326936,
+          "purity_ratio": 0.8707324075676643,
+          "vocabulary": 10.0,
+          "volume": 89.69205856195877,
+          "difficulty": 8.25,
+          "level": 0.12121212121212122,
+          "effort": 739.9594831361599,
+          "time": 41.108860174231104,
+          "bugs": 0.027269930986846217
+        },
+        "loc": {
+          "sloc": 11.0,
+          "ploc": 11.0,
+          "lloc": 4.0,
+          "cloc": 0.0,
+          "blank": 0.0
+        },
+        "nom": {
+          "functions": 1.0,
+          "closures": 0.0,
+          "total": 1.0
+        },
+        "mi": {
+          "mi_original": 108.08290897512988,
+          "mi_sei": 80.53528436947373,
+          "mi_visual_studio": 63.20637951761981
+        }
+      }
+    },
+    {
+      "kind": "function",
+      "name": "default",
+      "start_line": 24,
+      "end_line": 32,
+      "data": {
+        "nargs": {
+          "sum": 0.0,
+          "average": 0.0
+        },
+        "nexits": {
+          "sum": 1.0,
+          "average": 1.0
+        },
+        "cognitive": {
+          "sum": 0.0,
+          "average": 0.0
+        },
+        "cyclomatic": {
+          "sum": 1.0,
+          "average": 1.0
+        },
+        "halstead": {
+          "n1": 5.0,
+          "N1": 14.0,
+          "n2": 4.0,
+          "N2": 11.0,
+          "length": 25.0,
+          "estimated_program_length": 19.60964047443681,
+          "purity_ratio": 0.7843856189774724,
+          "vocabulary": 9.0,
+          "volume": 79.2481250360578,
+          "difficulty": 6.875,
+          "level": 0.14545454545454545,
+          "effort": 544.8308596228974,
+          "time": 30.268381090160965,
+          "bugs": 0.022235823128742553
+        },
+        "loc": {
+          "sloc": 9.0,
+          "ploc": 9.0,
+          "lloc": 4.0,
+          "cloc": 0.0,
+          "blank": 0.0
+        },
+        "nom": {
+          "functions": 1.0,
+          "closures": 0.0,
+          "total": 1.0
+        },
+        "mi": {
+          "mi_original": 112.4375263282954,
+          "mi_sei": 86.61402951104576,
+          "mi_visual_studio": 65.75293937327216
+        }
+      }
+    }
+  ],
+  "node": [
+    {
+      "kind": "unit",
+      "name": "./alacritty/src/config/debug.rs",
+      "start_line": 1,
+      "end_line": 33,
+      "data": {
+        "nargs": {
+          "sum": 0.0,
+          "average": 0.0
+        },
+        "nexits": {
+          "sum": 1.0,
+          "average": 1.0
+        },
+        "cognitive": {
+          "sum": 0.0,
+          "average": 0.0
+        },
+        "cyclomatic": {
+          "sum": 2.0,
+          "average": 2.0
+        },
+        "halstead": {
+          "n1": 9.0,
+          "N1": 39.0,
+          "n2": 17.0,
+          "N2": 26.0,
+          "length": 65.0,
+          "estimated_program_length": 98.01619331423656,
+          "purity_ratio": 1.5079414356036396,
+          "vocabulary": 26.0,
+          "volume": 305.52858167917094,
+          "difficulty": 6.882352941176471,
+          "level": 0.14529914529914528,
+          "effort": 2102.755532733118,
+          "time": 116.81975181850656,
+          "bugs": 0.054710573615930125
+        },
+        "loc": {
+          "sloc": 9.0,
+          "ploc": 22.0,
+          "lloc": 4.0,
+          "cloc": 4.0,
+          "blank": -17.0
+        },
+        "nom": {
+          "functions": 1.0,
+          "closures": 0.0,
+          "total": 1.0
+        },
+        "mi": {
+          "mi_original": 105.1903365244621,
+          "mi_sei": 119.19710677036085,
+          "mi_visual_studio": 61.51481668097198
+        }
+      }
+    }
+  ],
+  "finder": [
+    {
+      "kind": "129",
+      "name": "line_comment",
+      "start_line": 5,
+      "end_line": 5,
+      "data": null
+    },
+    {
+      "kind": "129",
+      "name": "line_comment",
+      "start_line": 12,
+      "end_line": 12,
+      "data": null
+    },
+    {
+      "kind": "129",
+      "name": "line_comment",
+      "start_line": 15,
+      "end_line": 15,
+      "data": null
+    },
+    {
+      "kind": "129",
+      "name": "line_comment",
+      "start_line": 18,
+      "end_line": 18,
+      "data": null
+    }
+  ],
+  "clippy": []
+}

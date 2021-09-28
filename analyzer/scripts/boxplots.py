@@ -12,7 +12,7 @@ from matplotlib.cbook import boxplot_stats
 
 def generate_boxplots() -> None:
     """Generates boxplots from the raw result data."""
-    metrics = Metric.usability_metrics()
+    metrics = Metric.as_list()
     features = Features.as_list()
 
     results = load_json_file(get_analyzer_res_path(), "results_with_raw_values.json")

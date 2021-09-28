@@ -1,0 +1,187 @@
+{
+  "rca": [
+    {
+      "kind": "unit",
+      "name": "./python/src/lib.rs",
+      "start_line": 1,
+      "end_line": 33,
+      "data": {
+        "nargs": {
+          "sum": 2.0,
+          "average": 2.0
+        },
+        "nexits": {
+          "sum": 1.0,
+          "average": 1.0
+        },
+        "cognitive": {
+          "sum": 0.0,
+          "average": 0.0
+        },
+        "cyclomatic": {
+          "sum": 12.0,
+          "average": 6.0
+        },
+        "halstead": {
+          "n1": 14.0,
+          "N1": 83.0,
+          "n2": 23.0,
+          "N2": 44.0,
+          "length": 127.0,
+          "estimated_program_length": 157.34489389811776,
+          "purity_ratio": 1.238936172426124,
+          "vocabulary": 37.0,
+          "volume": 661.6005774348766,
+          "difficulty": 13.391304347826088,
+          "level": 0.07467532467532467,
+          "effort": 8859.694689127913,
+          "time": 492.2052605071063,
+          "bugs": 0.14272210725630888
+        },
+        "loc": {
+          "sloc": 33.0,
+          "ploc": 28.0,
+          "lloc": 11.0,
+          "cloc": 1.0,
+          "blank": 4.0
+        },
+        "nom": {
+          "functions": 1.0,
+          "closures": 0.0,
+          "total": 1.0
+        },
+        "mi": {
+          "mi_original": 77.82433501847119,
+          "mi_sei": 51.1189166786877,
+          "mi_visual_studio": 45.511307028345726
+        }
+      }
+    },
+    {
+      "kind": "function",
+      "name": "ballista",
+      "start_line": 19,
+      "end_line": 33,
+      "data": {
+        "nargs": {
+          "sum": 2.0,
+          "average": 2.0
+        },
+        "nexits": {
+          "sum": 1.0,
+          "average": 1.0
+        },
+        "cognitive": {
+          "sum": 0.0,
+          "average": 0.0
+        },
+        "cyclomatic": {
+          "sum": 11.0,
+          "average": 11.0
+        },
+        "halstead": {
+          "n1": 11.0,
+          "N1": 65.0,
+          "n2": 14.0,
+          "N2": 26.0,
+          "length": 91.0,
+          "estimated_program_length": 91.35671671381672,
+          "purity_ratio": 1.0039199638880958,
+          "vocabulary": 25.0,
+          "volume": 422.59091326949994,
+          "difficulty": 10.214285714285714,
+          "level": 0.0979020979020979,
+          "effort": 4316.464328395607,
+          "time": 239.80357379975592,
+          "bugs": 0.08836850669707295
+        },
+        "loc": {
+          "sloc": 15.0,
+          "ploc": 13.0,
+          "lloc": 11.0,
+          "cloc": 0.0,
+          "blank": 2.0
+        },
+        "nom": {
+          "functions": 1.0,
+          "closures": 0.0,
+          "total": 1.0
+        },
+        "mi": {
+          "mi_original": 93.15828280661924,
+          "mi_sei": 59.81815908427748,
+          "mi_visual_studio": 54.47852795708728
+        }
+      }
+    }
+  ],
+  "node": [
+    {
+      "kind": "unit",
+      "name": "./python/src/lib.rs",
+      "start_line": 1,
+      "end_line": 33,
+      "data": {
+        "nargs": {
+          "sum": 2.0,
+          "average": 2.0
+        },
+        "nexits": {
+          "sum": 1.0,
+          "average": 1.0
+        },
+        "cognitive": {
+          "sum": 0.0,
+          "average": 0.0
+        },
+        "cyclomatic": {
+          "sum": 11.0,
+          "average": 11.0
+        },
+        "halstead": {
+          "n1": 14.0,
+          "N1": 83.0,
+          "n2": 23.0,
+          "N2": 44.0,
+          "length": 127.0,
+          "estimated_program_length": 157.34489389811776,
+          "purity_ratio": 1.238936172426124,
+          "vocabulary": 37.0,
+          "volume": 661.6005774348766,
+          "difficulty": 13.391304347826088,
+          "level": 0.07467532467532467,
+          "effort": 8859.694689127913,
+          "time": 492.2052605071063,
+          "bugs": 0.14272210725630888
+        },
+        "loc": {
+          "sloc": 15.0,
+          "ploc": 28.0,
+          "lloc": 11.0,
+          "cloc": 1.0,
+          "blank": -14.0
+        },
+        "nom": {
+          "functions": 1.0,
+          "closures": 0.0,
+          "total": 1.0
+        },
+        "mi": {
+          "mi_original": 90.82734425637236,
+          "mi_sei": 75.92624271265193,
+          "mi_visual_studio": 53.115405997878575
+        }
+      }
+    }
+  ],
+  "finder": [
+    {
+      "kind": "129",
+      "name": "line_comment",
+      "start_line": 16,
+      "end_line": 16,
+      "data": null
+    }
+  ],
+  "clippy": []
+}

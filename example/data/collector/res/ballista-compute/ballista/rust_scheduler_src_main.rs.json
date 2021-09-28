@@ -1,0 +1,1245 @@
+{
+  "rca": [
+    {
+      "kind": "unit",
+      "name": "./rust/scheduler/src/main.rs",
+      "start_line": 1,
+      "end_line": 115,
+      "data": {
+        "nargs": {
+          "sum": 3.0,
+          "average": 1.5
+        },
+        "nexits": {
+          "sum": 2.0,
+          "average": 1.0
+        },
+        "cognitive": {
+          "sum": 2.0,
+          "average": 1.0
+        },
+        "cyclomatic": {
+          "sum": 14.0,
+          "average": 4.666666666666667
+        },
+        "halstead": {
+          "n1": 21.0,
+          "N1": 196.0,
+          "n2": 89.0,
+          "N2": 163.0,
+          "length": 359.0,
+          "estimated_program_length": 668.5789412343634,
+          "purity_ratio": 1.862336883661179,
+          "vocabulary": 110.0,
+          "volume": 2434.508137155353,
+          "difficulty": 19.230337078651687,
+          "level": 0.05200116856558574,
+          "effort": 46816.41209821783,
+          "time": 2600.9117832343236,
+          "bugs": 0.4329896315879138
+        },
+        "loc": {
+          "sloc": 115.0,
+          "ploc": 86.0,
+          "lloc": 25.0,
+          "cloc": 16.0,
+          "blank": 13.0
+        },
+        "nom": {
+          "functions": 2.0,
+          "closures": 0.0,
+          "total": 2.0
+        },
+        "mi": {
+          "mi_original": 50.365099426649735,
+          "mi_sei": 25.69740679410371,
+          "mi_visual_studio": 29.453274518508618
+        }
+      }
+    },
+    {
+      "kind": "function",
+      "name": "main",
+      "start_line": 61,
+      "end_line": 115,
+      "data": {
+        "nargs": {
+          "sum": 0.0,
+          "average": 0.0
+        },
+        "nexits": {
+          "sum": 1.0,
+          "average": 1.0
+        },
+        "cognitive": {
+          "sum": 2.0,
+          "average": 2.0
+        },
+        "cyclomatic": {
+          "sum": 11.0,
+          "average": 11.0
+        },
+        "halstead": {
+          "n1": 20.0,
+          "N1": 125.0,
+          "n2": 49.0,
+          "N2": 88.0,
+          "length": 213.0,
+          "estimated_program_length": 361.5593442593925,
+          "purity_ratio": 1.6974617101379927,
+          "vocabulary": 69.0,
+          "volume": 1301.11570929375,
+          "difficulty": 17.959183673469386,
+          "level": 0.055681818181818186,
+          "effort": 23366.976003642856,
+          "time": 1298.165333535714,
+          "bugs": 0.2724459901300462
+        },
+        "loc": {
+          "sloc": 55.0,
+          "ploc": 48.0,
+          "lloc": 19.0,
+          "cloc": 2.0,
+          "blank": 5.0
+        },
+        "nom": {
+          "functions": 1.0,
+          "closures": 0.0,
+          "total": 1.0
+        },
+        "mi": {
+          "mi_original": 66.26211985011392,
+          "mi_sei": 35.572262067216045,
+          "mi_visual_studio": 38.7497776901251
+        }
+      }
+    },
+    {
+      "kind": "function",
+      "name": "start_server",
+      "start_line": 43,
+      "end_line": 58,
+      "data": {
+        "nargs": {
+          "sum": 3.0,
+          "average": 3.0
+        },
+        "nexits": {
+          "sum": 1.0,
+          "average": 1.0
+        },
+        "cognitive": {
+          "sum": 0.0,
+          "average": 0.0
+        },
+        "cyclomatic": {
+          "sum": 2.0,
+          "average": 2.0
+        },
+        "halstead": {
+          "n1": 15.0,
+          "N1": 33.0,
+          "n2": 15.0,
+          "N2": 21.0,
+          "length": 54.0,
+          "estimated_program_length": 117.20671786825557,
+          "purity_ratio": 2.170494775338066,
+          "vocabulary": 30.0,
+          "volume": 264.97209216286,
+          "difficulty": 10.5,
+          "level": 0.09523809523809525,
+          "effort": 2782.20696771003,
+          "time": 154.56705376166832,
+          "bugs": 0.06593839440443647
+        },
+        "loc": {
+          "sloc": 16.0,
+          "ploc": 16.0,
+          "lloc": 4.0,
+          "cloc": 0.0,
+          "blank": 0.0
+        },
+        "nom": {
+          "functions": 1.0,
+          "closures": 0.0,
+          "total": 1.0
+        },
+        "mi": {
+          "mi_original": 96.61001525890865,
+          "mi_sei": 63.88157764103077,
+          "mi_visual_studio": 56.49708494673019
+        }
+      }
+    }
+  ],
+  "node": [
+    {
+      "kind": "unit",
+      "name": "./rust/scheduler/src/main.rs",
+      "start_line": 1,
+      "end_line": 115,
+      "data": {
+        "nargs": {
+          "sum": 3.0,
+          "average": 1.5
+        },
+        "nexits": {
+          "sum": 2.0,
+          "average": 1.0
+        },
+        "cognitive": {
+          "sum": 2.0,
+          "average": 1.0
+        },
+        "cyclomatic": {
+          "sum": 26.0,
+          "average": 1.7333333333333334
+        },
+        "halstead": {
+          "n1": 21.0,
+          "N1": 196.0,
+          "n2": 89.0,
+          "N2": 163.0,
+          "length": 359.0,
+          "estimated_program_length": 668.5789412343634,
+          "purity_ratio": 1.862336883661179,
+          "vocabulary": 110.0,
+          "volume": 2434.508137155353,
+          "difficulty": 19.230337078651687,
+          "level": 0.05200116856558574,
+          "effort": 46816.41209821783,
+          "time": 2600.9117832343236,
+          "bugs": 0.4329896315879138
+        },
+        "loc": {
+          "sloc": 55.0,
+          "ploc": 86.0,
+          "lloc": 25.0,
+          "cloc": 16.0,
+          "blank": -47.0
+        },
+        "nom": {
+          "functions": 2.0,
+          "closures": 0.0,
+          "total": 2.0
+        },
+        "mi": {
+          "mi_original": 59.55420230536835,
+          "mi_sei": 49.9490569919707,
+          "mi_visual_studio": 34.82701889202828
+        }
+      }
+    },
+    {
+      "kind": "unknown",
+      "name": "await_expression",
+      "start_line": 113,
+      "end_line": 113,
+      "data": {
+        "nargs": {
+          "sum": 0.0,
+          "average": null
+        },
+        "nexits": {
+          "sum": 0.0,
+          "average": null
+        },
+        "cognitive": {
+          "sum": 0.0,
+          "average": null
+        },
+        "cyclomatic": {
+          "sum": 2.0,
+          "average": 1.0
+        },
+        "halstead": {
+          "n1": 4.0,
+          "N1": 5.0,
+          "n2": 4.0,
+          "N2": 4.0,
+          "length": 9.0,
+          "estimated_program_length": 16.0,
+          "purity_ratio": 1.7777777777777777,
+          "vocabulary": 8.0,
+          "volume": 27.0,
+          "difficulty": 2.0,
+          "level": 0.5,
+          "effort": 54.0,
+          "time": 3.0,
+          "bugs": 0.004762203155904598
+        },
+        "loc": {
+          "sloc": 1.0,
+          "ploc": 1.0,
+          "lloc": 1.0,
+          "cloc": 0.0,
+          "blank": 0.0
+        },
+        "nom": {
+          "functions": 0.0,
+          "closures": 0.0,
+          "total": 0.0
+        },
+        "mi": {
+          "mi_original": 153.4016482967775,
+          "mi_sei": 145.81458498874994,
+          "mi_visual_studio": 89.70856625542544
+        }
+      }
+    },
+    {
+      "kind": "unknown",
+      "name": "await",
+      "start_line": 113,
+      "end_line": 113,
+      "data": {
+        "nargs": {
+          "sum": 0.0,
+          "average": null
+        },
+        "nexits": {
+          "sum": 0.0,
+          "average": null
+        },
+        "cognitive": {
+          "sum": 0.0,
+          "average": null
+        },
+        "cyclomatic": {
+          "sum": 1.0,
+          "average": 1.0
+        },
+        "halstead": {
+          "n1": 1.0,
+          "N1": 1.0,
+          "n2": 0.0,
+          "N2": 0.0,
+          "length": 1.0,
+          "estimated_program_length": null,
+          "purity_ratio": null,
+          "vocabulary": 1.0,
+          "volume": 0.0,
+          "difficulty": null,
+          "level": null,
+          "effort": null,
+          "time": null,
+          "bugs": null
+        },
+        "loc": {
+          "sloc": 1.0,
+          "ploc": 1.0,
+          "lloc": 0.0,
+          "cloc": 0.0,
+          "blank": 0.0
+        },
+        "nom": {
+          "functions": 0.0,
+          "closures": 0.0,
+          "total": 0.0
+        },
+        "mi": {
+          "mi_original": null,
+          "mi_sei": null,
+          "mi_visual_studio": null
+        }
+      }
+    },
+    {
+      "kind": "unknown",
+      "name": "macro_invocation",
+      "start_line": 108,
+      "end_line": 110,
+      "data": {
+        "nargs": {
+          "sum": 0.0,
+          "average": null
+        },
+        "nexits": {
+          "sum": 0.0,
+          "average": null
+        },
+        "cognitive": {
+          "sum": 0.0,
+          "average": null
+        },
+        "cyclomatic": {
+          "sum": 1.0,
+          "average": 1.0
+        },
+        "halstead": {
+          "n1": 2.0,
+          "N1": 2.0,
+          "n2": 2.0,
+          "N2": 2.0,
+          "length": 4.0,
+          "estimated_program_length": 4.0,
+          "purity_ratio": 1.0,
+          "vocabulary": 4.0,
+          "volume": 8.0,
+          "difficulty": 1.0,
+          "level": 1.0,
+          "effort": 8.0,
+          "time": 0.4444444444444444,
+          "bugs": 0.0013333333333333333
+        },
+        "loc": {
+          "sloc": 1.0,
+          "ploc": 3.0,
+          "lloc": 1.0,
+          "cloc": 0.0,
+          "blank": -2.0
+        },
+        "nom": {
+          "functions": 0.0,
+          "closures": 0.0,
+          "total": 0.0
+        },
+        "mi": {
+          "mi_original": 159.95690398326485,
+          "mi_sei": 155.17000000000002,
+          "mi_visual_studio": 93.54204911302038
+        }
+      }
+    },
+    {
+      "kind": "unknown",
+      "name": "macro_invocation",
+      "start_line": 94,
+      "end_line": 96,
+      "data": {
+        "nargs": {
+          "sum": 0.0,
+          "average": null
+        },
+        "nexits": {
+          "sum": 0.0,
+          "average": null
+        },
+        "cognitive": {
+          "sum": 0.0,
+          "average": null
+        },
+        "cyclomatic": {
+          "sum": 1.0,
+          "average": 1.0
+        },
+        "halstead": {
+          "n1": 2.0,
+          "N1": 2.0,
+          "n2": 2.0,
+          "N2": 2.0,
+          "length": 4.0,
+          "estimated_program_length": 4.0,
+          "purity_ratio": 1.0,
+          "vocabulary": 4.0,
+          "volume": 8.0,
+          "difficulty": 1.0,
+          "level": 1.0,
+          "effort": 8.0,
+          "time": 0.4444444444444444,
+          "bugs": 0.0013333333333333333
+        },
+        "loc": {
+          "sloc": 1.0,
+          "ploc": 3.0,
+          "lloc": 1.0,
+          "cloc": 0.0,
+          "blank": -2.0
+        },
+        "nom": {
+          "functions": 0.0,
+          "closures": 0.0,
+          "total": 0.0
+        },
+        "mi": {
+          "mi_original": 159.95690398326485,
+          "mi_sei": 155.17000000000002,
+          "mi_visual_studio": 93.54204911302038
+        }
+      }
+    },
+    {
+      "kind": "unknown",
+      "name": "await_expression",
+      "start_line": 87,
+      "end_line": 88,
+      "data": {
+        "nargs": {
+          "sum": 0.0,
+          "average": null
+        },
+        "nexits": {
+          "sum": 0.0,
+          "average": null
+        },
+        "cognitive": {
+          "sum": 0.0,
+          "average": null
+        },
+        "cyclomatic": {
+          "sum": 2.0,
+          "average": 1.0
+        },
+        "halstead": {
+          "n1": 6.0,
+          "N1": 7.0,
+          "n2": 5.0,
+          "N2": 5.0,
+          "length": 12.0,
+          "estimated_program_length": 27.11941547876375,
+          "purity_ratio": 2.259951289896979,
+          "vocabulary": 11.0,
+          "volume": 41.51317942364757,
+          "difficulty": 3.0,
+          "level": 0.3333333333333333,
+          "effort": 124.53953827094271,
+          "time": 6.9188632372745955,
+          "bugs": 0.00831285578253799
+        },
+        "loc": {
+          "sloc": 1.0,
+          "ploc": 2.0,
+          "lloc": 1.0,
+          "cloc": 0.0,
+          "blank": -1.0
+        },
+        "nom": {
+          "functions": 0.0,
+          "closures": 0.0,
+          "total": 0.0
+        },
+        "mi": {
+          "mi_original": 151.16474304287456,
+          "mi_sei": 142.58741287200573,
+          "mi_visual_studio": 88.40043452799682
+        }
+      }
+    },
+    {
+      "kind": "unknown",
+      "name": "await",
+      "start_line": 88,
+      "end_line": 88,
+      "data": {
+        "nargs": {
+          "sum": 0.0,
+          "average": null
+        },
+        "nexits": {
+          "sum": 0.0,
+          "average": null
+        },
+        "cognitive": {
+          "sum": 0.0,
+          "average": null
+        },
+        "cyclomatic": {
+          "sum": 1.0,
+          "average": 1.0
+        },
+        "halstead": {
+          "n1": 1.0,
+          "N1": 1.0,
+          "n2": 0.0,
+          "N2": 0.0,
+          "length": 1.0,
+          "estimated_program_length": null,
+          "purity_ratio": null,
+          "vocabulary": 1.0,
+          "volume": 0.0,
+          "difficulty": null,
+          "level": null,
+          "effort": null,
+          "time": null,
+          "bugs": null
+        },
+        "loc": {
+          "sloc": 1.0,
+          "ploc": 1.0,
+          "lloc": 0.0,
+          "cloc": 0.0,
+          "blank": 0.0
+        },
+        "nom": {
+          "functions": 0.0,
+          "closures": 0.0,
+          "total": 0.0
+        },
+        "mi": {
+          "mi_original": null,
+          "mi_sei": null,
+          "mi_visual_studio": null
+        }
+      }
+    },
+    {
+      "kind": "unknown",
+      "name": "macro_invocation",
+      "start_line": 82,
+      "end_line": 84,
+      "data": {
+        "nargs": {
+          "sum": 0.0,
+          "average": null
+        },
+        "nexits": {
+          "sum": 0.0,
+          "average": null
+        },
+        "cognitive": {
+          "sum": 0.0,
+          "average": null
+        },
+        "cyclomatic": {
+          "sum": 1.0,
+          "average": 1.0
+        },
+        "halstead": {
+          "n1": 2.0,
+          "N1": 2.0,
+          "n2": 3.0,
+          "N2": 3.0,
+          "length": 5.0,
+          "estimated_program_length": 6.754887502163468,
+          "purity_ratio": 1.3509775004326936,
+          "vocabulary": 5.0,
+          "volume": 11.60964047443681,
+          "difficulty": 1.0,
+          "level": 1.0,
+          "effort": 11.60964047443681,
+          "time": 0.6449800263576005,
+          "bugs": 0.00170906242423416
+        },
+        "loc": {
+          "sloc": 1.0,
+          "ploc": 3.0,
+          "lloc": 0.0,
+          "cloc": 0.0,
+          "blank": -2.0
+        },
+        "nom": {
+          "functions": 0.0,
+          "closures": 0.0,
+          "total": 0.0
+        },
+        "mi": {
+          "mi_original": 158.02045369261705,
+          "mi_sei": 152.37629276875444,
+          "mi_visual_studio": 92.40962204246613
+        }
+      }
+    },
+    {
+      "kind": "unknown",
+      "name": "macro_invocation",
+      "start_line": 77,
+      "end_line": 77,
+      "data": {
+        "nargs": {
+          "sum": 0.0,
+          "average": null
+        },
+        "nexits": {
+          "sum": 0.0,
+          "average": null
+        },
+        "cognitive": {
+          "sum": 0.0,
+          "average": null
+        },
+        "cyclomatic": {
+          "sum": 1.0,
+          "average": 1.0
+        },
+        "halstead": {
+          "n1": 2.0,
+          "N1": 2.0,
+          "n2": 4.0,
+          "N2": 4.0,
+          "length": 6.0,
+          "estimated_program_length": 10.0,
+          "purity_ratio": 1.6666666666666667,
+          "vocabulary": 6.0,
+          "volume": 15.509775004326936,
+          "difficulty": 1.0,
+          "level": 1.0,
+          "effort": 15.509775004326936,
+          "time": 0.861654166907052,
+          "bugs": 0.0020730784816858556
+        },
+        "loc": {
+          "sloc": 1.0,
+          "ploc": 1.0,
+          "lloc": 0.0,
+          "cloc": 0.0,
+          "blank": 0.0
+        },
+        "nom": {
+          "functions": 0.0,
+          "closures": 0.0,
+          "total": 0.0
+        },
+        "mi": {
+          "mi_original": 156.51435355291963,
+          "mi_sei": 150.2034495661308,
+          "mi_visual_studio": 91.5288617268536
+        }
+      }
+    },
+    {
+      "kind": "unknown",
+      "name": "async",
+      "start_line": 61,
+      "end_line": 61,
+      "data": {
+        "nargs": {
+          "sum": 0.0,
+          "average": null
+        },
+        "nexits": {
+          "sum": 0.0,
+          "average": null
+        },
+        "cognitive": {
+          "sum": 0.0,
+          "average": null
+        },
+        "cyclomatic": {
+          "sum": 1.0,
+          "average": 1.0
+        },
+        "halstead": {
+          "n1": 1.0,
+          "N1": 1.0,
+          "n2": 0.0,
+          "N2": 0.0,
+          "length": 1.0,
+          "estimated_program_length": null,
+          "purity_ratio": null,
+          "vocabulary": 1.0,
+          "volume": 0.0,
+          "difficulty": null,
+          "level": null,
+          "effort": null,
+          "time": null,
+          "bugs": null
+        },
+        "loc": {
+          "sloc": 1.0,
+          "ploc": 1.0,
+          "lloc": 0.0,
+          "cloc": 0.0,
+          "blank": 0.0
+        },
+        "nom": {
+          "functions": 0.0,
+          "closures": 0.0,
+          "total": 0.0
+        },
+        "mi": {
+          "mi_original": null,
+          "mi_sei": null,
+          "mi_visual_studio": null
+        }
+      }
+    },
+    {
+      "kind": "unknown",
+      "name": "await_expression",
+      "start_line": 53,
+      "end_line": 56,
+      "data": {
+        "nargs": {
+          "sum": 0.0,
+          "average": null
+        },
+        "nexits": {
+          "sum": 0.0,
+          "average": null
+        },
+        "cognitive": {
+          "sum": 0.0,
+          "average": null
+        },
+        "cyclomatic": {
+          "sum": 2.0,
+          "average": 1.0
+        },
+        "halstead": {
+          "n1": 3.0,
+          "N1": 7.0,
+          "n2": 4.0,
+          "N2": 4.0,
+          "length": 11.0,
+          "estimated_program_length": 12.754887502163468,
+          "purity_ratio": 1.1595352274694062,
+          "vocabulary": 7.0,
+          "volume": 30.880904142633646,
+          "difficulty": 1.5,
+          "level": 0.6666666666666666,
+          "effort": 46.321356213950466,
+          "time": 2.573408678552804,
+          "bugs": 0.004299318203100795
+        },
+        "loc": {
+          "sloc": 1.0,
+          "ploc": 4.0,
+          "lloc": 1.0,
+          "cloc": 0.0,
+          "blank": -3.0
+        },
+        "nom": {
+          "functions": 0.0,
+          "closures": 0.0,
+          "total": 0.0
+        },
+        "mi": {
+          "mi_original": 152.70328237941678,
+          "mi_sei": 144.8070559430478,
+          "mi_visual_studio": 89.30016513416186
+        }
+      }
+    },
+    {
+      "kind": "unknown",
+      "name": "await",
+      "start_line": 56,
+      "end_line": 56,
+      "data": {
+        "nargs": {
+          "sum": 0.0,
+          "average": null
+        },
+        "nexits": {
+          "sum": 0.0,
+          "average": null
+        },
+        "cognitive": {
+          "sum": 0.0,
+          "average": null
+        },
+        "cyclomatic": {
+          "sum": 1.0,
+          "average": 1.0
+        },
+        "halstead": {
+          "n1": 1.0,
+          "N1": 1.0,
+          "n2": 0.0,
+          "N2": 0.0,
+          "length": 1.0,
+          "estimated_program_length": null,
+          "purity_ratio": null,
+          "vocabulary": 1.0,
+          "volume": 0.0,
+          "difficulty": null,
+          "level": null,
+          "effort": null,
+          "time": null,
+          "bugs": null
+        },
+        "loc": {
+          "sloc": 1.0,
+          "ploc": 1.0,
+          "lloc": 0.0,
+          "cloc": 0.0,
+          "blank": 0.0
+        },
+        "nom": {
+          "functions": 0.0,
+          "closures": 0.0,
+          "total": 0.0
+        },
+        "mi": {
+          "mi_original": null,
+          "mi_sei": null,
+          "mi_visual_studio": null
+        }
+      }
+    },
+    {
+      "kind": "unknown",
+      "name": "macro_invocation",
+      "start_line": 48,
+      "end_line": 51,
+      "data": {
+        "nargs": {
+          "sum": 0.0,
+          "average": null
+        },
+        "nexits": {
+          "sum": 0.0,
+          "average": null
+        },
+        "cognitive": {
+          "sum": 0.0,
+          "average": null
+        },
+        "cyclomatic": {
+          "sum": 1.0,
+          "average": 1.0
+        },
+        "halstead": {
+          "n1": 2.0,
+          "N1": 2.0,
+          "n2": 4.0,
+          "N2": 4.0,
+          "length": 6.0,
+          "estimated_program_length": 10.0,
+          "purity_ratio": 1.6666666666666667,
+          "vocabulary": 6.0,
+          "volume": 15.509775004326936,
+          "difficulty": 1.0,
+          "level": 1.0,
+          "effort": 15.509775004326936,
+          "time": 0.861654166907052,
+          "bugs": 0.0020730784816858556
+        },
+        "loc": {
+          "sloc": 1.0,
+          "ploc": 4.0,
+          "lloc": 1.0,
+          "cloc": 0.0,
+          "blank": -3.0
+        },
+        "nom": {
+          "functions": 0.0,
+          "closures": 0.0,
+          "total": 0.0
+        },
+        "mi": {
+          "mi_original": 156.51435355291963,
+          "mi_sei": 150.2034495661308,
+          "mi_visual_studio": 91.5288617268536
+        }
+      }
+    },
+    {
+      "kind": "unknown",
+      "name": "async",
+      "start_line": 43,
+      "end_line": 43,
+      "data": {
+        "nargs": {
+          "sum": 0.0,
+          "average": null
+        },
+        "nexits": {
+          "sum": 0.0,
+          "average": null
+        },
+        "cognitive": {
+          "sum": 0.0,
+          "average": null
+        },
+        "cyclomatic": {
+          "sum": 1.0,
+          "average": 1.0
+        },
+        "halstead": {
+          "n1": 1.0,
+          "N1": 1.0,
+          "n2": 0.0,
+          "N2": 0.0,
+          "length": 1.0,
+          "estimated_program_length": null,
+          "purity_ratio": null,
+          "vocabulary": 1.0,
+          "volume": 0.0,
+          "difficulty": null,
+          "level": null,
+          "effort": null,
+          "time": null,
+          "bugs": null
+        },
+        "loc": {
+          "sloc": 1.0,
+          "ploc": 1.0,
+          "lloc": 0.0,
+          "cloc": 0.0,
+          "blank": 0.0
+        },
+        "nom": {
+          "functions": 0.0,
+          "closures": 0.0,
+          "total": 0.0
+        },
+        "mi": {
+          "mi_original": null,
+          "mi_sei": null,
+          "mi_visual_studio": null
+        }
+      }
+    },
+    {
+      "kind": "unknown",
+      "name": "macro_invocation",
+      "start_line": 36,
+      "end_line": 39,
+      "data": {
+        "nargs": {
+          "sum": 0.0,
+          "average": null
+        },
+        "nexits": {
+          "sum": 0.0,
+          "average": null
+        },
+        "cognitive": {
+          "sum": 0.0,
+          "average": null
+        },
+        "cyclomatic": {
+          "sum": 1.0,
+          "average": 1.0
+        },
+        "halstead": {
+          "n1": 2.0,
+          "N1": 4.0,
+          "n2": 5.0,
+          "N2": 5.0,
+          "length": 9.0,
+          "estimated_program_length": 13.60964047443681,
+          "purity_ratio": 1.5121822749374234,
+          "vocabulary": 7.0,
+          "volume": 25.26619429851844,
+          "difficulty": 1.0,
+          "level": 1.0,
+          "effort": 25.26619429851844,
+          "time": 1.403677461028802,
+          "bugs": 0.002870154660501296
+        },
+        "loc": {
+          "sloc": 1.0,
+          "ploc": 4.0,
+          "lloc": 1.0,
+          "cloc": 0.0,
+          "blank": -3.0
+        },
+        "nom": {
+          "functions": 0.0,
+          "closures": 0.0,
+          "total": 0.0
+        },
+        "mi": {
+          "mi_original": 153.97676999581998,
+          "mi_sei": 146.54249035246173,
+          "mi_visual_studio": 90.04489473439764
+        }
+      }
+    }
+  ],
+  "finder": [
+    {
+      "kind": "129",
+      "name": "line_comment",
+      "start_line": 1,
+      "end_line": 1,
+      "data": null
+    },
+    {
+      "kind": "129",
+      "name": "line_comment",
+      "start_line": 2,
+      "end_line": 2,
+      "data": null
+    },
+    {
+      "kind": "129",
+      "name": "line_comment",
+      "start_line": 3,
+      "end_line": 3,
+      "data": null
+    },
+    {
+      "kind": "129",
+      "name": "line_comment",
+      "start_line": 4,
+      "end_line": 4,
+      "data": null
+    },
+    {
+      "kind": "129",
+      "name": "line_comment",
+      "start_line": 5,
+      "end_line": 5,
+      "data": null
+    },
+    {
+      "kind": "129",
+      "name": "line_comment",
+      "start_line": 6,
+      "end_line": 6,
+      "data": null
+    },
+    {
+      "kind": "129",
+      "name": "line_comment",
+      "start_line": 7,
+      "end_line": 7,
+      "data": null
+    },
+    {
+      "kind": "129",
+      "name": "line_comment",
+      "start_line": 8,
+      "end_line": 8,
+      "data": null
+    },
+    {
+      "kind": "129",
+      "name": "line_comment",
+      "start_line": 9,
+      "end_line": 9,
+      "data": null
+    },
+    {
+      "kind": "129",
+      "name": "line_comment",
+      "start_line": 10,
+      "end_line": 10,
+      "data": null
+    },
+    {
+      "kind": "129",
+      "name": "line_comment",
+      "start_line": 11,
+      "end_line": 11,
+      "data": null
+    },
+    {
+      "kind": "129",
+      "name": "line_comment",
+      "start_line": 13,
+      "end_line": 13,
+      "data": null
+    },
+    {
+      "kind": "129",
+      "name": "line_comment",
+      "start_line": 34,
+      "end_line": 34,
+      "data": null
+    },
+    {
+      "kind": "129",
+      "name": "line_comment",
+      "start_line": 35,
+      "end_line": 35,
+      "data": null
+    },
+    {
+      "kind": "219",
+      "name": "macro_invocation",
+      "start_line": 36,
+      "end_line": 39,
+      "data": null
+    },
+    {
+      "kind": "50",
+      "name": "async",
+      "start_line": 43,
+      "end_line": 43,
+      "data": null
+    },
+    {
+      "kind": "219",
+      "name": "macro_invocation",
+      "start_line": 48,
+      "end_line": 51,
+      "data": null
+    },
+    {
+      "kind": "262",
+      "name": "await_expression",
+      "start_line": 53,
+      "end_line": 56,
+      "data": null
+    },
+    {
+      "kind": "51",
+      "name": "await",
+      "start_line": 56,
+      "end_line": 56,
+      "data": null
+    },
+    {
+      "kind": "50",
+      "name": "async",
+      "start_line": 61,
+      "end_line": 61,
+      "data": null
+    },
+    {
+      "kind": "129",
+      "name": "line_comment",
+      "start_line": 64,
+      "end_line": 64,
+      "data": null
+    },
+    {
+      "kind": "219",
+      "name": "macro_invocation",
+      "start_line": 77,
+      "end_line": 77,
+      "data": null
+    },
+    {
+      "kind": "219",
+      "name": "macro_invocation",
+      "start_line": 82,
+      "end_line": 84,
+      "data": null
+    },
+    {
+      "kind": "262",
+      "name": "await_expression",
+      "start_line": 87,
+      "end_line": 88,
+      "data": null
+    },
+    {
+      "kind": "51",
+      "name": "await",
+      "start_line": 88,
+      "end_line": 88,
+      "data": null
+    },
+    {
+      "kind": "219",
+      "name": "macro_invocation",
+      "start_line": 94,
+      "end_line": 96,
+      "data": null
+    },
+    {
+      "kind": "129",
+      "name": "line_comment",
+      "start_line": 100,
+      "end_line": 100,
+      "data": null
+    },
+    {
+      "kind": "219",
+      "name": "macro_invocation",
+      "start_line": 108,
+      "end_line": 110,
+      "data": null
+    },
+    {
+      "kind": "262",
+      "name": "await_expression",
+      "start_line": 113,
+      "end_line": 113,
+      "data": null
+    },
+    {
+      "kind": "51",
+      "name": "await",
+      "start_line": 113,
+      "end_line": 113,
+      "data": null
+    }
+  ],
+  "clippy": []
+}

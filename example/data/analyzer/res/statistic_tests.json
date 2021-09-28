@@ -1,0 +1,1390 @@
+{
+    "spaces": {
+        "lifetimes": {
+            "nargs": {
+                "mann_whitney_u": {
+                    "statistic": 331530.0,
+                    "p_value": 5.683277402179492e-07,
+                    "proportion": 0.6012382755543949
+                }
+            },
+            "nexits": {
+                "mann_whitney_u": {
+                    "statistic": 408976.0,
+                    "p_value": 1.0497672561764967e-38,
+                    "proportion": 0.741688610331295
+                }
+            },
+            "cognitive": {
+                "mann_whitney_u": {
+                    "statistic": 354449.0,
+                    "p_value": 9.397922744822158e-18,
+                    "proportion": 0.6428024780019296
+                }
+            },
+            "cyclomatic": {
+                "mann_whitney_u": {
+                    "statistic": 395094.0,
+                    "p_value": 1.2114618276513742e-29,
+                    "proportion": 0.7165132423668691
+                }
+            },
+            "u_operators": {
+                "mann_whitney_u": {
+                    "statistic": 406512.0,
+                    "p_value": 1.0366945157573481e-30,
+                    "proportion": 0.7372200822615395
+                }
+            },
+            "operators": {
+                "mann_whitney_u": {
+                    "statistic": 384601.5,
+                    "p_value": 9.708980996040097e-22,
+                    "proportion": 0.6974848207873604
+                }
+            },
+            "u_operands": {
+                "mann_whitney_u": {
+                    "statistic": 396031.0,
+                    "p_value": 2.6794889091268626e-26,
+                    "proportion": 0.7182125162310578
+                }
+            },
+            "operands": {
+                "mann_whitney_u": {
+                    "statistic": 391504.5,
+                    "p_value": 1.9912634382078196e-24,
+                    "proportion": 0.7100035907814847
+                }
+            },
+            "length": {
+                "mann_whitney_u": {
+                    "statistic": 389683.0,
+                    "p_value": 1.1825283569799616e-23,
+                    "proportion": 0.7067002531682299
+                }
+            },
+            "estimated_program_length": {
+                "mann_whitney_u": {
+                    "statistic": 401919.5,
+                    "p_value": 5.055884001450547e-29,
+                    "proportion": 0.7305767622786927
+                }
+            },
+            "purity_ratio": {
+                "mann_whitney_u": {
+                    "statistic": 301159.5,
+                    "p_value": 0.0214779204645134,
+                    "proportion": 0.5474233831388374
+                }
+            },
+            "vocabulary": {
+                "mann_whitney_u": {
+                    "statistic": 403641.0,
+                    "p_value": 2.1486674028475802e-29,
+                    "proportion": 0.7320134491088334
+                }
+            },
+            "volume": {
+                "mann_whitney_u": {
+                    "statistic": 392419.5,
+                    "p_value": 1.0214156343226137e-24,
+                    "proportion": 0.7116629670736219
+                }
+            },
+            "difficulty": {
+                "mann_whitney_u": {
+                    "statistic": 387262.5,
+                    "p_value": 4.6013635904705297e-23,
+                    "proportion": 0.7039344530483149
+                }
+            },
+            "level": {
+                "mann_whitney_u": {
+                    "statistic": 162877.5,
+                    "p_value": 4.6013635904705297e-23,
+                    "proportion": 0.296065546951685
+                }
+            },
+            "effort": {
+                "mann_whitney_u": {
+                    "statistic": 391193.5,
+                    "p_value": 1.3839594656762971e-24,
+                    "proportion": 0.7110799069327808
+                }
+            },
+            "time": {
+                "mann_whitney_u": {
+                    "statistic": 391193.5,
+                    "p_value": 1.3839594458270083e-24,
+                    "proportion": 0.7110799069327808
+                }
+            },
+            "bugs": {
+                "mann_whitney_u": {
+                    "statistic": 391193.5,
+                    "p_value": 1.3839594259777091e-24,
+                    "proportion": 0.7110799069327808
+                }
+            },
+            "functions": {
+                "mann_whitney_u": {
+                    "statistic": 380424.0,
+                    "p_value": 7.532176506868534e-34,
+                    "proportion": 0.6899088159126026
+                }
+            },
+            "closures": {
+                "mann_whitney_u": {
+                    "statistic": 252621.0,
+                    "p_value": 0.012170783726879315,
+                    "proportion": 0.4581347522360776
+                }
+            },
+            "sloc": {
+                "mann_whitney_u": {
+                    "statistic": 376785.5,
+                    "p_value": 3.9799254907167686e-19,
+                    "proportion": 0.6833103015531037
+                }
+            },
+            "ploc": {
+                "mann_whitney_u": {
+                    "statistic": 378530.5,
+                    "p_value": 9.516657275078803e-20,
+                    "proportion": 0.6864749044271796
+                }
+            },
+            "lloc": {
+                "mann_whitney_u": {
+                    "statistic": 361910.0,
+                    "p_value": 1.3688304321041264e-14,
+                    "proportion": 0.6563331955053572
+                }
+            },
+            "cloc": {
+                "mann_whitney_u": {
+                    "statistic": 308673.5,
+                    "p_value": 8.386472665644015e-06,
+                    "proportion": 0.5597874184820062
+                }
+            },
+            "blank": {
+                "mann_whitney_u": {
+                    "statistic": 332035.5,
+                    "p_value": 3.224103518630465e-09,
+                    "proportion": 0.6021550129485757
+                }
+            },
+            "mi_original": {
+                "mann_whitney_u": {
+                    "statistic": 165629.0,
+                    "p_value": 3.64996205040612e-22,
+                    "proportion": 0.3003724982408798
+                }
+            },
+            "mi_sei": {
+                "mann_whitney_u": {
+                    "statistic": 166847.0,
+                    "p_value": 1.0348037461829305e-21,
+                    "proportion": 0.3025813729117248
+                }
+            },
+            "mi_visual_studio": {
+                "mann_whitney_u": {
+                    "statistic": 165624.0,
+                    "p_value": 3.634293803796254e-22,
+                    "proportion": 0.3003634306108681
+                }
+            }
+        },
+        "macros": {
+            "nargs": {
+                "mann_whitney_u": {
+                    "statistic": 733115.5,
+                    "p_value": 0.0008173170622237838,
+                    "proportion": 0.460146483038773
+                }
+            },
+            "nexits": {
+                "mann_whitney_u": {
+                    "statistic": 762025.5,
+                    "p_value": 0.046974189661065605,
+                    "proportion": 0.47829210241887193
+                }
+            },
+            "cognitive": {
+                "mann_whitney_u": {
+                    "statistic": 964980.5,
+                    "p_value": 3.66308009352202e-27,
+                    "proportion": 0.6056786185478232
+                }
+            },
+            "cyclomatic": {
+                "mann_whitney_u": {
+                    "statistic": 948141.0,
+                    "p_value": 3.098648282221821e-17,
+                    "proportion": 0.5951091561627946
+                }
+            },
+            "u_operators": {
+                "mann_whitney_u": {
+                    "statistic": 1130974.0,
+                    "p_value": 3.048834986114062e-67,
+                    "proportion": 0.7098659195014881
+                }
+            },
+            "operators": {
+                "mann_whitney_u": {
+                    "statistic": 1195465.0,
+                    "p_value": 1.1344786390261847e-94,
+                    "proportion": 0.750344270917675
+                }
+            },
+            "u_operands": {
+                "mann_whitney_u": {
+                    "statistic": 1332044.0,
+                    "p_value": 8.578528012200512e-170,
+                    "proportion": 0.8360692985660504
+                }
+            },
+            "operands": {
+                "mann_whitney_u": {
+                    "statistic": 1287512.0,
+                    "p_value": 9.72331254504467e-143,
+                    "proportion": 0.808118391536145
+                }
+            },
+            "length": {
+                "mann_whitney_u": {
+                    "statistic": 1240563.0,
+                    "p_value": 8.794614608591673e-117,
+                    "proportion": 0.7786504328963572
+                }
+            },
+            "estimated_program_length": {
+                "mann_whitney_u": {
+                    "statistic": 1263911.5,
+                    "p_value": 4.322997967573746e-131,
+                    "proportion": 0.795660513715403
+                }
+            },
+            "purity_ratio": {
+                "mann_whitney_u": {
+                    "statistic": 805464.0,
+                    "p_value": 0.5609035593581163,
+                    "proportion": 0.5070575748533528
+                }
+            },
+            "vocabulary": {
+                "mann_whitney_u": {
+                    "statistic": 1272231.0,
+                    "p_value": 7.8211650685580305e-134,
+                    "proportion": 0.7985271355780927
+                }
+            },
+            "volume": {
+                "mann_whitney_u": {
+                    "statistic": 1247990.0,
+                    "p_value": 1.2790267655054323e-120,
+                    "proportion": 0.783312055695942
+                }
+            },
+            "difficulty": {
+                "mann_whitney_u": {
+                    "statistic": 1106748.5,
+                    "p_value": 4.197162419741257e-59,
+                    "proportion": 0.6967228956012756
+                }
+            },
+            "level": {
+                "mann_whitney_u": {
+                    "statistic": 481757.5,
+                    "p_value": 4.197162419741257e-59,
+                    "proportion": 0.30327710439872435
+                }
+            },
+            "effort": {
+                "mann_whitney_u": {
+                    "statistic": 1199320.0,
+                    "p_value": 5.287774154442496e-98,
+                    "proportion": 0.754998722069668
+                }
+            },
+            "time": {
+                "mann_whitney_u": {
+                    "statistic": 1199320.0,
+                    "p_value": 5.2877738371063355e-98,
+                    "proportion": 0.754998722069668
+                }
+            },
+            "bugs": {
+                "mann_whitney_u": {
+                    "statistic": 1199320.0,
+                    "p_value": 5.2877735197703453e-98,
+                    "proportion": 0.754998722069668
+                }
+            },
+            "functions": {
+                "mann_whitney_u": {
+                    "statistic": 908287.0,
+                    "p_value": 2.766041262175036e-14,
+                    "proportion": 0.5700944375611183
+                }
+            },
+            "closures": {
+                "mann_whitney_u": {
+                    "statistic": 830739.0,
+                    "p_value": 0.029218279176931265,
+                    "proportion": 0.5214207436251822
+                }
+            },
+            "sloc": {
+                "mann_whitney_u": {
+                    "statistic": 1208129.0,
+                    "p_value": 1.1656543957872045e-101,
+                    "proportion": 0.7582929434818249
+                }
+            },
+            "ploc": {
+                "mann_whitney_u": {
+                    "statistic": 1203745.5,
+                    "p_value": 1.3355268514601122e-99,
+                    "proportion": 0.7555416006055653
+                }
+            },
+            "lloc": {
+                "mann_whitney_u": {
+                    "statistic": 1261272.5,
+                    "p_value": 1.1850136737863956e-131,
+                    "proportion": 0.7916489353021738
+                }
+            },
+            "cloc": {
+                "mann_whitney_u": {
+                    "statistic": 901976.0,
+                    "p_value": 5.4502306714725985e-17,
+                    "proportion": 0.5661332821163655
+                }
+            },
+            "blank": {
+                "mann_whitney_u": {
+                    "statistic": 1100138.5,
+                    "p_value": 1.4391238931500294e-78,
+                    "proportion": 0.6905117428707361
+                }
+            },
+            "mi_original": {
+                "mann_whitney_u": {
+                    "statistic": 369385.0,
+                    "p_value": 2.935104302298321e-108,
+                    "proportion": 0.23184779020124
+                }
+            },
+            "mi_sei": {
+                "mann_whitney_u": {
+                    "statistic": 353743.0,
+                    "p_value": 3.478535483512169e-116,
+                    "proportion": 0.2220299493730315
+                }
+            },
+            "mi_visual_studio": {
+                "mann_whitney_u": {
+                    "statistic": 369385.0,
+                    "p_value": 2.9350934569630374e-108,
+                    "proportion": 0.23184779020124
+                }
+            }
+        },
+        "trait_bounds": {
+            "nargs": {
+                "mann_whitney_u": {
+                    "statistic": 358291.0,
+                    "p_value": 4.245602023550646e-17,
+                    "proportion": 0.6731806942784779
+                }
+            },
+            "nexits": {
+                "mann_whitney_u": {
+                    "statistic": 348012.0,
+                    "p_value": 4.004880741829513e-16,
+                    "proportion": 0.6538678330665344
+                }
+            },
+            "cognitive": {
+                "mann_whitney_u": {
+                    "statistic": 364480.5,
+                    "p_value": 1.0265219334751484e-27,
+                    "proportion": 0.6848099339390796
+                }
+            },
+            "cyclomatic": {
+                "mann_whitney_u": {
+                    "statistic": 382775.0,
+                    "p_value": 2.4334283260350535e-29,
+                    "proportion": 0.7191828437009147
+                }
+            },
+            "u_operators": {
+                "mann_whitney_u": {
+                    "statistic": 414791.0,
+                    "p_value": 1.5863002660892211e-40,
+                    "proportion": 0.7793366100752298
+                }
+            },
+            "operators": {
+                "mann_whitney_u": {
+                    "statistic": 404870.0,
+                    "p_value": 1.9244460598025872e-35,
+                    "proportion": 0.7606963828076266
+                }
+            },
+            "u_operands": {
+                "mann_whitney_u": {
+                    "statistic": 384894.5,
+                    "p_value": 1.5593908276205554e-26,
+                    "proportion": 0.7231650996926176
+                }
+            },
+            "operands": {
+                "mann_whitney_u": {
+                    "statistic": 387266.0,
+                    "p_value": 1.7622776785115035e-27,
+                    "proportion": 0.7276208298574317
+                }
+            },
+            "length": {
+                "mann_whitney_u": {
+                    "statistic": 399068.5,
+                    "p_value": 1.145228831807583e-32,
+                    "proportion": 0.7497961430643549
+                }
+            },
+            "estimated_program_length": {
+                "mann_whitney_u": {
+                    "statistic": 399515.0,
+                    "p_value": 2.6950789645182348e-33,
+                    "proportion": 0.7523652949462536
+                }
+            },
+            "purity_ratio": {
+                "mann_whitney_u": {
+                    "statistic": 237967.0,
+                    "p_value": 0.013490094993402068,
+                    "proportion": 0.4481386484674546
+                }
+            },
+            "vocabulary": {
+                "mann_whitney_u": {
+                    "statistic": 400534.5,
+                    "p_value": 2.24142947180848e-33,
+                    "proportion": 0.7525505602777716
+                }
+            },
+            "volume": {
+                "mann_whitney_u": {
+                    "statistic": 399920.5,
+                    "p_value": 4.678864446868182e-33,
+                    "proportion": 0.7513969366972546
+                }
+            },
+            "difficulty": {
+                "mann_whitney_u": {
+                    "statistic": 395325.0,
+                    "p_value": 2.3470252441279534e-31,
+                    "proportion": 0.7444747011366974
+                }
+            },
+            "level": {
+                "mann_whitney_u": {
+                    "statistic": 135687.0,
+                    "p_value": 2.3470252441279534e-31,
+                    "proportion": 0.2555252988633025
+                }
+            },
+            "effort": {
+                "mann_whitney_u": {
+                    "statistic": 399697.0,
+                    "p_value": 2.231811873358914e-33,
+                    "proportion": 0.7527080367298667
+                }
+            },
+            "time": {
+                "mann_whitney_u": {
+                    "statistic": 399697.0,
+                    "p_value": 2.231811829186556e-33,
+                    "proportion": 0.7527080367298667
+                }
+            },
+            "bugs": {
+                "mann_whitney_u": {
+                    "statistic": 399697.0,
+                    "p_value": 2.231811785014199e-33,
+                    "proportion": 0.7527080367298667
+                }
+            },
+            "functions": {
+                "mann_whitney_u": {
+                    "statistic": 357284.5,
+                    "p_value": 6.135749016264439e-27,
+                    "proportion": 0.6712896158846827
+                }
+            },
+            "closures": {
+                "mann_whitney_u": {
+                    "statistic": 249443.0,
+                    "p_value": 0.06528097738326172,
+                    "proportion": 0.4686699133467109
+                }
+            },
+            "sloc": {
+                "mann_whitney_u": {
+                    "statistic": 402952.0,
+                    "p_value": 7.522430528838521e-35,
+                    "proportion": 0.7570927182678361
+                }
+            },
+            "ploc": {
+                "mann_whitney_u": {
+                    "statistic": 400683.5,
+                    "p_value": 8.884649163914702e-34,
+                    "proportion": 0.7528305112769523
+                }
+            },
+            "lloc": {
+                "mann_whitney_u": {
+                    "statistic": 372865.0,
+                    "p_value": 2.892046357438491e-22,
+                    "proportion": 0.700563283956741
+                }
+            },
+            "cloc": {
+                "mann_whitney_u": {
+                    "statistic": 345320.0,
+                    "p_value": 1.2299107128418565e-27,
+                    "proportion": 0.6488099264236166
+                }
+            },
+            "blank": {
+                "mann_whitney_u": {
+                    "statistic": 371296.5,
+                    "p_value": 2.296487568555111e-29,
+                    "proportion": 0.6976162830022772
+                }
+            },
+            "mi_original": {
+                "mann_whitney_u": {
+                    "statistic": 128121.0,
+                    "p_value": 4.720251470611739e-35,
+                    "proportion": 0.24072216084594053
+                }
+            },
+            "mi_sei": {
+                "mann_whitney_u": {
+                    "statistic": 142897.0,
+                    "p_value": 2.742107640909872e-28,
+                    "proportion": 0.268484281408999
+                }
+            },
+            "mi_visual_studio": {
+                "mann_whitney_u": {
+                    "statistic": 128121.0,
+                    "p_value": 4.7202459992208935e-35,
+                    "proportion": 0.24072216084594053
+                }
+            }
+        },
+        "async": {
+            "nargs": {
+                "mann_whitney_u": {
+                    "statistic": 245068.5,
+                    "p_value": 7.815842518972613e-08,
+                    "proportion": 0.6293780914372005
+                }
+            },
+            "nexits": {
+                "mann_whitney_u": {
+                    "statistic": 260900.0,
+                    "p_value": 1.4425898293705002e-14,
+                    "proportion": 0.6700361085001361
+                }
+            },
+            "cognitive": {
+                "mann_whitney_u": {
+                    "statistic": 223961.0,
+                    "p_value": 0.0001471680293055383,
+                    "proportion": 0.5751703982207703
+                }
+            },
+            "cyclomatic": {
+                "mann_whitney_u": {
+                    "statistic": 274637.5,
+                    "p_value": 2.0558998908794687e-19,
+                    "proportion": 0.7053163731245923
+                }
+            },
+            "u_operators": {
+                "mann_whitney_u": {
+                    "statistic": 321574.0,
+                    "p_value": 2.3566271898259523e-40,
+                    "proportion": 0.825857384265323
+                }
+            },
+            "operators": {
+                "mann_whitney_u": {
+                    "statistic": 305702.0,
+                    "p_value": 3.1971677651144616e-31,
+                    "proportion": 0.785095356231156
+                }
+            },
+            "u_operands": {
+                "mann_whitney_u": {
+                    "statistic": 296724.0,
+                    "p_value": 9.488227546247364e-27,
+                    "proportion": 0.7620383068554787
+                }
+            },
+            "operands": {
+                "mann_whitney_u": {
+                    "statistic": 280221.0,
+                    "p_value": 3.1040780594635424e-19,
+                    "proportion": 0.7196557622078062
+                }
+            },
+            "length": {
+                "mann_whitney_u": {
+                    "statistic": 296881.0,
+                    "p_value": 1.0603590100552244e-26,
+                    "proportion": 0.7624415098797582
+                }
+            },
+            "estimated_program_length": {
+                "mann_whitney_u": {
+                    "statistic": 307977.5,
+                    "p_value": 8.4213121517924e-33,
+                    "proportion": 0.7927226349142613
+                }
+            },
+            "purity_ratio": {
+                "mann_whitney_u": {
+                    "statistic": 208789.5,
+                    "p_value": 0.12735467206594733,
+                    "proportion": 0.5374164105573659
+                }
+            },
+            "vocabulary": {
+                "mann_whitney_u": {
+                    "statistic": 308800.0,
+                    "p_value": 6.665873920116895e-33,
+                    "proportion": 0.7930515534873209
+                }
+            },
+            "volume": {
+                "mann_whitney_u": {
+                    "statistic": 298965.5,
+                    "p_value": 1.0020688692911816e-27,
+                    "proportion": 0.7677948646830105
+                }
+            },
+            "difficulty": {
+                "mann_whitney_u": {
+                    "statistic": 279622.0,
+                    "p_value": 3.3949568761452156e-19,
+                    "proportion": 0.7197366321240856
+                }
+            },
+            "level": {
+                "mann_whitney_u": {
+                    "statistic": 108884.0,
+                    "p_value": 3.3949568761452156e-19,
+                    "proportion": 0.2802633678759144
+                }
+            },
+            "effort": {
+                "mann_whitney_u": {
+                    "statistic": 293687.5,
+                    "p_value": 1.8308209155228642e-25,
+                    "proportion": 0.7559407061924398
+                }
+            },
+            "time": {
+                "mann_whitney_u": {
+                    "statistic": 293687.5,
+                    "p_value": 1.830820888268831e-25,
+                    "proportion": 0.7559407061924398
+                }
+            },
+            "bugs": {
+                "mann_whitney_u": {
+                    "statistic": 293687.5,
+                    "p_value": 1.8308208610147729e-25,
+                    "proportion": 0.7559407061924398
+                }
+            },
+            "functions": {
+                "mann_whitney_u": {
+                    "statistic": 231839.0,
+                    "p_value": 3.0604611848072277e-07,
+                    "proportion": 0.595402458254362
+                }
+            },
+            "closures": {
+                "mann_whitney_u": {
+                    "statistic": 222235.5,
+                    "p_value": 0.0003710155557713136,
+                    "proportion": 0.5707390172118896
+                }
+            },
+            "sloc": {
+                "mann_whitney_u": {
+                    "statistic": 297647.5,
+                    "p_value": 2.3955040412306858e-27,
+                    "proportion": 0.7644100138167661
+                }
+            },
+            "ploc": {
+                "mann_whitney_u": {
+                    "statistic": 302264.0,
+                    "p_value": 1.0197357419262009e-29,
+                    "proportion": 0.7762659804510738
+                }
+            },
+            "lloc": {
+                "mann_whitney_u": {
+                    "statistic": 290266.0,
+                    "p_value": 3.0480331440571583e-24,
+                    "proportion": 0.7454530512453067
+                }
+            },
+            "cloc": {
+                "mann_whitney_u": {
+                    "statistic": 193253.0,
+                    "p_value": 0.8171221983488641,
+                    "proportion": 0.4963069684782553
+                }
+            },
+            "blank": {
+                "mann_whitney_u": {
+                    "statistic": 241611.5,
+                    "p_value": 4.4140845887959225e-09,
+                    "proportion": 0.620499920386664
+                }
+            },
+            "mi_original": {
+                "mann_whitney_u": {
+                    "statistic": 90811.0,
+                    "p_value": 1.5789247754221094e-27,
+                    "proportion": 0.23321827922194657
+                }
+            },
+            "mi_sei": {
+                "mann_whitney_u": {
+                    "statistic": 79802.0,
+                    "p_value": 2.675753537378559e-33,
+                    "proportion": 0.2049452722519274
+                }
+            },
+            "mi_visual_studio": {
+                "mann_whitney_u": {
+                    "statistic": 90811.0,
+                    "p_value": 1.5789233552335199e-27,
+                    "proportion": 0.23321827922194657
+                }
+            }
+        },
+        "unsafe": {
+            "nargs": {
+                "mann_whitney_u": {
+                    "statistic": 132938.0,
+                    "p_value": 0.30137307421555193,
+                    "proportion": 0.5310467698895867
+                }
+            },
+            "nexits": {
+                "mann_whitney_u": {
+                    "statistic": 132521.5,
+                    "p_value": 0.28649393513460253,
+                    "proportion": 0.5293829794033523
+                }
+            },
+            "cognitive": {
+                "mann_whitney_u": {
+                    "statistic": 163811.0,
+                    "p_value": 4.095587955916261e-10,
+                    "proportion": 0.6543749900132624
+                }
+            },
+            "cyclomatic": {
+                "mann_whitney_u": {
+                    "statistic": 160711.0,
+                    "p_value": 5.845090416327791e-07,
+                    "proportion": 0.6419914353738235
+                }
+            },
+            "u_operators": {
+                "mann_whitney_u": {
+                    "statistic": 186965.5,
+                    "p_value": 6.568502028566076e-16,
+                    "proportion": 0.746870156432258
+                }
+            },
+            "operators": {
+                "mann_whitney_u": {
+                    "statistic": 182481.5,
+                    "p_value": 7.236267931221381e-14,
+                    "proportion": 0.7289579438505664
+                }
+            },
+            "u_operands": {
+                "mann_whitney_u": {
+                    "statistic": 185291.0,
+                    "p_value": 3.5893297205531914e-15,
+                    "proportion": 0.7401810395794385
+                }
+            },
+            "operands": {
+                "mann_whitney_u": {
+                    "statistic": 182336.0,
+                    "p_value": 7.805325333696569e-14,
+                    "proportion": 0.7283767157215219
+                }
+            },
+            "length": {
+                "mann_whitney_u": {
+                    "statistic": 182453.5,
+                    "p_value": 7.521199171404322e-14,
+                    "proportion": 0.728846092389307
+                }
+            },
+            "estimated_program_length": {
+                "mann_whitney_u": {
+                    "statistic": 186450.5,
+                    "p_value": 1.3621699972319933e-16,
+                    "proportion": 0.7543838709155352
+                }
+            },
+            "purity_ratio": {
+                "mann_whitney_u": {
+                    "statistic": 116893.0,
+                    "p_value": 0.37937196580816734,
+                    "proportion": 0.4729523054265322
+                }
+            },
+            "vocabulary": {
+                "mann_whitney_u": {
+                    "statistic": 187134.5,
+                    "p_value": 5.857388469542286e-16,
+                    "proportion": 0.7475452598948596
+                }
+            },
+            "volume": {
+                "mann_whitney_u": {
+                    "statistic": 183333.0,
+                    "p_value": 3.147794932258202e-14,
+                    "proportion": 0.7323594266813671
+                }
+            },
+            "difficulty": {
+                "mann_whitney_u": {
+                    "statistic": 178646.0,
+                    "p_value": 4.408536419513338e-13,
+                    "proportion": 0.7228066484325689
+                }
+            },
+            "level": {
+                "mann_whitney_u": {
+                    "statistic": 68510.0,
+                    "p_value": 4.408536419513338e-13,
+                    "proportion": 0.2771933515674311
+                }
+            },
+            "effort": {
+                "mann_whitney_u": {
+                    "statistic": 182058.5,
+                    "p_value": 1.4718518755459545e-14,
+                    "proportion": 0.7366137176520092
+                }
+            },
+            "time": {
+                "mann_whitney_u": {
+                    "statistic": 182058.5,
+                    "p_value": 1.471851863546127e-14,
+                    "proportion": 0.7366137176520092
+                }
+            },
+            "bugs": {
+                "mann_whitney_u": {
+                    "statistic": 182058.5,
+                    "p_value": 1.471851851546294e-14,
+                    "proportion": 0.7366137176520092
+                }
+            },
+            "functions": {
+                "mann_whitney_u": {
+                    "statistic": 156034.0,
+                    "p_value": 1.122160757083082e-07,
+                    "proportion": 0.6233082466484509
+                }
+            },
+            "closures": {
+                "mann_whitney_u": {
+                    "statistic": 120183.0,
+                    "p_value": 0.42186111354244826,
+                    "proportion": 0.4800944345908633
+                }
+            },
+            "sloc": {
+                "mann_whitney_u": {
+                    "statistic": 190000.5,
+                    "p_value": 1.7658081122886054e-17,
+                    "proportion": 0.7589940558937731
+                }
+            },
+            "ploc": {
+                "mann_whitney_u": {
+                    "statistic": 186593.5,
+                    "p_value": 7.42133376756164e-16,
+                    "proportion": 0.7453841298755253
+                }
+            },
+            "lloc": {
+                "mann_whitney_u": {
+                    "statistic": 188445.0,
+                    "p_value": 4.943786943497931e-17,
+                    "proportion": 0.7527803077513062
+                }
+            },
+            "cloc": {
+                "mann_whitney_u": {
+                    "statistic": 182621.5,
+                    "p_value": 1.0057273708070346e-30,
+                    "proportion": 0.7295172011568637
+                }
+            },
+            "blank": {
+                "mann_whitney_u": {
+                    "statistic": 186447.5,
+                    "p_value": 1.1978551556252374e-21,
+                    "proportion": 0.7448009043989582
+                }
+            },
+            "mi_original": {
+                "mann_whitney_u": {
+                    "statistic": 62450.5,
+                    "p_value": 2.7075419335254885e-16,
+                    "proportion": 0.2494707029065401
+                }
+            },
+            "mi_sei": {
+                "mann_whitney_u": {
+                    "statistic": 71226.5,
+                    "p_value": 1.919155365426941e-12,
+                    "proportion": 0.28452814662128695
+                }
+            },
+            "mi_visual_studio": {
+                "mann_whitney_u": {
+                    "statistic": 62449.5,
+                    "p_value": 2.704607395017586e-16,
+                    "proportion": 0.24946670821149514
+                }
+            }
+        },
+        "traits": {
+            "nargs": {
+                "mann_whitney_u": {
+                    "statistic": 13123.5,
+                    "p_value": 6.354505332208797e-07,
+                    "proportion": 0.20451145395044412
+                }
+            },
+            "nexits": {
+                "mann_whitney_u": {
+                    "statistic": 14630.0,
+                    "p_value": 5.863209350585996e-07,
+                    "proportion": 0.2279881564594047
+                }
+            },
+            "cognitive": {
+                "mann_whitney_u": {
+                    "statistic": 22471.0,
+                    "p_value": 0.0021320761683358215,
+                    "proportion": 0.35017921146953407
+                }
+            },
+            "cyclomatic": {
+                "mann_whitney_u": {
+                    "statistic": 22801.5,
+                    "p_value": 0.009956522802112924,
+                    "proportion": 0.3553295932678822
+                }
+            },
+            "u_operators": {
+                "mann_whitney_u": {
+                    "statistic": 26840.0,
+                    "p_value": 0.17568356772924532,
+                    "proportion": 0.4182639862864267
+                }
+            },
+            "operators": {
+                "mann_whitney_u": {
+                    "statistic": 27795.0,
+                    "p_value": 0.2685858043254419,
+                    "proportion": 0.4331463300607761
+                }
+            },
+            "u_operands": {
+                "mann_whitney_u": {
+                    "statistic": 24124.5,
+                    "p_value": 0.03962484041822325,
+                    "proportion": 0.37594670406732117
+                }
+            },
+            "operands": {
+                "mann_whitney_u": {
+                    "statistic": 20414.0,
+                    "p_value": 0.002583213927662988,
+                    "proportion": 0.3181237338320087
+                }
+            },
+            "length": {
+                "mann_whitney_u": {
+                    "statistic": 25311.0,
+                    "p_value": 0.08071034588910812,
+                    "proportion": 0.39443665264142125
+                }
+            },
+            "estimated_program_length": {
+                "mann_whitney_u": {
+                    "statistic": 26795.5,
+                    "p_value": 0.17740950705346492,
+                    "proportion": 0.4184704522738631
+                }
+            },
+            "purity_ratio": {
+                "mann_whitney_u": {
+                    "statistic": 42867.0,
+                    "p_value": 0.0050581172769907255,
+                    "proportion": 0.6694621439280359
+                }
+            },
+            "vocabulary": {
+                "mann_whitney_u": {
+                    "statistic": 26611.5,
+                    "p_value": 0.15802583765979017,
+                    "proportion": 0.4147031323048153
+                }
+            },
+            "volume": {
+                "mann_whitney_u": {
+                    "statistic": 25793.5,
+                    "p_value": 0.10481905664928474,
+                    "proportion": 0.4019557425588281
+                }
+            },
+            "difficulty": {
+                "mann_whitney_u": {
+                    "statistic": 21940.5,
+                    "p_value": 0.00923119151933223,
+                    "proportion": 0.342648988005997
+                }
+            },
+            "level": {
+                "mann_whitney_u": {
+                    "statistic": 42091.5,
+                    "p_value": 0.00923119151933223,
+                    "proportion": 0.657351011994003
+                }
+            },
+            "effort": {
+                "mann_whitney_u": {
+                    "statistic": 24707.5,
+                    "p_value": 0.059010715413856746,
+                    "proportion": 0.38586175662168914
+                }
+            },
+            "time": {
+                "mann_whitney_u": {
+                    "statistic": 24707.5,
+                    "p_value": 0.0590107153794811,
+                    "proportion": 0.38586175662168914
+                }
+            },
+            "bugs": {
+                "mann_whitney_u": {
+                    "statistic": 24707.5,
+                    "p_value": 0.05901071534510542,
+                    "proportion": 0.38586175662168914
+                }
+            },
+            "functions": {
+                "mann_whitney_u": {
+                    "statistic": 14885.5,
+                    "p_value": 5.248506788419509e-09,
+                    "proportion": 0.23196976780426992
+                }
+            },
+            "closures": {
+                "mann_whitney_u": {
+                    "statistic": 22091.5,
+                    "p_value": 0.0014648182418579617,
+                    "proportion": 0.3442652329749104
+                }
+            },
+            "sloc": {
+                "mann_whitney_u": {
+                    "statistic": 30797.5,
+                    "p_value": 0.7385959855008155,
+                    "proportion": 0.4799361072152096
+                }
+            },
+            "ploc": {
+                "mann_whitney_u": {
+                    "statistic": 26660.0,
+                    "p_value": 0.1595694956809941,
+                    "proportion": 0.41545893719806765
+                }
+            },
+            "lloc": {
+                "mann_whitney_u": {
+                    "statistic": 9866.0,
+                    "p_value": 5.982826270210147e-09,
+                    "proportion": 0.15374785725416862
+                }
+            },
+            "cloc": {
+                "mann_whitney_u": {
+                    "statistic": 41978.0,
+                    "p_value": 8.893833927466887e-05,
+                    "proportion": 0.6541686146174225
+                }
+            },
+            "blank": {
+                "mann_whitney_u": {
+                    "statistic": 31094.5,
+                    "p_value": 0.760261838380313,
+                    "proportion": 0.48456443821100204
+                }
+            },
+            "mi_original": {
+                "mann_whitney_u": {
+                    "statistic": 35188.5,
+                    "p_value": 0.423674314872459,
+                    "proportion": 0.5483637213651239
+                }
+            },
+            "mi_sei": {
+                "mann_whitney_u": {
+                    "statistic": 42101.5,
+                    "p_value": 0.009817514616010681,
+                    "proportion": 0.6560931899641577
+                }
+            },
+            "mi_visual_studio": {
+                "mann_whitney_u": {
+                    "statistic": 35188.5,
+                    "p_value": 0.42367431137390976,
+                    "proportion": 0.5483637213651239
+                }
+            }
+        },
+        "closures": {
+            "nargs": {
+                "mann_whitney_u": {
+                    "statistic": 1531791.0,
+                    "p_value": 5.172304188861268e-271,
+                    "proportion": 0.906741465285769
+                }
+            },
+            "nexits": {
+                "mann_whitney_u": {
+                    "statistic": 609101.0,
+                    "p_value": 1.941564033628632e-39,
+                    "proportion": 0.3605564553173555
+                }
+            },
+            "cognitive": {
+                "mann_whitney_u": {
+                    "statistic": 894361.5,
+                    "p_value": 0.001975258207744837,
+                    "proportion": 0.529415995397008
+                }
+            },
+            "cyclomatic": {
+                "mann_whitney_u": {
+                    "statistic": 892150.0,
+                    "p_value": 0.010193652518078685,
+                    "proportion": 0.5281069011730053
+                }
+            },
+            "u_operators": {
+                "mann_whitney_u": {
+                    "statistic": 684293.0,
+                    "p_value": 7.032595007109674e-16,
+                    "proportion": 0.4050662508820033
+                }
+            },
+            "operators": {
+                "mann_whitney_u": {
+                    "statistic": 702942.5,
+                    "p_value": 1.0536982975007153e-12,
+                    "proportion": 0.41610579541310905
+                }
+            },
+            "u_operands": {
+                "mann_whitney_u": {
+                    "statistic": 739003.0,
+                    "p_value": 1.0199106843087528e-07,
+                    "proportion": 0.4374517561929658
+                }
+            },
+            "operands": {
+                "mann_whitney_u": {
+                    "statistic": 718343.5,
+                    "p_value": 2.0583133262072437e-10,
+                    "proportion": 0.4252223950711996
+                }
+            },
+            "length": {
+                "mann_whitney_u": {
+                    "statistic": 697766.5,
+                    "p_value": 1.5586351045778117e-13,
+                    "proportion": 0.4130418697050202
+                }
+            },
+            "estimated_program_length": {
+                "mann_whitney_u": {
+                    "statistic": 667665.0,
+                    "p_value": 1.5542021562736482e-18,
+                    "proportion": 0.3964469319918628
+                }
+            },
+            "purity_ratio": {
+                "mann_whitney_u": {
+                    "statistic": 447043.5,
+                    "p_value": 4.1586488662033456e-88,
+                    "proportion": 0.2654460306319851
+                }
+            },
+            "vocabulary": {
+                "mann_whitney_u": {
+                    "statistic": 677531.0,
+                    "p_value": 4.397886701414946e-17,
+                    "proportion": 0.4010634947695426
+                }
+            },
+            "volume": {
+                "mann_whitney_u": {
+                    "statistic": 688934.0,
+                    "p_value": 5.088142651580157e-15,
+                    "proportion": 0.40781348411446866
+                }
+            },
+            "difficulty": {
+                "mann_whitney_u": {
+                    "statistic": 673224.0,
+                    "p_value": 1.7932354386366953e-17,
+                    "proportion": 0.39974776174172655
+                }
+            },
+            "level": {
+                "mann_whitney_u": {
+                    "statistic": 1010898.0,
+                    "p_value": 1.7932354386366953e-17,
+                    "proportion": 0.6002522382582735
+                }
+            },
+            "effort": {
+                "mann_whitney_u": {
+                    "statistic": 671964.0,
+                    "p_value": 1.0477962291546191e-17,
+                    "proportion": 0.39899959741633917
+                }
+            },
+            "time": {
+                "mann_whitney_u": {
+                    "statistic": 671964.0,
+                    "p_value": 1.0477962185809599e-17,
+                    "proportion": 0.39899959741633917
+                }
+            },
+            "bugs": {
+                "mann_whitney_u": {
+                    "statistic": 671963.5,
+                    "p_value": 1.0475670970036959e-17,
+                    "proportion": 0.3989993005257339
+                }
+            },
+            "functions": {
+                "mann_whitney_u": {
+                    "statistic": 394036.5,
+                    "p_value": 2.3747957874771063e-195,
+                    "proportion": 0.233249335833724
+                }
+            },
+            "closures": {
+                "mann_whitney_u": {
+                    "statistic": 1689336.0,
+                    "p_value": 0.0,
+                    "proportion": 1.0
+                }
+            },
+            "sloc": {
+                "mann_whitney_u": {
+                    "statistic": 693289.0,
+                    "p_value": 2.054776316531511e-14,
+                    "proportion": 0.4103914200608997
+                }
+            },
+            "ploc": {
+                "mann_whitney_u": {
+                    "statistic": 697881.5,
+                    "p_value": 1.1961327502732138e-13,
+                    "proportion": 0.41310994378856547
+                }
+            },
+            "lloc": {
+                "mann_whitney_u": {
+                    "statistic": 745245.5,
+                    "p_value": 3.9111009364285193e-07,
+                    "proportion": 0.44114699503236776
+                }
+            },
+            "cloc": {
+                "mann_whitney_u": {
+                    "statistic": 889535.0,
+                    "p_value": 0.000532237628478467,
+                    "proportion": 0.5265589557080415
+                }
+            },
+            "blank": {
+                "mann_whitney_u": {
+                    "statistic": 816341.0,
+                    "p_value": 0.0889837274556612,
+                    "proportion": 0.48323187335142326
+                }
+            },
+            "mi_original": {
+                "mann_whitney_u": {
+                    "statistic": 1003070.5,
+                    "p_value": 1.7384800998982492e-15,
+                    "proportion": 0.5937661305980575
+                }
+            },
+            "mi_sei": {
+                "mann_whitney_u": {
+                    "statistic": 1010851.5,
+                    "p_value": 6.846497516524908e-17,
+                    "proportion": 0.5983720822855844
+                }
+            },
+            "mi_visual_studio": {
+                "mann_whitney_u": {
+                    "statistic": 1003070.5,
+                    "p_value": 1.7384792560211005e-15,
+                    "proportion": 0.5937661305980575
+                }
+            }
+        }
+    }
+}

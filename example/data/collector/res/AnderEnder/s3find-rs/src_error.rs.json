@@ -1,0 +1,122 @@
+{
+  "rca": [
+    {
+      "kind": "unit",
+      "name": "./src/error.rs",
+      "start_line": 1,
+      "end_line": 19,
+      "data": {
+        "nargs": {
+          "sum": 0.0,
+          "average": null
+        },
+        "nexits": {
+          "sum": 0.0,
+          "average": null
+        },
+        "cognitive": {
+          "sum": 0.0,
+          "average": null
+        },
+        "cyclomatic": {
+          "sum": 1.0,
+          "average": 1.0
+        },
+        "halstead": {
+          "n1": 5.0,
+          "N1": 26.0,
+          "n2": 19.0,
+          "N2": 26.0,
+          "length": 52.0,
+          "estimated_program_length": 92.32026322986492,
+          "purity_ratio": 1.7753896774974025,
+          "vocabulary": 24.0,
+          "volume": 238.4180500375001,
+          "difficulty": 3.4210526315789473,
+          "level": 0.2923076923076923,
+          "effort": 815.6406974967109,
+          "time": 45.31337208315061,
+          "bugs": 0.029098995912714982
+        },
+        "loc": {
+          "sloc": 19.0,
+          "ploc": 18.0,
+          "lloc": 0.0,
+          "cloc": 0.0,
+          "blank": 1.0
+        },
+        "nom": {
+          "functions": 0.0,
+          "closures": 0.0,
+          "total": 0.0
+        },
+        "mi": {
+          "mi_original": 94.60515518054156,
+          "mi_sei": 60.887356088889845,
+          "mi_visual_studio": 55.32465215236348
+        }
+      }
+    }
+  ],
+  "node": [
+    {
+      "kind": "unit",
+      "name": "./src/error.rs",
+      "start_line": 1,
+      "end_line": 19,
+      "data": {
+        "nargs": {
+          "sum": 0.0,
+          "average": null
+        },
+        "nexits": {
+          "sum": 0.0,
+          "average": null
+        },
+        "cognitive": {
+          "sum": 0.0,
+          "average": null
+        },
+        "cyclomatic": {
+          "sum": 1.0,
+          "average": 1.0
+        },
+        "halstead": {
+          "n1": 5.0,
+          "N1": 26.0,
+          "n2": 19.0,
+          "N2": 26.0,
+          "length": 52.0,
+          "estimated_program_length": 92.32026322986492,
+          "purity_ratio": 1.7753896774974025,
+          "vocabulary": 24.0,
+          "volume": 238.4180500375001,
+          "difficulty": 3.4210526315789473,
+          "level": 0.2923076923076923,
+          "effort": 815.6406974967109,
+          "time": 45.31337208315061,
+          "bugs": 0.029098995912714982
+        },
+        "loc": {
+          "sloc": 19.0,
+          "ploc": 18.0,
+          "lloc": 0.0,
+          "cloc": 0.0,
+          "blank": 1.0
+        },
+        "nom": {
+          "functions": 0.0,
+          "closures": 0.0,
+          "total": 0.0
+        },
+        "mi": {
+          "mi_original": 94.60515518054156,
+          "mi_sei": 60.887356088889845,
+          "mi_visual_studio": 55.32465215236348
+        }
+      }
+    }
+  ],
+  "finder": [],
+  "clippy": []
+}

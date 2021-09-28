@@ -36,7 +36,7 @@ def generate_table(statistics: Dict[str, Any], experiment: str, test: str) -> No
     os.makedirs(path, exist_ok=True)
 
     with open(join(path, f"tables_{experiment}_{test}.txt"), "w+", encoding="utf-8") as tables:
-        for metric in Metric.usability_metrics():
+        for metric in Metric.as_list():
             rows = list()
             for feature in Features.as_list():
                 test_results = statistics[experiment][feature][metric].get(test)

@@ -46,17 +46,6 @@ class Metric(Enum):
         return list(map(lambda x: x.name.lower(), Metric))
 
     @staticmethod
-    def usability_metrics() -> List[str]:
-        """
-        Returns a list of metrics which are linked to usability.
-
-        :return: Usability metrics
-        """
-        usability_metrics = [Metric.COGNITIVE, Metric.CYCLOMATIC, Metric.LENGTH, Metric.ESTIMATED_PROGRAM_LENGTH, Metric.PURITY_RATIO, Metric.VOCABULARY,
-                             Metric.VOLUME, Metric.DIFFICULTY, Metric.LEVEL, Metric.EFFORT, Metric.TIME, Metric.BUGS, Metric.MI_ORIGINAL, Metric.MI_SEI, Metric.MI_VISUAL_STUDIO]
-        return list(map(lambda x: x.name.lower(), usability_metrics))
-
-    @staticmethod
     def as_dict() -> Dict[str, List[str]]:
         """
         Returns a dict representation of all metrics.
